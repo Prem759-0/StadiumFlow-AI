@@ -1,0 +1,20 @@
+{
+  "name": "StadiumFlow AI",
+  "short_name": "StadiumFlow",
+  "description": "AI-powered stadium navigation and crowd management",
+  "start_url": "/fan",
+  "display": "standalone",
+  "background_color": "#0a0d1c",
+  "theme_color": "#00e639",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["sports", "navigation", "utilities"]
+}

@@ -1,0 +1,209 @@
+"use client";
+
+// ============================================================
+// StadiumFlow AI - Attendee Layout
+// Mobile-first layout with bottom navigation
+// Integrates Firebase Auth, real-time Firestore listeners,
+// and Cloud Pub/Sub for fan coordination
+// ============================================================
+
+import { useEffect, useState, lazy, Suspense } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Home,
+  MapPin,
+  Clock,
+  Navigation,
+  Accessibility,
+  Globe,
+  Trophy,
+  CloudSun,
+} from "lucide-react";
+import { useAttendeeStore, useStaffStore } from "@/lib/store";
+import { startSimulation, stopSimulation } from "@/lib/simulation";
+import { initializeFirebase, listenToAllRealTimeServices } from "@/lib/firebase";
+import { subscribe, PUBSUB_TOPICS, type PubSubMessage } from "@/lib/pubsub";
+import AuthGuard from "@/components/auth-guard";
+import { ErrorBoundary } from "@/components/error-boundary";
+import LanguageSwitcher from "@/components/language-switcher";
+import { StadiumZone, QueuePoint, Alert } from "@/lib/mock-data";
+
+/** Dynamic import for ChatAssistant to optimize bundle size */
+const ChatAssistant = lazy(() => import("@/components/chat-assistant"));
+
+const NAV_ITEMS = [
+  { href: "/fan", icon: Home, label: "Home" },
+  { href: "/fan/navigate", icon: Navigation, label: "Navigate" },
+  { href: "/fan/queues", icon: Clock, label: "Queues" },
+  { href: "/fan/leaderboard", icon: Trophy, label: "Ranks" },
+  { href: "/fan/weather", icon: CloudSun, label: "Weather" },
+];
+
+export default function AttendeeLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const pathname = usePathname();
+  const { profile, isAccessibilityMode, toggleAccessibility, notifications, addNotification } =
+    useAttendeeStore();
+  const { updateZones, updateQueues, addAlert } = useStaffStore();
+  const unreadCount = notifications.filter((n) => !n.read).length;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    startSimulation();
+
+    // Initialize Firebase
+    initializeFirebase();
+
+    // Initialize real-time listeners to keep global store synced with Firestore
+    const unsubAll = listenToAllRealTimeServices(
+      (zones) => updateZones(zones as any[] as StadiumZone[]),
+      (queues) => updateQueues(queues as any[] as QueuePoint[]),
+      (alerts) => {
+        alerts.forEach((a) => {
+          // Only add alert if it doesn't exist in store to avoid duplicates
+          const exists = useStaffStore.getState().alerts.some((sa) => sa.id === a.id);
+          if (!exists) addAlert(a as any as Alert);
+        });
+      }
+    );
+
+    // Subscribe to Pub/Sub queue updates for instant notifications
+    const unsubQueue = subscribe(PUBSUB_TOPICS.QUEUE_UPDATES, (msg: PubSubMessage) => {
+      if (msg.data.type === "almost-ready") {
+        addNotification({
+          id: `q-${Date.now()}`,
+          title: "Queue Update 🎉",
+          message: msg.data.message as string,
+          type: "info",
+          timestamp: new Date(),
+          read: false,
+        });
+      }
+    });
+
+    // Register service worker correctly (allowed on https or localhost)
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    if ("serviceWorker" in navigator && (window.location.protocol === "https:" || isLocalhost)) {
+      navigator.serviceWorker.register("/sw.js").catch((err) => {
+        console.warn("[SW] Registration failed:", err);
+      });
+    }
+
+    return () => {
+      stopSimulation();
+      unsubQueue();
+      unsubAll();
+    };
+  }, [addNotification, updateZones, updateQueues, addAlert]);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-electric-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className={`min-h-screen pb-20 ${isAccessibilityMode ? "high-contrast" : ""}`}>
+      {/* Top Bar — Neo-Brutalist */}
+      <header
+        className="sticky top-0 z-40 px-4 py-3 flex items-center justify-between"
+        style={{
+          background: "#0A0A0A",
+          borderBottom: "2px solid #00FF87",
+          boxShadow: "0 4px 0 rgba(0,255,135,0.15)",
+        }}
+      >
+        <div className="flex items-center gap-2">
+          {/* Logo mark */}
+          <div
+            className="w-9 h-9 rounded-lg flex items-center justify-center font-extrabold text-xs"
+            style={{ background: "#00FF87", color: "#0A0A0A", border: "2px solid #000", boxShadow: "2px 2px 0 #000" }}
+          >
+            SF
+          </div>
+          <div>
+            <h1 className="text-sm font-extrabold" style={{ color: "#F5F0E8" }}>StadiumFlow AI</h1>
+            <p className="text-[10px]" style={{ color: "#5c6bc0" }}>
+              {profile.seatSection} · Row {profile.seatRow} · Seat {profile.seatNumber}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+          {/* Accessibility toggle */}
+          <button
+            onClick={toggleAccessibility}
+            className="p-2 rounded-lg transition-colors"
+            style={{
+              background: isAccessibilityMode ? "rgba(0,255,135,0.15)" : "transparent",
+              border: `2px solid ${isAccessibilityMode ? "#00FF87" : "rgba(255,255,255,0.1)"}`,
+              color: isAccessibilityMode ? "#00FF87" : "#5c6bc0",
+            }}
+            aria-label={`Accessibility mode: ${isAccessibilityMode ? "On" : "Off"}`}
+            aria-pressed={isAccessibilityMode}
+          >
+            <Accessibility className="w-4 h-4" />
+          </button>
+        </div>
+      </header>
+
+      {/* Page Content */}
+      <main id="main-content" className="px-4 py-4" role="main">
+        <ErrorBoundary sectionName="Fan Dashboard">
+          {children}
+        </ErrorBoundary>
+      </main>
+
+      {/* Chat FAB - lazy loaded for efficiency */}
+      <Suspense fallback={null}>
+        <ErrorBoundary sectionName="Chat Assistant">
+          <ChatAssistant />
+        </ErrorBoundary>
+      </Suspense>
+
+      {/* Bottom Navigation — Neo-Brutalist */}
+      <nav
+        className="fixed bottom-0 left-0 right-0 z-40"
+        style={{
+          background: "#0A0A0A",
+          borderTop: "2px solid rgba(255,255,255,0.1)",
+          boxShadow: "0 -4px 0 rgba(0,0,0,0.5)",
+        }}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="flex items-center justify-around px-2 py-2 max-w-lg mx-auto">
+          {NAV_ITEMS.map(({ href, icon: Icon, label }) => {
+            const isActive = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200"
+                style={{
+                  color: isActive ? "#00FF87" : "#5c6bc0",
+                  background: isActive ? "rgba(0,255,135,0.08)" : "transparent",
+                  border: isActive ? "1px solid rgba(0,255,135,0.2)" : "1px solid transparent",
+                }}
+                aria-current={isActive ? "page" : undefined}
+                aria-label={label}
+              >
+                <Icon className="w-5 h-5" aria-hidden="true" />
+                <span className="text-[10px] font-bold">{label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+    </div>
+  );
+}
