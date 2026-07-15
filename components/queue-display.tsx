@@ -2,19 +2,12 @@
 
 // ============================================================
 // StadiumFlow AI - Live Queue Display & Virtual Queue
-// Shows real-time wait times with virtual queue join option
+// Neo-Brutalist styling for the wait times
 // ============================================================
 
 import { useState } from "react";
 import {
-  Clock,
-  Users,
-  TrendingUp,
-  TrendingDown,
-  Minus,
-  Ticket,
-  Check,
-  AlertCircle,
+  Clock, Users, TrendingUp, TrendingDown, Minus, Ticket, Check, AlertCircle, Zap
 } from "lucide-react";
 import { useAttendeeStore } from "@/lib/store";
 import { formatWaitTime, getCongestionLevel, generateId } from "@/lib/utils";
@@ -70,13 +63,13 @@ export default function QueueDisplay({
 
   const getTrend = (queue: QueuePoint) => {
     const diff = queue.arrivalRate - queue.maxServiceRate;
-    if (diff > 2) return { icon: TrendingUp, label: "Getting longer", color: "text-accent-red" };
-    if (diff < -2) return { icon: TrendingDown, label: "Getting shorter", color: "text-electric-400" };
-    return { icon: Minus, label: "Stable", color: "text-navy-300" };
+    if (diff > 2) return { icon: TrendingUp, label: "Getting longer", color: "#FF3333" };
+    if (diff < -2) return { icon: TrendingDown, label: "Getting shorter", color: "#00FF87" };
+    return { icon: Minus, label: "Stable", color: "#5c6bc0" };
   };
 
   return (
-    <div className="space-y-3" role="list" aria-label="Queue wait times">
+    <div className="space-y-4" role="list" aria-label="Queue wait times">
       {sortedQueues.map((queue, index) => {
         const trend = getTrend(queue);
         const TrendIcon = trend.icon;
@@ -88,89 +81,92 @@ export default function QueueDisplay({
           virtualQueueTickets.some((t) => t.queueName === queue.name);
         const isBest = index === 0 && sortedQueues.length > 1;
 
+        // Choose Neo-Brutalist color board
+        const borderStyle = isJoined 
+          ? "2px solid #00C6FF" 
+          : isBest 
+            ? "2px solid #00FF87" 
+            : "2px solid rgba(255,255,255,0.1)";
+        
+        const shadowColor = isJoined 
+          ? "#00C6FF" 
+          : isBest 
+            ? "#00FF87" 
+            : "rgba(0,0,0,0.5)";
+
+        const waitColor = congestion === "low" 
+          ? "#00FF87" 
+          : congestion === "medium" 
+            ? "#FFE600" 
+            : "#FF3333";
+
         return (
           <div
             key={queue.id}
-            className={`glass rounded-xl p-4 transition-all duration-300 ${
-              isBest ? "border-electric-500/30 bg-electric-500/5" : ""
-            } ${isJoined ? "border-accent-cyan/30" : ""}`}
+            className="rounded-xl p-4 transition-all duration-150"
+            style={{
+              background: "#111",
+              border: borderStyle,
+              boxShadow: `4px 4px 0 ${shadowColor}`,
+            }}
             role="listitem"
             aria-label={`${queue.name}: ${formatWaitTime(queue.estimatedWait)} wait, ${queue.currentQueue} people in line`}
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-semibold text-sm text-white truncate">
+                  <h3 className="font-extrabold text-sm truncate" style={{ color: "#F5F0E8" }}>
                     {queue.name}
                   </h3>
-                  {isBest && (
-                    <span className="flex-shrink-0 px-2 py-0.5 rounded-full bg-electric-500/20 text-electric-400 text-[10px] font-bold">
-                      SHORTEST
-                    </span>
-                  )}
-                  {!queue.isOpen && (
-                    <span className="flex-shrink-0 px-2 py-0.5 rounded-full bg-accent-red/20 text-accent-red text-[10px] font-bold">
-                      CLOSED
-                    </span>
-                  )}
+                  {isBest && <span className="comic-label">SHORTEST</span>}
+                  {!queue.isOpen && <span className="comic-label" style={{ background: "#FF3333", color: "#fff" }}>CLOSED</span>}
                 </div>
-                <div className="flex items-center gap-4 mt-1.5 text-xs text-navy-300">
+                <div className="flex items-center gap-4 mt-2 text-xs" style={{ color: "#5c6bc0" }}>
                   <span className="flex items-center gap-1">
-                    <Users className="w-3 h-3" aria-hidden="true" />
+                    <Users className="w-3.5 h-3.5" aria-hidden="true" />
                     {queue.currentQueue} in line
                   </span>
-                  <span className={`flex items-center gap-1 ${trend.color}`}>
-                    <TrendIcon className="w-3 h-3" aria-hidden="true" />
+                  <span className="flex items-center gap-1" style={{ color: trend.color }}>
+                    <TrendIcon className="w-3.5 h-3.5" aria-hidden="true" />
                     {trend.label}
                   </span>
                 </div>
               </div>
 
               <div className="text-right flex-shrink-0">
-                <div
-                  className={`text-lg font-bold tabular-nums ${
-                    congestion === "low"
-                      ? "text-electric-400"
-                      : congestion === "medium"
-                      ? "text-accent-amber"
-                      : "text-accent-red"
-                  }`}
-                >
-                  <Clock className="w-4 h-4 inline mr-1" aria-hidden="true" />
+                <div className="text-sm font-black tabular-nums flex items-center gap-1" style={{ color: waitColor }}>
+                  <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                   {formatWaitTime(queue.estimatedWait)}
                 </div>
               </div>
             </div>
 
             {/* Wait time bar */}
-            <div className="mt-3 h-1.5 rounded-full bg-navy-800 overflow-hidden" aria-hidden="true">
+            <div className="mt-3.5 h-1.5 rounded-full overflow-hidden" style={{ background: "#0A0A0A" }} aria-hidden="true">
               <div
-                className={`h-full rounded-full transition-all duration-700 ${
-                  congestion === "low"
-                    ? "bg-electric-500"
-                    : congestion === "medium"
-                    ? "bg-accent-amber"
-                    : "bg-accent-red"
-                }`}
-                style={{ width: `${Math.min(100, (queue.estimatedWait / 20) * 100)}%` }}
+                className="h-full rounded-full transition-all duration-700"
+                style={{
+                  width: `${Math.min(100, (queue.estimatedWait / 20) * 100)}%`,
+                  background: waitColor,
+                }}
               />
             </div>
 
             {/* Virtual Queue Button */}
             {showVirtualQueue && queue.isOpen && (
-              <div className="mt-3">
+              <div className="mt-3.5">
                 {isJoined ? (
-                  <div className="flex items-center gap-2 text-sm text-accent-cyan">
+                  <div className="flex items-center gap-2 text-xs font-bold" style={{ color: "#00C6FF" }}>
                     <Check className="w-4 h-4" aria-hidden="true" />
-                    Virtual queue joined! We&apos;ll notify you.
+                    Virtual queue joined! We will alert you.
                   </div>
                 ) : (
                   <button
                     onClick={() => handleJoinVirtualQueue(queue)}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent-cyan/10 border border-accent-cyan/20 text-accent-cyan text-sm font-medium hover:bg-accent-cyan/20 transition-colors w-full justify-center"
+                    className="w-full nb-btn nb-btn-blue py-1.5 rounded-lg text-xs"
                     aria-label={`Join virtual queue for ${queue.name}`}
                   >
-                    <Ticket className="w-4 h-4" aria-hidden="true" />
+                    <Ticket className="w-3.5 h-3.5" aria-hidden="true" />
                     Join Virtual Queue
                   </button>
                 )}
@@ -181,9 +177,9 @@ export default function QueueDisplay({
       })}
 
       {sortedQueues.length === 0 && (
-        <div className="glass rounded-xl p-6 text-center text-navy-400">
-          <AlertCircle className="w-8 h-8 mx-auto mb-2 opacity-50" aria-hidden="true" />
-          <p>No active queues in this category</p>
+        <div className="rounded-xl p-8 text-center" style={{ background: "#111", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
+          <AlertCircle className="w-10 h-10 mx-auto mb-2 opacity-50" aria-hidden="true" />
+          <p className="text-sm font-bold">No active queues in this category</p>
         </div>
       )}
     </div>

@@ -1,19 +1,12 @@
 "use client";
 
 // ============================================================
-// StadiumFlow AI - Broadcast Announcements
+// StadiumFlow AI - Broadcast Announcements (Neo-Brutalist)
 // Send announcements to all fans or specific sections
 // ============================================================
 
 import { useState } from "react";
-import {
-  Megaphone,
-  Send,
-  Users,
-  MapPin,
-  Clock,
-  Check,
-} from "lucide-react";
+import { Megaphone, Send, Users, MapPin, Clock, Check } from "lucide-react";
 import { useStaffStore } from "@/lib/store";
 import { generateId, timeAgo } from "@/lib/utils";
 
@@ -40,24 +33,28 @@ export default function BroadcastPage() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-4xl">
-      <div>
-        <h1 className="text-xl font-bold text-white flex items-center gap-2">
-          <Megaphone className="w-5 h-5 text-accent-cyan" />
-          Broadcast Announcements
-        </h1>
-        <p className="text-sm text-navy-400 mt-1">
-          Send real-time announcements to fans and staff
-        </p>
+    <div className="space-y-5 animate-fade-in max-w-4xl">
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center"
+          style={{ background: "#00C6FF", border: "2px solid #000", boxShadow: "3px 3px 0 #000" }}>
+          <Megaphone className="w-5 h-5 text-black" />
+        </div>
+        <div>
+          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#F5F0E8" }}>Broadcast Announcements</h1>
+          <p className="text-xs" style={{ color: "#5c6bc0" }}>Push live real-time announcements to attendees and personnel</p>
+        </div>
+        <span className="comic-label ml-auto" style={{ background: "#FF3333", color: "#fff" }}>PUSH</span>
       </div>
 
       {/* Compose */}
-      <div className="glass rounded-xl p-5 space-y-4">
-        <h2 className="text-sm font-bold text-white">New Announcement</h2>
+      <div className="rounded-xl p-5 space-y-4"
+        style={{ background: "#111", border: "2px solid #00C6FF", boxShadow: "4px 4px 0 #00C6FF" }}>
+        <h2 className="text-xs font-black uppercase tracking-wider" style={{ color: "#00C6FF" }}>New Announcement</h2>
 
-        {/* Target */}
+        {/* Target Audience */}
         <div>
-          <label className="text-xs text-navy-400 mb-2 block">Target Audience</label>
+          <label className="text-[11px] font-bold uppercase tracking-wider mb-2 block" style={{ color: "#5c6bc0" }}>Target Audience</label>
           <div className="flex gap-2">
             {[
               { id: "all" as const, label: "All Fans", icon: Users },
@@ -67,11 +64,13 @@ export default function BroadcastPage() {
               <button
                 key={id}
                 onClick={() => setTarget(id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium transition-all ${
-                  target === id
-                    ? "bg-accent-cyan/15 text-accent-cyan border border-accent-cyan/30"
-                    : "bg-navy-800 text-navy-400 border border-white/5 hover:text-white"
-                }`}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all duration-150"
+                style={{
+                  background: target === id ? "#00C6FF" : "#0A0A0A",
+                  color: target === id ? "#0A0A0A" : "#5c6bc0",
+                  border: `2px solid ${target === id ? "#000" : "rgba(255,255,255,0.06)"}`,
+                  boxShadow: target === id ? "2px 2px 0 #000" : "none",
+                }}
               >
                 <Icon className="w-3.5 h-3.5" />
                 {label}
@@ -82,8 +81,8 @@ export default function BroadcastPage() {
 
         {/* Message */}
         <div>
-          <label htmlFor="broadcast-msg" className="text-xs text-navy-400 mb-1 block">
-            Message
+          <label htmlFor="broadcast-msg" className="text-[11px] font-bold uppercase tracking-wider mb-1 block" style={{ color: "#5c6bc0" }}>
+            Message Content
           </label>
           <textarea
             id="broadcast-msg"
@@ -92,18 +91,23 @@ export default function BroadcastPage() {
             placeholder="Type your announcement..."
             rows={3}
             maxLength={280}
-            className="w-full px-4 py-3 rounded-lg bg-navy-800 text-white text-sm border border-white/10 focus:border-accent-cyan/50 focus:outline-none resize-none placeholder-navy-500"
+            className="w-full px-4 py-3 rounded-lg text-sm border-2 placeholder-gray-600 focus:outline-none"
+            style={{
+              background: "#0A0A0A",
+              borderColor: "rgba(255,255,255,0.1)",
+              color: "#F5F0E8",
+            }}
             aria-label="Announcement message"
           />
-          <p className="text-[10px] text-navy-500 text-right mt-1">
+          <p className="text-[10px] text-right mt-1 font-mono" style={{ color: "#3b4480" }}>
             {message.length}/280
           </p>
         </div>
 
-        {/* Send */}
+        {/* Action Row */}
         <div className="flex items-center justify-between">
           {sent && (
-            <span className="text-sm text-electric-400 flex items-center gap-1 animate-fade-in">
+            <span className="text-xs font-bold flex items-center gap-1 text-green-400 animate-fade-in">
               <Check className="w-4 h-4" /> Announcement sent!
             </span>
           )}
@@ -111,7 +115,7 @@ export default function BroadcastPage() {
           <button
             onClick={handleSend}
             disabled={!message.trim()}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-accent-cyan text-navy-950 font-bold text-sm transition-all hover:bg-accent-cyan/80 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="nb-btn nb-btn-blue px-6 py-2.5 rounded-lg text-xs"
           >
             <Send className="w-4 h-4" />
             Broadcast
@@ -121,39 +125,35 @@ export default function BroadcastPage() {
 
       {/* History */}
       <div>
-        <h2 className="text-sm font-bold text-white mb-3">
-          Recent Announcements
-        </h2>
+        <h2 className="text-sm font-black uppercase tracking-wider mb-3" style={{ color: "#F5F0E8" }}>Recent Announcements</h2>
         {announcements.length === 0 ? (
-          <div className="glass rounded-xl p-6 text-center text-navy-400 text-sm">
+          <div className="rounded-xl p-8 text-center" style={{ background: "#111", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
             No announcements sent yet
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {announcements.map((ann) => (
-              <div key={ann.id} className="glass rounded-xl p-4">
+              <div
+                key={ann.id}
+                className="rounded-xl p-4 transition-all"
+                style={{ background: "#111", border: "2px solid rgba(255,255,255,0.08)", boxShadow: "3px 3px 0 rgba(0,0,0,0.5)" }}
+              >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-sm text-white">{ann.message}</p>
-                    <div className="flex items-center gap-3 mt-2 text-xs text-navy-400">
+                    <p className="text-sm font-bold" style={{ color: "#F5F0E8" }}>{ann.message}</p>
+                    <div className="flex items-center gap-3 mt-2.5 text-xs" style={{ color: "#5c6bc0" }}>
                       <span className="flex items-center gap-1">
-                        <Users className="w-3 h-3" />{" "}
-                        {ann.target === "all"
-                          ? "All Fans"
-                          : ann.target === "section"
-                          ? "Section"
-                          : "Staff"}
+                        <Users className="w-3.5 h-3.5" />
+                        {ann.target === "all" ? "All Fans" : ann.target === "section" ? "Section" : "Staff"}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />{" "}
+                        <Clock className="w-3.5 h-3.5" />
                         {timeAgo(new Date(ann.timestamp))}
                       </span>
                       <span>by {ann.sentBy}</span>
                     </div>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full bg-electric-500/20 text-electric-400 text-[10px] font-bold flex-shrink-0">
-                    SENT
-                  </span>
+                  <span className="comic-label" style={{ background: "#00FF87", color: "#000" }}>SENT</span>
                 </div>
               </div>
             ))}

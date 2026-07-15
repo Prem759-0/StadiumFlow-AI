@@ -1,20 +1,14 @@
 "use client";
 
 // ============================================================
-// StadiumFlow AI - Staff Admin Dashboard Layout
-// Desktop-first with sidebar navigation
+// StadiumFlow AI - Staff Admin Dashboard Layout (Neo-Brutalist)
 // ============================================================
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
-  AlertTriangle,
-  Brain,
-  Megaphone,
-  ArrowLeft,
-  Activity,
+  LayoutDashboard, AlertTriangle, Brain, Megaphone, ArrowLeft, Activity
 } from "lucide-react";
 import { startSimulation, stopSimulation } from "@/lib/simulation";
 import { initializeFirebase, listenToAllRealTimeServices } from "@/lib/firebase";
@@ -119,104 +113,122 @@ export default function StaffLayout({
 
   return (
     <AuthGuard requiredRole="staff">
-    <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside
-        className="w-64 border-r border-white/10 bg-navy-900/50 flex flex-col hidden md:flex"
-        role="navigation"
-        aria-label="Staff navigation"
-      >
-        <div className="p-4 border-b border-white/10">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center">
-              <Activity className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-sm font-bold text-white">Staff Dashboard</h1>
-              <p className="text-[10px] text-navy-400">StadiumFlow AI</p>
-            </div>
-          </div>
-        </div>
-
-        <nav className="flex-1 p-3 space-y-1">
-          {SIDEBAR_ITEMS.map(({ href, icon: Icon, label }) => {
-            const isActive = pathname === href;
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                  isActive
-                    ? "bg-accent-blue/15 text-accent-blue border border-accent-blue/20"
-                    : "text-navy-400 hover:text-white hover:bg-white/5"
-                }`}
-                aria-current={isActive ? "page" : undefined}
+      <div className="min-h-screen flex">
+        {/* Sidebar — Neo-Brutalist */}
+        <aside
+          className="w-64 flex flex-col hidden md:flex flex-shrink-0"
+          style={{
+            background: "#0A0A0A",
+            borderRight: "2px solid rgba(255,255,255,0.1)",
+          }}
+          role="navigation"
+          aria-label="Staff navigation"
+        >
+          <div className="p-4" style={{ borderBottom: "2px solid rgba(255,255,255,0.06)" }}>
+            <div className="flex items-center gap-2">
+              <div
+                className="w-10 h-10 rounded-lg flex items-center justify-center font-black"
+                style={{ background: "#00C6FF", color: "#0A0A0A", border: "2px solid #000", boxShadow: "2px 2px 0 #000" }}
               >
-                <Icon className="w-4 h-4" aria-hidden="true" />
-                {label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="p-3 border-t border-white/10 space-y-2">
-          {/* User Profile in Sidebar */}
-          <div className="px-3 py-2">
-            <UserAuthButton mode="staff" />
-          </div>
-
-          <Link
-            href="/"
-            className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-navy-400 hover:text-white hover:bg-white/5 transition-all"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
-        </div>
-      </aside>
-
-      {/* Mobile header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-40 glass-strong border-b border-white/10 px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center">
-              <Activity className="w-4 h-4 text-white" />
+                <Activity className="w-5 h-5" />
+              </div>
+              <div>
+                <h1 className="text-sm font-extrabold" style={{ color: "#F5F0E8" }}>Staff Dashboard</h1>
+                <p className="text-[10px] uppercase font-bold" style={{ color: "#00C6FF" }}>StadiumFlow AI</p>
+              </div>
             </div>
-            <span className="text-sm font-bold">Staff Dashboard</span>
           </div>
-          <Link href="/" className="text-xs text-navy-400 hover:text-white">
-            ← Home
-          </Link>
-        </div>
-        {/* Mobile nav tabs */}
-        <div className="flex gap-1 mt-2 overflow-x-auto">
-          {SIDEBAR_ITEMS.map(({ href, icon: Icon, label }) => {
-            const isActive = pathname === href;
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium whitespace-nowrap transition-all ${
-                  isActive
-                    ? "bg-accent-blue/15 text-accent-blue"
-                    : "text-navy-400"
-                }`}
+
+          <nav className="flex-1 p-3 space-y-2">
+            {SIDEBAR_ITEMS.map(({ href, icon: Icon, label }) => {
+              const isActive = pathname === href;
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-black uppercase tracking-wider transition-all duration-150"
+                  style={{
+                    background: isActive ? "rgba(0,198,255,0.08)" : "transparent",
+                    color: isActive ? "#00C6FF" : "#5c6bc0",
+                    border: `2px solid ${isActive ? "#00C6FF" : "transparent"}`,
+                  }}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  <Icon className="w-4 h-4" aria-hidden="true" />
+                  {label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="p-3 space-y-2" style={{ borderTop: "2px solid rgba(255,255,255,0.06)" }}>
+            <div className="px-3 py-1">
+              <UserAuthButton mode="staff" />
+            </div>
+            <Link
+              href="/"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors hover:text-white"
+              style={{ color: "#5c6bc0" }}
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
+          </div>
+        </aside>
+
+        {/* Mobile Header — Neo-Brutalist */}
+        <div
+          className="md:hidden fixed top-0 left-0 right-0 z-40 px-4 py-3 flex-shrink-0"
+          style={{
+            background: "#0A0A0A",
+            borderBottom: "2px solid #00C6FF",
+            boxShadow: "0 4px 0 rgba(0,198,255,0.12)",
+          }}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center font-black"
+                style={{ background: "#00C6FF", color: "#0A0A0A", border: "2px solid #000", boxShadow: "1px 1px 0 #000" }}
               >
-                <Icon className="w-3.5 h-3.5" />
-                {label}
-              </Link>
-            );
-          })}
+                <Activity className="w-4 h-4" />
+              </div>
+              <span className="text-sm font-extrabold" style={{ color: "#F5F0E8" }}>Staff Dashboard</span>
+            </div>
+            <Link href="/" className="text-xs font-bold uppercase tracking-widest text-red-400 hover:text-white">
+              ← Exit
+            </Link>
+          </div>
+          {/* Mobile nav tabs */}
+          <div className="flex gap-1.5 mt-3 overflow-x-auto scrollbar-none pb-0.5">
+            {SIDEBAR_ITEMS.map(({ href, icon: Icon, label }) => {
+              const isActive = pathname === href;
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider whitespace-nowrap transition-all"
+                  style={{
+                    background: isActive ? "rgba(0,198,255,0.12)" : "transparent",
+                    color: isActive ? "#00C6FF" : "#5c6bc0",
+                    border: `1.5px solid ${isActive ? "#00C6FF" : "transparent"}`,
+                  }}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  {label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
+
+        {/* Main Content */}
+        <main id="main-content" className="flex-1 p-4 md:p-6 overflow-y-auto mt-24 md:mt-0" role="main">
+          <ErrorBoundary sectionName="Staff Dashboard">
+            {children}
+          </ErrorBoundary>
+        </main>
       </div>
-
-      {/* Main content */}
-      <main id="main-content" className="flex-1 p-4 md:p-6 overflow-y-auto mt-20 md:mt-0" role="main">
-        <ErrorBoundary sectionName="Staff Dashboard">
-          {children}
-        </ErrorBoundary>
-      </main>
-    </div>
     </AuthGuard>
   );
 }

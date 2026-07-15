@@ -1,40 +1,29 @@
 "use client";
 
 // ============================================================
-// StadiumFlow AI - Alert Feed & Dispatch
-// Shows incoming alerts with one-click dispatch actions
+// StadiumFlow AI - Alert Feed & Dispatch (Neo-Brutalist Redesign)
 // ============================================================
 
 import { useEffect, useState } from "react";
 import {
-  AlertTriangle,
-  MapPin,
-  Clock,
-  Send,
-  Check,
-  XCircle,
-  Filter,
-  Users,
-  Wrench,
-  Shield,
-  Heart,
+  AlertTriangle, MapPin, Clock, Send, Check, XCircle, Filter, Users, Wrench, Shield, Heart
 } from "lucide-react";
 import { useStaffStore } from "@/lib/store";
 import { timeAgo } from "@/lib/utils";
 
-const TYPE_CONFIG: Record<string, { icon: typeof AlertTriangle; color: string; bg: string }> = {
-  lost: { icon: Users, color: "text-accent-amber", bg: "bg-accent-amber/10" },
-  medical: { icon: Heart, color: "text-accent-red", bg: "bg-accent-red/10" },
-  security: { icon: Shield, color: "text-accent-purple", bg: "bg-accent-purple/10" },
-  maintenance: { icon: Wrench, color: "text-accent-cyan", bg: "bg-accent-cyan/10" },
-  crowd: { icon: AlertTriangle, color: "text-accent-amber", bg: "bg-accent-amber/10" },
+const TYPE_CONFIG: Record<string, { icon: any; color: string; bg: string; border: string }> = {
+  lost: { icon: Users, color: "#FFE600", bg: "rgba(255,230,0,0.1)", border: "#FFE600" },
+  medical: { icon: Heart, color: "#FF3333", bg: "rgba(255,51,51,0.1)", border: "#FF3333" },
+  security: { icon: Shield, color: "#BF5FFF", bg: "rgba(191,95,255,0.1)", border: "#BF5FFF" },
+  maintenance: { icon: Wrench, color: "#00C6FF", bg: "rgba(0,198,255,0.1)", border: "#00C6FF" },
+  crowd: { icon: AlertTriangle, color: "#FF6B00", bg: "rgba(255,107,0,0.1)", border: "#FF6B00" },
 };
 
-const PRIORITY_COLORS: Record<string, string> = {
-  low: "bg-navy-700 text-navy-300",
-  medium: "bg-accent-amber/20 text-accent-amber",
-  high: "bg-accent-red/20 text-accent-red",
-  critical: "bg-accent-red/30 text-accent-red animate-pulse",
+const PRIORITY_COLORS: Record<string, { border: string; bg: string; color: string }> = {
+  low: { border: "rgba(255,255,255,0.2)", bg: "#1A1A1A", color: "#5c6bc0" },
+  medium: { border: "#FFE600", bg: "rgba(255,230,0,0.12)", color: "#FFE600" },
+  high: { border: "#FF3333", bg: "rgba(255,51,51,0.12)", color: "#FF3333" },
+  critical: { border: "#FF3333", bg: "rgba(255,51,51,0.2)", color: "#FF3333" },
 };
 
 export default function AlertsPage() {
@@ -55,40 +44,46 @@ export default function AlertsPage() {
       : alerts.filter((a) => a.type === filter);
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-4xl">
-      <div>
-        <h1 className="text-xl font-bold text-white flex items-center gap-2">
-          <AlertTriangle className="w-5 h-5 text-accent-amber" />
-          Alert Feed
-        </h1>
-        <p className="text-sm text-navy-400 mt-1">
-          {alerts.filter((a) => a.status === "pending").length} pending •{" "}
-          {alerts.filter((a) => a.status === "dispatched").length} dispatched •{" "}
-          {alerts.filter((a) => a.status === "resolved").length} resolved
-        </p>
+    <div className="space-y-5 animate-fade-in max-w-4xl">
+      {/* Header */}
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="comic-label" style={{ background: "#FF3333", color: "#fff" }}>ALERTS</span>
+            <span className="text-[10px] pulse-dot" style={{ color: "#5c6bc0" }}>&nbsp;&nbsp;REAL-TIME STATUS</span>
+          </div>
+          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#F5F0E8" }}>Alert Feed & Dispatch</h1>
+          <p className="text-xs mt-1" style={{ color: "#5c6bc0" }}>
+            {alerts.filter((a) => a.status === "pending").length} pending ·{" "}
+            {alerts.filter((a) => a.status === "dispatched").length} dispatched ·{" "}
+            {alerts.filter((a) => a.status === "resolved").length} resolved
+          </p>
+        </div>
       </div>
 
       {/* Filters */}
       <div className="flex gap-2 overflow-x-auto pb-1" role="tablist">
         {[
-          { id: "all", label: "All" },
-          { id: "pending", label: "Pending" },
-          { id: "lost", label: "Lost" },
-          { id: "medical", label: "Medical" },
-          { id: "crowd", label: "Crowd" },
-          { id: "security", label: "Security" },
-          { id: "maintenance", label: "Maintenance" },
-        ].map(({ id, label }) => (
+          { id: "all", label: "All Alerts", border: "rgba(255,255,255,0.1)" },
+          { id: "pending", label: "Pending Only", border: "#FFE600" },
+          { id: "lost", label: "Lost Assistance", border: "#FFE600" },
+          { id: "medical", label: "Medical Aid", border: "#FF3333" },
+          { id: "crowd", label: "Crowd Flow", border: "#FF6B00" },
+          { id: "security", label: "Security Guard", border: "#BF5FFF" },
+          { id: "maintenance", label: "Maintenance", border: "#00C6FF" },
+        ].map(({ id, label, border }) => (
           <button
             key={id}
             onClick={() => setFilter(id)}
             role="tab"
             aria-selected={filter === id}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
-              filter === id
-                ? "bg-accent-blue/15 text-accent-blue border border-accent-blue/30"
-                : "bg-navy-800 text-navy-400 border border-white/5 hover:text-white"
-            }`}
+            className="px-3.5 py-2 rounded-lg text-xs font-black uppercase tracking-wider whitespace-nowrap transition-all duration-150"
+            style={{
+              background: filter === id ? "#FFE600" : "#111",
+              color: filter === id ? "#0A0A0A" : "#5c6bc0",
+              border: `2px solid ${filter === id ? "#000" : "rgba(255,255,255,0.06)"}`,
+              boxShadow: filter === id ? "2px 2px 0 #000" : "none",
+            }}
           >
             {label}
           </button>
@@ -96,60 +91,57 @@ export default function AlertsPage() {
       </div>
 
       {/* Alert List */}
-      <div className="space-y-3" role="list" aria-label="Alerts">
+      <div className="space-y-4" role="list" aria-label="Alerts">
         {filteredAlerts.map((alert) => {
           const config = TYPE_CONFIG[alert.type] || TYPE_CONFIG.crowd;
           const Icon = config.icon;
+          const pri = PRIORITY_COLORS[alert.priority] || PRIORITY_COLORS.medium;
+          const isCritical = alert.priority === "critical";
 
           return (
             <div
               key={alert.id}
-              className={`glass rounded-xl p-4 transition-all duration-300 ${
-                alert.status === "resolved" ? "opacity-60" : ""
-              } ${
-                alert.priority === "critical" && alert.status === "pending"
-                  ? "border-accent-red/40 bg-accent-red/5"
-                  : ""
-              }`}
+              className={`rounded-xl p-4 transition-all duration-300 ${alert.status === "resolved" ? "opacity-60" : ""}`}
+              style={{
+                background: "#111",
+                border: isCritical && alert.status === "pending" ? "2px solid #FF3333" : `2px solid ${config.border}`,
+                boxShadow: isCritical && alert.status === "pending" ? "4px 4px 0 #FF3333" : `4px 4px 0 rgba(0,0,0,0.5)`,
+              }}
               role="listitem"
             >
               <div className="flex items-start gap-3">
                 <div
-                  className={`w-9 h-9 rounded-lg ${config.bg} flex items-center justify-center flex-shrink-0`}
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: config.bg, border: `1px solid ${config.border}30` }}
                 >
-                  <Icon className={`w-5 h-5 ${config.color}`} aria-hidden="true" />
+                  <Icon className="w-5 h-5" style={{ color: config.color }} aria-hidden="true" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs font-bold text-white uppercase">
+                  <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded"
+                      style={{ background: config.bg, color: config.color, border: `1px solid ${config.border}40` }}>
                       {alert.type}
                     </span>
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        PRIORITY_COLORS[alert.priority]
-                      }`}
-                    >
+                    <span className="px-2.5 py-0.5 rounded-lg text-[9px] font-black border"
+                      style={{ background: pri.bg, borderColor: pri.border, color: pri.color }}>
                       {alert.priority.toUpperCase()}
                     </span>
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${
-                        alert.status === "pending"
-                          ? "bg-accent-amber/20 text-accent-amber"
-                          : alert.status === "dispatched"
-                          ? "bg-accent-blue/20 text-accent-blue"
-                          : "bg-electric-500/20 text-electric-400"
-                      }`}
-                    >
+                    <span className="px-2.5 py-0.5 rounded-lg text-[9px] font-black border"
+                      style={{
+                        background: alert.status === "pending" ? "rgba(255,230,0,0.12)" : alert.status === "dispatched" ? "rgba(0,198,255,0.12)" : "rgba(0,255,135,0.12)",
+                        borderColor: alert.status === "pending" ? "#FFE600" : alert.status === "dispatched" ? "#00C6FF" : "#00FF87",
+                        color: alert.status === "pending" ? "#FFE600" : alert.status === "dispatched" ? "#00C6FF" : "#00FF87",
+                      }}>
                       {alert.status.toUpperCase()}
                     </span>
                   </div>
-                  <p className="text-sm text-navy-100 mt-1">{alert.message}</p>
-                  <div className="flex items-center gap-3 mt-2 text-xs text-navy-400">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3" /> {alert.location}
+                  <p className="text-sm font-bold mt-1" style={{ color: "#F5F0E8" }}>{alert.message}</p>
+                  <div className="flex items-center gap-3 mt-2.5 text-xs" style={{ color: "#5c6bc0" }}>
+                    <span className="flex items-center gap-1 font-semibold">
+                      <MapPin className="w-3.5 h-3.5" style={{ color: "#CD7F32" }} /> {alert.location}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" /> {timeAgo(new Date(alert.timestamp))}
+                      <Clock className="w-3.5 h-3.5" /> {timeAgo(new Date(alert.timestamp))}
                     </span>
                   </div>
                 </div>
@@ -159,28 +151,29 @@ export default function AlertsPage() {
                   <div className="flex gap-2 flex-shrink-0">
                     <button
                       onClick={() => updateAlertStatus(alert.id, "dispatched")}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent-blue/15 text-accent-blue text-xs font-medium hover:bg-accent-blue/25 transition-colors"
+                      className="nb-btn nb-btn-blue px-3 py-1.5 rounded-lg text-xs"
                       aria-label={`Dispatch staff for: ${alert.message}`}
                     >
-                      <Send className="w-3 h-3" />
+                      <Send className="w-3.5 h-3.5" />
                       Dispatch
                     </button>
                     <button
                       onClick={() => updateAlertStatus(alert.id, "resolved")}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-navy-400 hover:text-electric-400 transition-colors"
+                      className="p-2 rounded-lg hover:bg-white/5 transition-colors"
+                      style={{ border: "1px solid rgba(255,255,255,0.06)" }}
                       aria-label="Mark as resolved"
                     >
-                      <Check className="w-4 h-4" />
+                      <Check className="w-4 h-4" style={{ color: "#00FF87" }} />
                     </button>
                   </div>
                 )}
                 {alert.status === "dispatched" && (
                   <button
                     onClick={() => updateAlertStatus(alert.id, "resolved")}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-electric-500/15 text-electric-400 text-xs font-medium hover:bg-electric-500/25 transition-colors flex-shrink-0"
+                    className="nb-btn nb-btn-green px-3 py-1.5 rounded-lg text-xs flex-shrink-0"
                     aria-label="Mark as resolved"
                   >
-                    <Check className="w-3 h-3" />
+                    <Check className="w-3.5 h-3.5" />
                     Resolve
                   </button>
                 )}
@@ -190,9 +183,9 @@ export default function AlertsPage() {
         })}
 
         {filteredAlerts.length === 0 && (
-          <div className="glass rounded-xl p-8 text-center text-navy-400">
+          <div className="rounded-xl p-8 text-center" style={{ background: "#111", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
             <Check className="w-10 h-10 mx-auto mb-2 opacity-30" />
-            <p>No alerts matching this filter</p>
+            <p className="text-sm font-bold">No active alerts matching this filter</p>
           </div>
         )}
       </div>
