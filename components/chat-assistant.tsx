@@ -119,7 +119,7 @@ export default function ChatAssistant() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 z-50 flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-electric-600 to-electric-500 text-navy-950 font-semibold shadow-lg shadow-electric-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl animate-glow"
+        className="fixed bottom-24 right-4 z-50 flex items-center gap-2 px-5 py-3 rounded-full bg-[#00FF87] border-[3px] border-black text-black font-black uppercase tracking-wider shadow-[4px_4px_0_#000] transition-all duration-300 hover:scale-105 hover:shadow-[2px_2px_0_#000] hover:translate-y-1 hover:translate-x-1"
         aria-label="Open AI chat assistant"
       >
         <MessageSquare className="w-5 h-5" aria-hidden="true" />
@@ -131,30 +131,30 @@ export default function ChatAssistant() {
 
   return (
     <div
-      className="fixed bottom-0 right-0 z-50 w-full sm:w-[420px] sm:bottom-4 sm:right-4 h-[85vh] sm:h-[600px] flex flex-col glass-strong rounded-t-2xl sm:rounded-2xl overflow-hidden animate-slide-up"
+      className="fixed bottom-0 right-0 z-50 w-full sm:w-[420px] sm:bottom-4 sm:right-4 h-[85vh] sm:h-[600px] flex flex-col bg-white border-[3px] border-black shadow-[8px_8px_0_#000] rounded-t-xl sm:rounded-xl overflow-hidden animate-slide-up"
       role="dialog"
       aria-label="AI Chat Assistant"
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-navy-900/50">
+      <div className="flex items-center justify-between px-4 py-3 border-b-[3px] border-black bg-white">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-electric-500 to-accent-cyan flex items-center justify-center">
-            <Bot className="w-5 h-5 text-navy-950" aria-hidden="true" />
+          <div className="w-8 h-8 rounded-full bg-[#FFE600] border-[2px] border-black flex items-center justify-center shadow-[2px_2px_0_#000]">
+            <Bot className="w-5 h-5 text-black" aria-hidden="true" />
           </div>
           <div>
-            <h2 className="text-sm font-bold text-white">StadiumFlow AI</h2>
-            <p className="text-xs text-electric-400 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-electric-500 animate-pulse" aria-hidden="true" />
+            <h2 className="text-sm font-black text-black uppercase tracking-wide">StadiumFlow AI</h2>
+            <p className="text-[10px] text-[#555] font-bold uppercase tracking-wider flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-[#00FF87] border border-black animate-pulse" aria-hidden="true" />
               Online
             </p>
           </div>
         </div>
         <button
           onClick={() => setIsOpen(false)}
-          className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+          className="p-1.5 rounded-lg border-2 border-transparent hover:border-black hover:bg-gray-100 transition-all hover:shadow-[2px_2px_0_#000]"
           aria-label="Close chat"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5 text-black" />
         </button>
       </div>
 
@@ -166,33 +166,33 @@ export default function ChatAssistant() {
             className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
           >
             {msg.role === "assistant" && (
-              <div className="flex-shrink-0 w-7 h-7 rounded-full bg-electric-500/20 flex items-center justify-center mt-1">
-                <Bot className="w-4 h-4 text-electric-400" aria-hidden="true" />
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#FFE600] border-2 border-black shadow-[2px_2px_0_#000] flex items-center justify-center mt-1">
+                <Bot className="w-4 h-4 text-black" aria-hidden="true" />
               </div>
             )}
             <div
-              className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
+              className={`max-w-[75%] px-4 py-3 rounded-xl border-2 border-black shadow-[3px_3px_0_#000] text-sm font-medium leading-relaxed whitespace-pre-wrap ${
                 msg.role === "user"
-                  ? "bg-electric-600 text-navy-950 rounded-br-md"
-                  : "bg-navy-800 text-navy-100 rounded-bl-md"
+                  ? "bg-[#00FF87] text-black rounded-br-sm"
+                  : "bg-white text-black rounded-bl-sm"
               }`}
             >
               {msg.content}
             </div>
             {msg.role === "user" && (
-              <div className="flex-shrink-0 w-7 h-7 rounded-full bg-accent-blue/20 flex items-center justify-center mt-1">
-                <User className="w-4 h-4 text-accent-blue" aria-hidden="true" />
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#00C6FF] border-2 border-black shadow-[2px_2px_0_#000] flex items-center justify-center mt-1">
+                <User className="w-4 h-4 text-black" aria-hidden="true" />
               </div>
             )}
           </div>
         ))}
         {isLoading && (
           <div className="flex gap-2 animate-fade-in">
-            <div className="w-7 h-7 rounded-full bg-electric-500/20 flex items-center justify-center">
-              <Bot className="w-4 h-4 text-electric-400" aria-hidden="true" />
+            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#FFE600] border-2 border-black shadow-[2px_2px_0_#000] flex items-center justify-center mt-1">
+              <Bot className="w-4 h-4 text-black" aria-hidden="true" />
             </div>
-            <div className="px-4 py-3 rounded-2xl rounded-bl-md bg-navy-800">
-              <Loader2 className="w-5 h-5 text-electric-400 animate-spin" aria-label="Thinking..." />
+            <div className="px-4 py-3 rounded-xl rounded-bl-sm border-2 border-black shadow-[3px_3px_0_#000] bg-white">
+              <Loader2 className="w-5 h-5 text-black animate-spin" aria-label="Thinking..." />
             </div>
           </div>
         )}
@@ -201,12 +201,12 @@ export default function ChatAssistant() {
 
       {/* Quick Prompts */}
       {messages.length <= 2 && (
-        <div className="px-4 pb-2 flex gap-2 overflow-x-auto">
+        <div className="px-4 pb-3 flex gap-2 overflow-x-auto pb-4">
           {QUICK_PROMPTS.map((prompt) => (
             <button
               key={prompt}
               onClick={() => handleSend(prompt)}
-              className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium bg-navy-800 text-electric-400 border border-electric-500/20 hover:bg-electric-500/10 transition-colors"
+              className="flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider bg-white text-black border-2 border-black shadow-[2px_2px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-y-[1px] hover:translate-x-[1px] hover:bg-gray-100 transition-all"
               disabled={isLoading}
             >
               {prompt}
@@ -216,7 +216,7 @@ export default function ChatAssistant() {
       )}
 
       {/* Input */}
-      <div className="p-3 border-t border-white/10">
+      <div className="p-4 border-t-[3px] border-black bg-[#F5F0E8]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -229,8 +229,8 @@ export default function ChatAssistant() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask anything about the stadium..."
-            className="flex-1 px-4 py-2.5 rounded-xl bg-navy-800 text-white placeholder-navy-400 text-sm border border-white/10 focus:border-electric-500/50 focus:outline-none transition-colors"
+            placeholder="ASK STADIUMFLOW AI..."
+            className="flex-1 px-4 py-3 rounded-lg bg-white text-black placeholder-gray-500 font-bold text-sm border-[3px] border-black shadow-[4px_4px_0_#000] focus:outline-none focus:shadow-[2px_2px_0_#000] focus:translate-y-[2px] focus:translate-x-[2px] transition-all"
             disabled={isLoading}
             aria-label="Type your message"
             maxLength={500}
@@ -238,7 +238,7 @@ export default function ChatAssistant() {
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="p-2.5 rounded-xl bg-electric-600 text-navy-950 hover:bg-electric-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="flex-shrink-0 p-3 rounded-lg bg-[#00C6FF] border-[3px] border-black text-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-y-[2px] hover:translate-x-[2px] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             aria-label="Send message"
           >
             <Send className="w-5 h-5" />

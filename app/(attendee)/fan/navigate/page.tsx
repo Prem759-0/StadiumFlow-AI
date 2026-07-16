@@ -34,9 +34,9 @@ const LOCATIONS = [
 ];
 
 const SELECT_STYLE = {
-  background: "#1A1A1A",
-  border: "2px solid rgba(255,255,255,0.12)",
-  color: "#F5F0E8",
+  background: "#FFFFFF",
+  border: "2px solid #000000",
+  color: "#050505",
   borderRadius: "12px",
   padding: "10px 40px 10px 16px",
   width: "100%",
@@ -90,24 +90,24 @@ export default function NavigatePage() {
           <Navigation className="w-5 h-5" />
         </div>
         <div>
-          <h1 className="text-lg font-extrabold" style={{ color: "#F5F0E8" }}>AI Route Optimizer</h1>
-          <p className="text-xs" style={{ color: "#5c6bc0" }}>Gemini-powered smart navigation</p>
+          <h1 className="text-lg font-extrabold" style={{ color: "#050505" }}>AI Route Optimizer</h1>
+          <p className="text-xs" style={{ color: "#555555" }}>Gemini-powered smart navigation</p>
         </div>
         <span className="comic-label ml-auto">GEMINI AI</span>
       </div>
 
       {/* Map Preview */}
-      <div className="rounded-xl p-2" style={{ background: "#111", border: "2px solid rgba(255,255,255,0.1)", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}>
+      <div className="rounded-xl p-2" style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}>
         <StadiumMap zones={zones} className="aspect-[4/3] rounded-lg" compact showLabels={false} />
       </div>
 
       {/* Route Selection Card */}
-      <div className="rounded-xl p-4 space-y-3" style={{ background: "#111", border: "2px solid #00FF87", boxShadow: "4px 4px 0 #00FF87" }}>
+      <div className="rounded-xl p-4 space-y-3" style={{ background: "#FFFFFF", border: "2px solid #00FF87", boxShadow: "4px 4px 0 #00FF87" }}>
         <h2 className="text-xs font-bold uppercase tracking-wider" style={{ color: "#00FF87" }}>Plan Your Route</h2>
 
         {/* FROM */}
         <div>
-          <label htmlFor="from" className="text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1" style={{ color: "#5c6bc0" }}>
+          <label htmlFor="from" className="text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1" style={{ color: "#555555" }}>
             <MapPin className="w-3 h-3" /> From (Your Location)
           </label>
           <div className="relative">
@@ -116,21 +116,21 @@ export default function NavigatePage() {
                 <option key={loc.id} value={loc.id}>{loc.emoji} {loc.name}</option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#5c6bc0" }} />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#555555" }} />
           </div>
         </div>
 
         {/* Arrow */}
         <div className="flex justify-center">
           <div className="w-8 h-8 rounded-full flex items-center justify-center"
-            style={{ background: "#222", border: "2px solid rgba(255,255,255,0.1)" }}>
-            <ArrowDown className="w-4 h-4" style={{ color: "#5c6bc0" }} />
+            style={{ background: "#FFFFFF", border: "2px solid #000" }}>
+            <ArrowDown className="w-4 h-4" style={{ color: "#555555" }} />
           </div>
         </div>
 
         {/* TO */}
         <div>
-          <label htmlFor="to" className="text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1" style={{ color: "#5c6bc0" }}>
+          <label htmlFor="to" className="text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1" style={{ color: "#555555" }}>
             <Navigation className="w-3 h-3" /> To (Destination)
           </label>
           <div className="relative">
@@ -139,7 +139,7 @@ export default function NavigatePage() {
                 <option key={loc.id} value={loc.id}>{loc.emoji} {loc.name}</option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#5c6bc0" }} />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#555555" }} />
           </div>
         </div>
 
@@ -159,7 +159,7 @@ export default function NavigatePage() {
           style={{
             background: isLoading || from === to ? "#222" : "#00FF87",
             color: isLoading || from === to ? "#5c6bc0" : "#0A0A0A",
-            border: `2px solid ${isLoading || from === to ? "rgba(255,255,255,0.08)" : "#000"}`,
+            border: `2px solid ${isLoading || from === to ? "#000000" : "#000"}`,
             boxShadow: isLoading || from === to ? "none" : "4px 4px 0 #000",
             cursor: isLoading || from === to ? "not-allowed" : "pointer",
           }}
@@ -177,9 +177,9 @@ export default function NavigatePage() {
       {route && (() => {
         const cfg = congestionConfig[route.congestionLevel] || congestionConfig.medium;
         return (
-          <div className="rounded-xl p-4 space-y-4 animate-slide-up" style={{ background: "#111", border: `2px solid ${cfg.color}`, boxShadow: `4px 4px 0 ${cfg.color}` }}>
+          <div className="rounded-xl p-4 space-y-4 animate-slide-up" style={{ background: "#FFFFFF", border: `2px solid ${cfg.color}`, boxShadow: `4px 4px 0 ${cfg.color}` }}>
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-extrabold flex items-center gap-2" style={{ color: "#F5F0E8" }}>
+              <h2 className="text-sm font-extrabold flex items-center gap-2" style={{ color: "#050505" }}>
                 <Route className="w-4 h-4" style={{ color: cfg.color }} />
                 Best Route Found
               </h2>
@@ -190,14 +190,14 @@ export default function NavigatePage() {
 
             {/* Stats Row */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-lg p-3 text-center" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <div className="rounded-lg p-3 text-center" style={{ background: "#FFFFFF", border: "1px solid #000000" }}>
                 <Clock className="w-5 h-5 mx-auto mb-1" style={{ color: "#00C6FF" }} />
-                <p className="text-2xl font-black tabular-nums" style={{ color: "#F5F0E8" }}>{route.estimatedTime}<span className="text-sm font-normal"> min</span></p>
+                <p className="text-2xl font-black tabular-nums" style={{ color: "#050505" }}>{route.estimatedTime}<span className="text-sm font-normal"> min</span></p>
                 <p className="text-[10px]" style={{ color: "#3b4480" }}>Est. time</p>
               </div>
-              <div className="rounded-lg p-3 text-center" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <div className="rounded-lg p-3 text-center" style={{ background: "#FFFFFF", border: "1px solid #000000" }}>
                 <Footprints className="w-5 h-5 mx-auto mb-1" style={{ color: "#BF5FFF" }} />
-                <p className="text-2xl font-black tabular-nums" style={{ color: "#F5F0E8" }}>{route.estimatedTime * 75}<span className="text-sm font-normal"> m</span></p>
+                <p className="text-2xl font-black tabular-nums" style={{ color: "#050505" }}>{route.estimatedTime * 75}<span className="text-sm font-normal"> m</span></p>
                 <p className="text-[10px]" style={{ color: "#3b4480" }}>Distance</p>
               </div>
             </div>
@@ -216,9 +216,9 @@ export default function NavigatePage() {
                     {i < route.path.length - 1 && <div className="w-0.5 h-8" style={{ background: "rgba(255,255,255,0.1)" }} />}
                   </div>
                   <div className="pb-5">
-                    <p className="text-sm font-bold" style={{ color: "#F5F0E8" }}>{step}</p>
+                    <p className="text-sm font-bold" style={{ color: "#050505" }}>{step}</p>
                     {route.instructions[i] && (
-                      <p className="text-xs mt-0.5" style={{ color: "#5c6bc0" }}>{route.instructions[i]}</p>
+                      <p className="text-xs mt-0.5" style={{ color: "#555555" }}>{route.instructions[i]}</p>
                     )}
                   </div>
                 </div>

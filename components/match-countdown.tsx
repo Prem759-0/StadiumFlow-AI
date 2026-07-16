@@ -40,8 +40,8 @@ export default function MatchCountdown() {
 
   return (
     <div
-      className="rounded-xl p-4 comic-panel"
-      style={{ background: "#111", border: "2px solid #00C6FF", boxShadow: "4px 4px 0 #00C6FF" }}
+      className="rounded-xl p-4 comic-panel bg-white"
+      style={{ background: "#FFFFFF", border: "2px solid #00C6FF", boxShadow: "4px 4px 0 #00C6FF" }}
       aria-label="Countdown to next match"
     >
       <div className="flex items-center gap-2 mb-3">
@@ -52,8 +52,8 @@ export default function MatchCountdown() {
         <span className="comic-label ml-auto">KICKOFF</span>
       </div>
 
-      <p className="text-sm font-extrabold mb-1" style={{ color: "#F5F0E8" }}>{NEXT_MATCH.title}</p>
-      <p className="text-[10px] mb-3" style={{ color: "#5c6bc0" }}>
+      <p className="text-sm font-extrabold mb-1" style={{ color: "#050505" }}>{NEXT_MATCH.title}</p>
+      <p className="text-[10px] mb-3" style={{ color: "#555555" }}>
         {NEXT_MATCH.venue} · {NEXT_MATCH.city}
       </p>
 
@@ -68,7 +68,7 @@ export default function MatchCountdown() {
             key={label}
             className="rounded-lg p-2 text-center"
             style={{
-              background: "#0A0A0A",
+              background: "#FFFFFF",
               border: "2px solid rgba(0,198,255,0.3)",
             }}
           >
@@ -84,7 +84,7 @@ export default function MatchCountdown() {
 
       <div className="flex items-center gap-1.5 mt-3">
         <Zap className="w-3 h-3" style={{ color: "#00FF87" }} />
-        <span className="text-[10px]" style={{ color: "#5c6bc0" }}>
+        <span className="text-[10px]" style={{ color: "#555555" }}>
           Powered by StadiumFlow AI real-time updates
         </span>
       </div>

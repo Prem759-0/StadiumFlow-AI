@@ -130,8 +130,8 @@ const AuthGuard = memo(function AuthGuard({
           <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <Shield className="w-8 h-8 text-orange-500" aria-hidden="true" />
           </div>
-          <h1 className="text-2xl font-bold text-white">StadiumFlow AI</h1>
-          <p className="text-gray-400 mt-2">
+          <h1 className="text-2xl font-bold text-black">StadiumFlow AI</h1>
+          <p className="text-gray-600 mt-2">
             {requiredRole === "staff"
               ? "Staff Dashboard Access"
               : "Fan Experience Portal"}
@@ -159,7 +159,7 @@ const AuthGuard = memo(function AuthGuard({
           </button>
         </div>
 
-        <p className="text-gray-500 text-xs text-center mt-6">
+        <p className="text-gray-600 text-xs text-center mt-6">
           Powered by Firebase Auth + Google Cloud
         </p>
       </div>

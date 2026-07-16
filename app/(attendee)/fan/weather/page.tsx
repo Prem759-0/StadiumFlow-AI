@@ -75,24 +75,24 @@ export default function WeatherPage() {
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl flex items-center justify-center"
           style={{ background: "#FF6B00", border: "2px solid #000", boxShadow: "3px 3px 0 #000" }}>
-          <ThermometerSun className="w-5 h-5 text-white" />
+          <ThermometerSun className="w-5 h-5 text-black" />
         </div>
         <div>
-          <h1 className="text-lg font-extrabold" style={{ color: "#F5F0E8" }}>Weather & Safety</h1>
-          <p className="text-xs" style={{ color: "#5c6bc0" }}>Real-time conditions · MetLife Stadium</p>
+          <h1 className="text-lg font-extrabold" style={{ color: "#050505" }}>Weather & Safety</h1>
+          <p className="text-xs" style={{ color: "#555555" }}>Real-time conditions · MetLife Stadium</p>
         </div>
         <span className="comic-label ml-auto">LIVE</span>
       </div>
 
       {/* Main Temperature Card */}
-      <div className="rounded-xl p-5 comic-panel" style={{ background: "#111", border: "2px solid #FF6B00", boxShadow: "4px 4px 0 #FF6B00" }}>
+      <div className="rounded-xl p-5 comic-panel bg-white" style={{ background: "#FFFFFF", border: "2px solid #FF6B00", boxShadow: "4px 4px 0 #FF6B00" }}>
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-7xl font-black tabular-nums" style={{ color: "#FF6B00" }}>
               {Math.round(temp)}<span className="text-3xl">°C</span>
             </p>
-            <p className="text-sm font-semibold mt-1" style={{ color: "#9fa8da" }}>{WEATHER_DATA.condition}</p>
-            <p className="text-xs mt-0.5" style={{ color: "#5c6bc0" }}>
+            <p className="text-sm font-semibold mt-1" style={{ color: "#555555" }}>{WEATHER_DATA.condition}</p>
+            <p className="text-xs mt-0.5" style={{ color: "#555555" }}>
               Feels like {WEATHER_DATA.feelsLike}°C
             </p>
           </div>
@@ -114,7 +114,7 @@ export default function WeatherPage() {
           ].map(({ icon: Icon, label, value, color }) => (
             <div key={label} className="rounded-lg p-2.5 text-center" style={{ background: "rgba(0,0,0,0.4)", border: `1px solid ${color}25` }}>
               <Icon className="w-4 h-4 mx-auto mb-1" style={{ color }} />
-              <p className="text-xs font-bold" style={{ color: "#F5F0E8" }}>{value}</p>
+              <p className="text-xs font-bold" style={{ color: "#050505" }}>{value}</p>
               <p className="text-[9px]" style={{ color: "#3b4480" }}>{label}</p>
             </div>
           ))}
@@ -123,18 +123,18 @@ export default function WeatherPage() {
 
       {/* Safety Advisories */}
       <div>
-        <h2 className="text-sm font-black uppercase tracking-wider mb-2 flex items-center gap-2" style={{ color: "#F5F0E8" }}>
+        <h2 className="text-sm font-black uppercase tracking-wider mb-2 flex items-center gap-2" style={{ color: "#050505" }}>
           <Shield className="w-4 h-4" style={{ color: "#00FF87" }} />
           Safety Advisories
         </h2>
         <div className="space-y-2">
           {SAFETY_ADVISORIES.map((advisory) => (
             <div key={advisory.title} className="rounded-xl p-3 flex items-start gap-3"
-              style={{ background: "#111", border: `2px solid ${advisory.color}`, boxShadow: `3px 3px 0 ${advisory.color}` }}>
+              style={{ background: "#FFFFFF", border: `2px solid ${advisory.color}`, boxShadow: `3px 3px 0 ${advisory.color}` }}>
               <span className="text-2xl flex-shrink-0">{advisory.icon}</span>
               <div>
                 <p className="text-sm font-bold" style={{ color: advisory.color }}>{advisory.title}</p>
-                <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "#9fa8da" }}>{advisory.desc}</p>
+                <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "#555555" }}>{advisory.desc}</p>
               </div>
             </div>
           ))}
@@ -142,7 +142,7 @@ export default function WeatherPage() {
       </div>
 
       {/* Hydration Tips */}
-      <div className="rounded-xl p-4" style={{ background: "#111", border: "2px solid #00C6FF", boxShadow: "4px 4px 0 #00C6FF" }}>
+      <div className="rounded-xl p-4" style={{ background: "#FFFFFF", border: "2px solid #00C6FF", boxShadow: "4px 4px 0 #00C6FF" }}>
         <h2 className="text-sm font-black flex items-center gap-2 mb-3" style={{ color: "#00C6FF" }}>
           <Droplets className="w-4 h-4" /> Hydration & Heat Safety Tips
         </h2>
@@ -151,7 +151,7 @@ export default function WeatherPage() {
             <div key={i} className="flex items-center gap-2.5">
               <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-black"
                 style={{ background: "#00C6FF", color: "#0A0A0A" }}>{i + 1}</div>
-              <p className="text-xs" style={{ color: "#9fa8da" }}>{tip}</p>
+              <p className="text-xs" style={{ color: "#555555" }}>{tip}</p>
             </div>
           ))}
         </div>

@@ -111,12 +111,12 @@ export default function FanHomePage() {
       {/* ── Promo Banner ── */}
       <div
         className="rounded-xl p-3 flex items-center gap-3"
-        style={{ background: "#111", border: "2px solid #FFE600", boxShadow: "3px 3px 0 #FFE600" }}
+        style={{ background: "#FFFFFF", border: "2px solid #FFE600", boxShadow: "3px 3px 0 #FFE600" }}
       >
         <Gift className="w-5 h-5 flex-shrink-0" style={{ color: "#FFE600" }} aria-hidden="true" />
         <div className="min-w-0">
           <p className="text-sm font-bold" style={{ color: "#FFE600" }}>{promo.title}</p>
-          <p className="text-xs" style={{ color: "#5c6bc0" }}>{promo.description}</p>
+          <p className="text-xs" style={{ color: "#555555" }}>{promo.description}</p>
         </div>
         <span className="comic-label ml-auto flex-shrink-0">OFFER</span>
       </div>
@@ -124,17 +124,17 @@ export default function FanHomePage() {
       {/* ── Stadium Heatmap ── */}
       <section aria-labelledby="heatmap-title">
         <div className="flex items-center justify-between mb-2">
-          <h2 id="heatmap-title" className="text-sm font-bold flex items-center gap-2" style={{ color: "#F5F0E8" }}>
+          <h2 id="heatmap-title" className="text-sm font-bold flex items-center gap-2" style={{ color: "#050505" }}>
             <Flame className="w-4 h-4" style={{ color: "#FF3333" }} aria-hidden="true" />
             Live Crowd Heatmap
           </h2>
-          <span className="text-[10px] pulse-dot" style={{ color: "#5c6bc0" }}>
+          <span className="text-[10px] pulse-dot" style={{ color: "#555555" }}>
             &nbsp;&nbsp;Updated live
           </span>
         </div>
         <div
-          className="rounded-xl p-2 aspect-square max-h-80 comic-panel"
-          style={{ background: "#111", border: "2px solid rgba(255,255,255,0.1)", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}
+          className="rounded-xl p-2 aspect-square max-h-80 comic-panel bg-white"
+          style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}
         >
           <StadiumMap
             zones={zones}
@@ -146,7 +146,7 @@ export default function FanHomePage() {
         {selectedZone && (
           <div
             className="mt-2 rounded-lg p-3 animate-fade-in"
-            style={{ background: "#111", border: "2px solid #00C6FF", boxShadow: "3px 3px 0 #00C6FF" }}
+            style={{ background: "#FFFFFF", border: "2px solid #00C6FF", boxShadow: "3px 3px 0 #00C6FF" }}
           >
             {(() => {
               const zone = zones.find((z) => z.id === selectedZone);
@@ -156,8 +156,8 @@ export default function FanHomePage() {
               return (
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-bold" style={{ color: "#F5F0E8" }}>{zone.name}</p>
-                    <p className="text-xs" style={{ color: "#5c6bc0" }}>
+                    <p className="text-sm font-bold" style={{ color: "#050505" }}>{zone.name}</p>
+                    <p className="text-xs" style={{ color: "#555555" }}>
                       {zone.currentOccupancy.toLocaleString()} / {zone.capacity.toLocaleString()} fans
                     </p>
                   </div>
@@ -171,7 +171,7 @@ export default function FanHomePage() {
 
       {/* ── Quick Actions Grid ── */}
       <section aria-labelledby="actions-title">
-        <h2 id="actions-title" className="text-sm font-bold mb-2" style={{ color: "#F5F0E8" }}>
+        <h2 id="actions-title" className="text-sm font-bold mb-2" style={{ color: "#050505" }}>
           Quick Actions
         </h2>
         <div className="grid grid-cols-3 gap-2 mb-2">
@@ -181,7 +181,7 @@ export default function FanHomePage() {
               href={href}
               className="rounded-xl p-3 flex flex-col items-center gap-1.5 text-center transition-all duration-150"
               style={{
-                background: "#111",
+                background: "#FFFFFF",
                 border: `2px solid ${border}`,
                 boxShadow: `4px 4px 0 ${border}`,
               }}
@@ -195,8 +195,8 @@ export default function FanHomePage() {
               }}
             >
               <Icon className="w-6 h-6" style={{ color }} aria-hidden="true" />
-              <span className="text-xs font-bold" style={{ color: "#F5F0E8" }}>{label}</span>
-              <span className="text-[9px]" style={{ color: "#5c6bc0" }}>{desc}</span>
+              <span className="text-xs font-bold" style={{ color: "#050505" }}>{label}</span>
+              <span className="text-[9px]" style={{ color: "#555555" }}>{desc}</span>
             </Link>
           ))}
         </div>
@@ -237,7 +237,7 @@ export default function FanHomePage() {
       {/* ── Shortest Queues ── */}
       <section aria-labelledby="queues-title">
         <div className="flex items-center justify-between mb-2">
-          <h2 id="queues-title" className="text-sm font-bold" style={{ color: "#F5F0E8" }}>
+          <h2 id="queues-title" className="text-sm font-bold" style={{ color: "#050505" }}>
             Shortest Queues Now
           </h2>
           <Link href="/fan/queues" className="flex items-center gap-1 text-xs font-bold hover:opacity-70 transition-opacity" style={{ color: "#00FF87" }}>
@@ -250,8 +250,8 @@ export default function FanHomePage() {
       {/* ── Fan Poll ── */}
       <section
         aria-labelledby="poll-title"
-        className="rounded-xl p-4 comic-panel"
-        style={{ background: "#111", border: "2px solid #BF5FFF", boxShadow: "4px 4px 0 #BF5FFF" }}
+        className="rounded-xl p-4 comic-panel bg-white"
+        style={{ background: "#FFFFFF", border: "2px solid #BF5FFF", boxShadow: "4px 4px 0 #BF5FFF" }}
       >
         <h2 id="poll-title" className="text-sm font-bold flex items-center gap-2 mb-3" style={{ color: "#BF5FFF" }}>
           <Vote className="w-4 h-4" aria-hidden="true" />
@@ -286,12 +286,12 @@ export default function FanHomePage() {
       {/* ── Seat Info ── */}
       <section
         className="rounded-xl p-4"
-        style={{ background: "#111", border: "2px solid rgba(255,255,255,0.08)", boxShadow: "3px 3px 0 rgba(0,0,0,0.5)" }}
+        style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "3px 3px 0 rgba(0,0,0,0.5)" }}
       >
         <div className="flex items-center gap-2 text-sm">
           <MapPin className="w-4 h-4" style={{ color: "#00FF87" }} aria-hidden="true" />
-          <span style={{ color: "#5c6bc0" }}>Your Seat:</span>
-          <span className="font-extrabold" style={{ color: "#F5F0E8" }}>
+          <span style={{ color: "#555555" }}>Your Seat:</span>
+          <span className="font-extrabold" style={{ color: "#050505" }}>
             {profile.seatSection}, Row {profile.seatRow}, Seat {profile.seatNumber}
           </span>
         </div>

@@ -71,17 +71,17 @@ export default function PreOrderPage() {
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl flex items-center justify-center"
           style={{ background: "#BF5FFF", border: "2px solid #000", boxShadow: "3px 3px 0 #000" }}>
-          <ShoppingBag className="w-5 h-5 text-white" />
+          <ShoppingBag className="w-5 h-5 text-black" />
         </div>
         <div>
-          <h1 className="text-lg font-extrabold" style={{ color: "#F5F0E8" }}>Pre-Order & Skip Line</h1>
-          <p className="text-xs" style={{ color: "#5c6bc0" }}>Order food & merch with timed pickup</p>
+          <h1 className="text-lg font-extrabold" style={{ color: "#050505" }}>Pre-Order & Skip Line</h1>
+          <p className="text-xs" style={{ color: "#555555" }}>Order food & merch with timed pickup</p>
         </div>
         {cartCount > 0 && (
           <div className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg"
             style={{ background: "#BF5FFF", border: "2px solid #000", boxShadow: "2px 2px 0 #000" }}>
-            <ShoppingCart className="w-3.5 h-3.5 text-white" />
-            <span className="text-xs font-black text-white">{cartCount}</span>
+            <ShoppingCart className="w-3.5 h-3.5 text-black" />
+            <span className="text-xs font-black text-black">{cartCount}</span>
           </div>
         )}
       </div>
@@ -93,7 +93,7 @@ export default function PreOrderPage() {
           <Check className="w-6 h-6 flex-shrink-0" style={{ color: "#00FF87" }} />
           <div>
             <p className="text-sm font-black" style={{ color: "#00FF87" }}>Order Placed! 🎉</p>
-            <p className="text-xs" style={{ color: "#9fa8da" }}>Ready in ~{pickupSlot} min. +30 points earned!</p>
+            <p className="text-xs" style={{ color: "#555555" }}>Ready in ~{pickupSlot} min. +30 points earned!</p>
           </div>
           <span className="comic-label ml-auto">+30 PTS</span>
         </div>
@@ -101,7 +101,7 @@ export default function PreOrderPage() {
 
       {/* Vendor Selector */}
       <div>
-        <label htmlFor="vendor-select" className="text-[11px] font-black uppercase tracking-wider mb-1.5 block" style={{ color: "#5c6bc0" }}>
+        <label htmlFor="vendor-select" className="text-[11px] font-black uppercase tracking-wider mb-1.5 block" style={{ color: "#555555" }}>
           Select Vendor
         </label>
         <div className="relative">
@@ -110,7 +110,7 @@ export default function PreOrderPage() {
             value={selectedVendor}
             onChange={(e) => { setSelectedVendor(e.target.value); setCart({}); }}
             className="w-full px-4 py-3 rounded-xl text-sm font-bold border-2 focus:outline-none appearance-none cursor-pointer"
-            style={{ background: "#1A1A1A", borderColor: "rgba(255,255,255,0.12)", color: "#F5F0E8" }}
+            style={{ background: "#FFFFFF", borderColor: "#000000", color: "#050505" }}
           >
             {foodVendors.map((v) => (
               <option key={v.id} value={v.id}>
@@ -118,16 +118,16 @@ export default function PreOrderPage() {
               </option>
             ))}
           </select>
-          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#5c6bc0" }} />
+          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#555555" }} />
         </div>
       </div>
 
       {/* Vendor Info Card */}
       <div className="rounded-xl p-4 flex items-center justify-between"
-        style={{ background: "#111", border: "2px solid #BF5FFF", boxShadow: "4px 4px 0 #BF5FFF" }}>
+        style={{ background: "#FFFFFF", border: "2px solid #BF5FFF", boxShadow: "4px 4px 0 #BF5FFF" }}>
         <div>
-          <p className="text-sm font-black" style={{ color: "#F5F0E8" }}>{vendor.name}</p>
-          <p className="text-xs capitalize mt-0.5" style={{ color: "#9fa8da" }}>{vendor.category}</p>
+          <p className="text-sm font-black" style={{ color: "#050505" }}>{vendor.name}</p>
+          <p className="text-xs capitalize mt-0.5" style={{ color: "#555555" }}>{vendor.category}</p>
         </div>
         <div className="flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg"
@@ -136,7 +136,7 @@ export default function PreOrderPage() {
             <span className="font-black">{vendor.currentWait} min</span>
           </div>
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg"
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "#5c6bc0" }}>
+            style={{ background: "rgba(0,0,0,0.04)", border: "1px solid #000000", color: "#555555" }}>
             <MapPin className="w-3.5 h-3.5" />
             <span className="font-semibold">{vendor.zoneId.replace("food-", "").toUpperCase()} Court</span>
           </div>
@@ -145,7 +145,7 @@ export default function PreOrderPage() {
 
       {/* Menu */}
       <div>
-        <h2 className="text-xs font-black uppercase tracking-wider mb-3" style={{ color: "#F5F0E8" }}>Menu</h2>
+        <h2 className="text-xs font-black uppercase tracking-wider mb-3" style={{ color: "#050505" }}>Menu</h2>
         <div className="space-y-2">
           {vendor.menu.map((item) => {
             const qty = cart[item.id] || 0;
@@ -154,7 +154,7 @@ export default function PreOrderPage() {
                 key={item.id}
                 className="rounded-xl p-3.5 flex items-center justify-between transition-all duration-150"
                 style={{
-                  background: "#111",
+                  background: "#FFFFFF",
                   border: `2px solid ${qty > 0 ? "#BF5FFF" : "rgba(255,255,255,0.07)"}`,
                   boxShadow: qty > 0 ? "3px 3px 0 #BF5FFF" : "3px 3px 0 rgba(0,0,0,0.4)",
                   opacity: item.available ? 1 : 0.45,
@@ -162,12 +162,12 @@ export default function PreOrderPage() {
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-bold" style={{ color: "#F5F0E8" }}>{item.name}</p>
+                    <p className="text-sm font-bold" style={{ color: "#050505" }}>{item.name}</p>
                     {item.popular && (
                       <span className="comic-label text-[9px]" style={{ background: "#FF3333", color: "#fff", borderColor: "#000" }}>🔥 HOT</span>
                     )}
                   </div>
-                  <p className="text-xs mt-0.5" style={{ color: "#5c6bc0" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "#555555" }}>
                     ₹{item.price} · Ready in {item.prepTime} min
                   </p>
                 </div>
@@ -178,7 +178,7 @@ export default function PreOrderPage() {
                       <>
                         <button onClick={() => updateCart(item.id, -1)}
                           className="w-8 h-8 rounded-lg flex items-center justify-center font-black transition-all"
-                          style={{ background: "#222", border: "2px solid rgba(255,255,255,0.12)", color: "#F5F0E8" }}
+                          style={{ background: "#FFFFFF", border: "2px solid #000000", color: "#050505" }}
                           aria-label={`Remove one ${item.name}`}>
                           <Minus className="w-3.5 h-3.5" />
                         </button>
@@ -209,26 +209,26 @@ export default function PreOrderPage() {
       {/* Cart & Checkout */}
       {cartItems.length > 0 && (
         <div className="rounded-xl p-4 space-y-4 animate-slide-up"
-          style={{ background: "#111", border: "2px solid #00FF87", boxShadow: "4px 4px 0 #00FF87" }}>
+          style={{ background: "#FFFFFF", border: "2px solid #00FF87", boxShadow: "4px 4px 0 #00FF87" }}>
           <h3 className="text-xs font-black uppercase tracking-wider" style={{ color: "#00FF87" }}>Your Order</h3>
 
           <div className="space-y-2">
             {cartItems.map((item) => (
               <div key={item.id} className="flex justify-between text-xs">
-                <span style={{ color: "#9fa8da" }}>{item.name} × {item.quantity}</span>
-                <span className="font-black tabular-nums" style={{ color: "#F5F0E8" }}>₹{item.price * item.quantity}</span>
+                <span style={{ color: "#555555" }}>{item.name} × {item.quantity}</span>
+                <span className="font-black tabular-nums" style={{ color: "#050505" }}>₹{item.price * item.quantity}</span>
               </div>
             ))}
           </div>
 
           <div className="flex justify-between text-sm pt-3" style={{ borderTop: "1px dashed rgba(0,255,135,0.3)" }}>
-            <span style={{ color: "#9fa8da" }}>Total</span>
+            <span style={{ color: "#555555" }}>Total</span>
             <span className="font-black tabular-nums" style={{ color: "#00FF87" }}>₹{total}</span>
           </div>
 
           {/* Pickup time */}
           <div>
-            <label className="text-[11px] font-black uppercase tracking-wider mb-2 block" style={{ color: "#5c6bc0" }}>Pickup In</label>
+            <label className="text-[11px] font-black uppercase tracking-wider mb-2 block" style={{ color: "#555555" }}>Pickup In</label>
             <div className="grid grid-cols-4 gap-2">
               {["10", "15", "20", "30"].map((mins) => (
                 <button key={mins} onClick={() => setPickupSlot(mins)}

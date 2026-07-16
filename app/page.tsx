@@ -134,7 +134,7 @@ export default function HomePage() {
           {/* Top badge row */}
           <div className="flex items-center justify-center gap-3 mb-8 flex-wrap">
             <div className="inline-flex items-center gap-2 px-4 py-1.5"
-              style={{ background:"#111", border:"2px solid #FFE600", boxShadow:"3px 3px 0 #FFE600" }}>
+              style={{ background: "#FFFFFF", border:"2px solid #FFE600", boxShadow:"3px 3px 0 #FFE600" }}>
               <Zap className="w-3.5 h-3.5" style={{ color:"#FFE600" }} />
               <span className="text-[10px] font-black tracking-widest uppercase" style={{ color:"#FFE600" }}>
                 Powered by Google Gemini 2.0 Flash
@@ -142,7 +142,7 @@ export default function HomePage() {
             </div>
             <div className="comic-label">FIFA WC 2026</div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1"
-              style={{ background:"#111", border:"2px solid #00FF87", boxShadow:"2px 2px 0 #00FF87" }}>
+              style={{ background: "#FFFFFF", border:"2px solid #00FF87", boxShadow:"2px 2px 0 #00FF87" }}>
               <div className="w-2 h-2 rounded-full animate-pulse" style={{ background:"#00FF87" }} />
               <span className="text-[10px] font-black uppercase tracking-wider" style={{ color:"#00FF87" }}>Live Now</span>
             </div>
@@ -150,7 +150,7 @@ export default function HomePage() {
 
           {/* Main title */}
           <h1 className="leading-none tracking-tight mb-6">
-            <span className="block text-[clamp(3rem,12vw,9rem)] font-black" style={{ color:"#F5F0E8", WebkitTextStroke:"2px rgba(255,255,255,0.1)" }}>
+            <span className="block text-[clamp(3rem,12vw,9rem)] font-black" style={{ color:"#050505", WebkitTextStroke:"2px rgba(0,0,0,0.1)" }}>
               Stadium
               <span className="gradient-text">Flow</span>
             </span>
@@ -158,15 +158,15 @@ export default function HomePage() {
           </h1>
 
           {/* Comic sub-headline box */}
-          <div className="inline-block mb-6 px-6 py-3 comic-panel"
+          <div className="inline-block mb-6 px-6 py-3 comic-panel bg-white"
             style={{ background:"rgba(255,255,255,0.04)", border:"2px solid rgba(255,255,255,0.15)", boxShadow:"4px 4px 0 rgba(255,255,255,0.06)" }}>
-            <p className="text-lg md:text-xl font-bold" style={{ color:"#9fa8da" }}>
+            <p className="text-lg md:text-xl font-bold" style={{ color:"#555555" }}>
               Smart Stadium Ops for&nbsp;
               <span className="gradient-text-fifa font-black">FIFA World Cup 2026</span>
             </p>
           </div>
 
-          <p className="text-sm md:text-base max-w-2xl mx-auto mb-10" style={{ color:"#5c6bc0" }}>
+          <p className="text-sm md:text-base max-w-2xl mx-auto mb-10" style={{ color:"#555555" }}>
             AI navigation · real-time crowd management · multilingual assistance ·<br />
             emergency response · live heatmaps · leaderboards for&nbsp;
             <span className="neon-green font-bold">132,000 fans</span>
@@ -198,12 +198,12 @@ export default function HomePage() {
               <div key={label}
                 className="rounded-xl p-3 text-center transition-all duration-150"
                 style={{
-                  background:"#111",
+                  background: "#FFFFFF",
                   border:`2px solid ${color}`,
                   boxShadow:`3px 3px 0 ${color}`,
                 }}>
                 <p className="text-2xl font-black tabular-nums" style={{ color }}>{value}</p>
-                <p className="text-[9px] font-bold uppercase tracking-wider mt-1" style={{ color:"#5c6bc0" }}>{label}</p>
+                <p className="text-[9px] font-bold uppercase tracking-wider mt-1" style={{ color:"#555555" }}>{label}</p>
               </div>
             ))}
           </div>
@@ -217,7 +217,7 @@ export default function HomePage() {
       <section className="w-full max-w-6xl px-4 py-20">
         <div className="text-center mb-12">
           <div className="comic-label mb-4">Feature Arsenal</div>
-          <h2 className="text-4xl md:text-6xl font-black" style={{ color:"#F5F0E8" }}>
+          <h2 className="text-4xl md:text-6xl font-black" style={{ color:"#050505" }}>
             Every Tool a Fan<br />
             <span className="gradient-text">Could Need</span>
           </h2>
@@ -227,9 +227,9 @@ export default function HomePage() {
           {FEATURES.map(({ icon: Icon, label, desc, color, emoji, detail }, i) => (
             <div
               key={label}
-              className="rounded-xl p-5 cursor-default transition-all duration-150 comic-panel"
+              className="rounded-xl p-5 cursor-default transition-all duration-150 comic-panel bg-white"
               style={{
-                background:"#111",
+                background: "#FFFFFF",
                 border:`2px solid ${hovered === i ? color : "rgba(255,255,255,0.07)"}`,
                 boxShadow: hovered === i ? `6px 6px 0 ${color}` : "4px 4px 0 rgba(0,0,0,0.5)",
                 transform: hovered === i ? "translate(-2px,-2px)" : "none",
@@ -243,8 +243,8 @@ export default function HomePage() {
                   {emoji}
                 </div>
                 <div>
-                  <h3 className="text-sm font-black uppercase tracking-wide" style={{ color:"#F5F0E8" }}>{label}</h3>
-                  <p className="text-xs mt-0.5" style={{ color:"#5c6bc0" }}>{desc}</p>
+                  <h3 className="text-sm font-black uppercase tracking-wide" style={{ color: "#050505" }}>{label}</h3>
+                  <p className="text-xs mt-0.5" style={{ color:"#555555" }}>{desc}</p>
                 </div>
               </div>
               <div className="mt-3 pt-3 flex items-center gap-2"
@@ -263,7 +263,7 @@ export default function HomePage() {
       <section className="w-full max-w-5xl px-4 py-20">
         <div className="text-center mb-12">
           <div className="comic-label mb-4">How It Works</div>
-          <h2 className="text-4xl md:text-5xl font-black" style={{ color:"#F5F0E8" }}>
+          <h2 className="text-4xl md:text-5xl font-black" style={{ color:"#050505" }}>
             From Gate to Seat —<br />
             <span className="gradient-text-fifa">In 4 Steps</span>
           </h2>
@@ -272,13 +272,13 @@ export default function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {WORKFLOW.map(({ n, title, desc, icon, color }) => (
             <div key={n} className="rounded-xl p-5 relative"
-              style={{ background:"#111", border:`2px solid ${color}`, boxShadow:`5px 5px 0 ${color}` }}>
+              style={{ background: "#FFFFFF", border:`2px solid ${color}`, boxShadow:`5px 5px 0 ${color}` }}>
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl font-black tabular-nums" style={{ color, opacity:0.25 }}>{n}</span>
                 <span className="text-3xl">{icon}</span>
               </div>
-              <h3 className="text-sm font-black uppercase tracking-wide mb-1.5" style={{ color:"#F5F0E8" }}>{title}</h3>
-              <p className="text-xs leading-relaxed" style={{ color:"#5c6bc0" }}>{desc}</p>
+              <h3 className="text-sm font-black uppercase tracking-wide mb-1.5" style={{ color: "#050505" }}>{title}</h3>
+              <p className="text-xs leading-relaxed" style={{ color:"#555555" }}>{desc}</p>
               <div className="absolute top-4 right-4">
                 <ChevronRight className="w-4 h-4" style={{ color:`${color}50` }} />
               </div>
@@ -294,11 +294,11 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <div className="comic-label mb-4" style={{ background:"#BF5FFF", borderColor:"#000" }}>Gemini AI Core</div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4" style={{ color:"#F5F0E8" }}>
+            <h2 className="text-4xl md:text-5xl font-black mb-4" style={{ color:"#050505" }}>
               Intelligent Stadium<br />
               <span className="gradient-text-purple">Operations</span>
             </h2>
-            <p className="text-sm leading-relaxed mb-6" style={{ color:"#5c6bc0" }}>
+            <p className="text-sm leading-relaxed mb-6" style={{ color:"#555555" }}>
               StadiumFlow AI runs Google Gemini 2.0 Flash as its reasoning engine — analyzing crowd density,
               historical event data, real-time queue metrics and safety signals to make split-second
               decisions for 132,000 attendees simultaneously.
@@ -311,7 +311,7 @@ export default function HomePage() {
               ].map(({ label, pct, color }) => (
                 <div key={label}>
                   <div className="flex justify-between text-xs font-bold mb-1.5">
-                    <span style={{ color:"#9fa8da" }}>{label}</span>
+                    <span style={{ color:"#555555" }}>{label}</span>
                     <span style={{ color }}>{pct}%</span>
                   </div>
                   <div className="nb-progress">
@@ -330,12 +330,12 @@ export default function HomePage() {
               { icon: Trophy,   label:"Gamified fan experience",  val:"∞ points",   color:"#FFE600" },
             ].map(({ icon: Icon, label, val, color }) => (
               <div key={label} className="rounded-xl p-4 flex items-center gap-4"
-                style={{ background:"#111", border:`2px solid ${color}25`, boxShadow:`3px 3px 0 ${color}30` }}>
+                style={{ background: "#FFFFFF", border:`2px solid ${color}25`, boxShadow:`3px 3px 0 ${color}30` }}>
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ background:`${color}15`, border:`1px solid ${color}40` }}>
                   <Icon className="w-5 h-5" style={{ color }} />
                 </div>
-                <p className="text-sm font-bold flex-1" style={{ color:"#F5F0E8" }}>{label}</p>
+                <p className="text-sm font-bold flex-1" style={{ color: "#050505" }}>{label}</p>
                 <span className="text-xs font-black px-2 py-0.5 rounded"
                   style={{ background:`${color}22`, color, border:`1px solid ${color}` }}>{val}</span>
               </div>
@@ -348,16 +348,16 @@ export default function HomePage() {
 
       {/* ═══════════════════════════════════ CTA BOTTOM ═══ */}
       <section className="w-full max-w-4xl px-4 py-20 text-center">
-        <div className="rounded-2xl p-10 comic-panel relative overflow-hidden"
-          style={{ background:"#111", border:"3px solid #00FF87", boxShadow:"8px 8px 0 #00FF87" }}>
+        <div className="rounded-2xl p-10 comic-panel bg-white relative overflow-hidden"
+          style={{ background: "#FFFFFF", border:"3px solid #00FF87", boxShadow:"8px 8px 0 #00FF87" }}>
           <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl opacity-10 pointer-events-none"
             style={{ background:"radial-gradient(circle, #00FF87, transparent)" }} />
           <div className="comic-label mb-4">Join Now</div>
-          <h2 className="text-4xl md:text-6xl font-black mb-4" style={{ color:"#F5F0E8" }}>
+          <h2 className="text-4xl md:text-6xl font-black mb-4" style={{ color:"#050505" }}>
             Ready to Experience<br />
             <span className="gradient-text">World Cup 2026?</span>
           </h2>
-          <p className="text-sm mb-8" style={{ color:"#5c6bc0" }}>
+          <p className="text-sm mb-8" style={{ color:"#555555" }}>
             Choose your role and dive into the most intelligent stadium experience ever built.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -376,9 +376,9 @@ export default function HomePage() {
 
         {/* Challenge tag */}
         <div className="mt-10 inline-flex items-center gap-3 px-5 py-2.5 rounded-lg"
-          style={{ background:"#111", border:"2px solid rgba(255,255,255,0.08)", boxShadow:"3px 3px 0 rgba(0,0,0,0.5)" }}>
+          style={{ background: "#FFFFFF", border:"2px solid #000000", boxShadow:"3px 3px 0 rgba(0,0,0,0.5)" }}>
           <TrendingUp className="w-4 h-4" style={{ color:"#00FF87" }} />
-          <span className="text-xs font-semibold" style={{ color:"#5c6bc0" }}>
+          <span className="text-xs font-semibold" style={{ color:"#555555" }}>
             Challenge 4 · Smart Stadiums &amp; Tournament Operations
           </span>
           <span className="comic-label">PromptWars</span>

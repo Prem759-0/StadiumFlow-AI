@@ -20,7 +20,7 @@ const TYPE_CONFIG: Record<string, { icon: any; color: string; bg: string; border
 };
 
 const PRIORITY_COLORS: Record<string, { border: string; bg: string; color: string }> = {
-  low: { border: "rgba(255,255,255,0.2)", bg: "#1A1A1A", color: "#5c6bc0" },
+  low: { border: "rgba(255,255,255,0.2)", bg: "#1A1A1A", color: "#555555" },
   medium: { border: "#FFE600", bg: "rgba(255,230,0,0.12)", color: "#FFE600" },
   high: { border: "#FF3333", bg: "rgba(255,51,51,0.12)", color: "#FF3333" },
   critical: { border: "#FF3333", bg: "rgba(255,51,51,0.2)", color: "#FF3333" },
@@ -50,10 +50,10 @@ export default function AlertsPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="comic-label" style={{ background: "#FF3333", color: "#fff" }}>ALERTS</span>
-            <span className="text-[10px] pulse-dot" style={{ color: "#5c6bc0" }}>&nbsp;&nbsp;REAL-TIME STATUS</span>
+            <span className="text-[10px] pulse-dot" style={{ color: "#555555" }}>&nbsp;&nbsp;REAL-TIME STATUS</span>
           </div>
-          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#F5F0E8" }}>Alert Feed & Dispatch</h1>
-          <p className="text-xs mt-1" style={{ color: "#5c6bc0" }}>
+          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#050505" }}>Alert Feed & Dispatch</h1>
+          <p className="text-xs mt-1" style={{ color: "#555555" }}>
             {alerts.filter((a) => a.status === "pending").length} pending ·{" "}
             {alerts.filter((a) => a.status === "dispatched").length} dispatched ·{" "}
             {alerts.filter((a) => a.status === "resolved").length} resolved
@@ -103,7 +103,7 @@ export default function AlertsPage() {
               key={alert.id}
               className={`rounded-xl p-4 transition-all duration-300 ${alert.status === "resolved" ? "opacity-60" : ""}`}
               style={{
-                background: "#111",
+                background: "#FFFFFF",
                 border: isCritical && alert.status === "pending" ? "2px solid #FF3333" : `2px solid ${config.border}`,
                 boxShadow: isCritical && alert.status === "pending" ? "4px 4px 0 #FF3333" : `4px 4px 0 rgba(0,0,0,0.5)`,
               }}
@@ -135,8 +135,8 @@ export default function AlertsPage() {
                       {alert.status.toUpperCase()}
                     </span>
                   </div>
-                  <p className="text-sm font-bold mt-1" style={{ color: "#F5F0E8" }}>{alert.message}</p>
-                  <div className="flex items-center gap-3 mt-2.5 text-xs" style={{ color: "#5c6bc0" }}>
+                  <p className="text-sm font-bold mt-1" style={{ color: "#050505" }}>{alert.message}</p>
+                  <div className="flex items-center gap-3 mt-2.5 text-xs" style={{ color: "#555555" }}>
                     <span className="flex items-center gap-1 font-semibold">
                       <MapPin className="w-3.5 h-3.5" style={{ color: "#CD7F32" }} /> {alert.location}
                     </span>
@@ -183,7 +183,7 @@ export default function AlertsPage() {
         })}
 
         {filteredAlerts.length === 0 && (
-          <div className="rounded-xl p-8 text-center" style={{ background: "#111", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
+          <div className="rounded-xl p-8 text-center" style={{ background: "#FFFFFF", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
             <Check className="w-10 h-10 mx-auto mb-2 opacity-30" />
             <p className="text-sm font-bold">No active alerts matching this filter</p>
           </div>

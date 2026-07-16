@@ -97,7 +97,7 @@ export default function UserAuthButton({ mode }: UserAuthButtonProps) {
           )}
         </div>
         <div className="hidden sm:block text-left">
-          <p className="text-xs font-bold text-white leading-none mb-0.5">
+          <p className="text-xs font-bold text-black leading-none mb-0.5">
             {user.displayName?.split(" ")[0]}
           </p>
           <p className="text-[10px] text-navy-400 leading-none">
@@ -112,7 +112,7 @@ export default function UserAuthButton({ mode }: UserAuthButtonProps) {
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
           <div className="absolute right-0 mt-2 w-48 bg-navy-900 border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden animate-slide-up">
             <div className="p-3 border-b border-white/5 bg-white/5">
-              <p className="text-xs font-bold text-white truncate">{user.displayName}</p>
+              <p className="text-xs font-bold text-black truncate">{user.displayName}</p>
               <p className="text-[10px] text-navy-400 truncate">{user.email}</p>
             </div>
             <div className="p-1">

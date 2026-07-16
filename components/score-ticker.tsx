@@ -53,8 +53,8 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
     <div className="space-y-2 animate-fade-in">
       {/* Main live match card */}
       <div
-        className="rounded-xl p-4 comic-panel overflow-hidden"
-        style={{ background: "#111", border: "2px solid #FF3333", boxShadow: "4px 4px 0 #FF3333" }}
+        className="rounded-xl p-4 comic-panel bg-white overflow-hidden"
+        style={{ background: "#FFFFFF", border: "2px solid #FF3333", boxShadow: "4px 4px 0 #FF3333" }}
         role="region"
         aria-label="Live FIFA match scores"
         aria-live="polite"
@@ -82,13 +82,13 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
                 {match.status === "live" && (
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
                 )}
-                <span className="font-bold text-sm" style={{ color: "#F5F0E8" }}>{match.home}</span>
+                <span className="font-bold text-sm" style={{ color: "#050505" }}>{match.home}</span>
                 <span className="font-black text-base" style={{
                   color: match.status === "live" ? "#00FF87" : match.status === "completed" ? "#5c6bc0" : "#FFE600"
                 }}>
                   {match.status === "upcoming" ? "vs" : `${match.homeScore} – ${match.awayScore}`}
                 </span>
-                <span className="font-bold text-sm" style={{ color: "#F5F0E8" }}>{match.away}</span>
+                <span className="font-bold text-sm" style={{ color: "#050505" }}>{match.away}</span>
                 {match.time && (
                   <span className="text-[10px] px-1.5 py-0.5 rounded font-mono"
                     style={{ background: match.status === "live" ? "rgba(255,51,51,0.2)" : "rgba(255,255,255,0.06)", color: match.status === "live" ? "#FF3333" : "#5c6bc0" }}>
@@ -106,13 +106,13 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
       {/* Quick upcoming match */}
       {upcomingMatches.length > 0 && (
         <div className="rounded-lg px-3 py-2 flex items-center gap-2"
-          style={{ background: "#111", border: "2px solid #FFE600", boxShadow: "3px 3px 0 #FFE600" }}>
+          style={{ background: "#FFFFFF", border: "2px solid #FFE600", boxShadow: "3px 3px 0 #FFE600" }}>
           <Clock className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#FFE600" }} />
           <span className="text-xs font-bold" style={{ color: "#FFE600" }}>Next:</span>
-          <span className="text-xs font-semibold" style={{ color: "#F5F0E8" }}>
+          <span className="text-xs font-semibold" style={{ color: "#050505" }}>
             {upcomingMatches[0].home} vs {upcomingMatches[0].away}
           </span>
-          <span className="text-[10px]" style={{ color: "#5c6bc0" }}>
+          <span className="text-[10px]" style={{ color: "#555555" }}>
             {upcomingMatches[0].time} · {upcomingMatches[0].venue}
           </span>
         </div>

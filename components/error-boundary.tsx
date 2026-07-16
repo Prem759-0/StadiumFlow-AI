@@ -78,7 +78,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                 : "Something went wrong"}
             </h3>
           </div>
-          <p className="text-gray-400 text-sm mb-4">
+          <p className="text-gray-600 text-sm mb-4">
             This section failed to load. The rest of the application is
             unaffected.
           </p>

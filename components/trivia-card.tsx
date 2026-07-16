@@ -73,9 +73,9 @@ export default function TriviaCard() {
 
   return (
     <div
-      className="rounded-xl p-4 comic-panel"
+      className="rounded-xl p-4 comic-panel bg-white"
       style={{
-        background: "#111",
+        background: "#FFFFFF",
         border: `2px solid ${item.color}`,
         boxShadow: `4px 4px 0 ${item.color}`,
         transition: "border-color 0.3s, box-shadow 0.3s",
@@ -107,7 +107,7 @@ export default function TriviaCard() {
       {/* Question */}
       <div className="mb-3">
         <span className="text-2xl mr-2">{item.icon}</span>
-        <p className="text-sm font-bold inline" style={{ color: "#F5F0E8" }}>
+        <p className="text-sm font-bold inline" style={{ color: "#050505" }}>
           {item.question}
         </p>
       </div>
@@ -118,7 +118,7 @@ export default function TriviaCard() {
           className="rounded-lg p-3 mb-3 animate-fade-in"
           style={{ background: "rgba(0,0,0,0.4)", border: `1px solid ${item.color}40` }}
         >
-          <p className="text-xs leading-relaxed" style={{ color: "#9fa8da" }}>
+          <p className="text-xs leading-relaxed" style={{ color: "#555555" }}>
             {item.answer}
           </p>
         </div>

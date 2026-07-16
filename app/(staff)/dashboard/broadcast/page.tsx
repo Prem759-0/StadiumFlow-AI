@@ -41,20 +41,20 @@ export default function BroadcastPage() {
           <Megaphone className="w-5 h-5 text-black" />
         </div>
         <div>
-          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#F5F0E8" }}>Broadcast Announcements</h1>
-          <p className="text-xs" style={{ color: "#5c6bc0" }}>Push live real-time announcements to attendees and personnel</p>
+          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#050505" }}>Broadcast Announcements</h1>
+          <p className="text-xs" style={{ color: "#555555" }}>Push live real-time announcements to attendees and personnel</p>
         </div>
         <span className="comic-label ml-auto" style={{ background: "#FF3333", color: "#fff" }}>PUSH</span>
       </div>
 
       {/* Compose */}
       <div className="rounded-xl p-5 space-y-4"
-        style={{ background: "#111", border: "2px solid #00C6FF", boxShadow: "4px 4px 0 #00C6FF" }}>
+        style={{ background: "#FFFFFF", border: "2px solid #00C6FF", boxShadow: "4px 4px 0 #00C6FF" }}>
         <h2 className="text-xs font-black uppercase tracking-wider" style={{ color: "#00C6FF" }}>New Announcement</h2>
 
         {/* Target Audience */}
         <div>
-          <label className="text-[11px] font-bold uppercase tracking-wider mb-2 block" style={{ color: "#5c6bc0" }}>Target Audience</label>
+          <label className="text-[11px] font-bold uppercase tracking-wider mb-2 block" style={{ color: "#555555" }}>Target Audience</label>
           <div className="flex gap-2">
             {[
               { id: "all" as const, label: "All Fans", icon: Users },
@@ -81,7 +81,7 @@ export default function BroadcastPage() {
 
         {/* Message */}
         <div>
-          <label htmlFor="broadcast-msg" className="text-[11px] font-bold uppercase tracking-wider mb-1 block" style={{ color: "#5c6bc0" }}>
+          <label htmlFor="broadcast-msg" className="text-[11px] font-bold uppercase tracking-wider mb-1 block" style={{ color: "#555555" }}>
             Message Content
           </label>
           <textarea
@@ -93,9 +93,9 @@ export default function BroadcastPage() {
             maxLength={280}
             className="w-full px-4 py-3 rounded-lg text-sm border-2 placeholder-gray-600 focus:outline-none"
             style={{
-              background: "#0A0A0A",
+              background: "#FFFFFF",
               borderColor: "rgba(255,255,255,0.1)",
-              color: "#F5F0E8",
+              color: "#050505",
             }}
             aria-label="Announcement message"
           />
@@ -125,9 +125,9 @@ export default function BroadcastPage() {
 
       {/* History */}
       <div>
-        <h2 className="text-sm font-black uppercase tracking-wider mb-3" style={{ color: "#F5F0E8" }}>Recent Announcements</h2>
+        <h2 className="text-sm font-black uppercase tracking-wider mb-3" style={{ color: "#050505" }}>Recent Announcements</h2>
         {announcements.length === 0 ? (
-          <div className="rounded-xl p-8 text-center" style={{ background: "#111", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
+          <div className="rounded-xl p-8 text-center" style={{ background: "#FFFFFF", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
             No announcements sent yet
           </div>
         ) : (
@@ -136,12 +136,12 @@ export default function BroadcastPage() {
               <div
                 key={ann.id}
                 className="rounded-xl p-4 transition-all"
-                style={{ background: "#111", border: "2px solid rgba(255,255,255,0.08)", boxShadow: "3px 3px 0 rgba(0,0,0,0.5)" }}
+                style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "3px 3px 0 rgba(0,0,0,0.5)" }}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-sm font-bold" style={{ color: "#F5F0E8" }}>{ann.message}</p>
-                    <div className="flex items-center gap-3 mt-2.5 text-xs" style={{ color: "#5c6bc0" }}>
+                    <p className="text-sm font-bold" style={{ color: "#050505" }}>{ann.message}</p>
+                    <div className="flex items-center gap-3 mt-2.5 text-xs" style={{ color: "#555555" }}>
                       <span className="flex items-center gap-1">
                         <Users className="w-3.5 h-3.5" />
                         {ann.target === "all" ? "All Fans" : ann.target === "section" ? "Section" : "Staff"}

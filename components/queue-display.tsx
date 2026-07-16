@@ -65,7 +65,7 @@ export default function QueueDisplay({
     const diff = queue.arrivalRate - queue.maxServiceRate;
     if (diff > 2) return { icon: TrendingUp, label: "Getting longer", color: "#FF3333" };
     if (diff < -2) return { icon: TrendingDown, label: "Getting shorter", color: "#00FF87" };
-    return { icon: Minus, label: "Stable", color: "#5c6bc0" };
+    return { icon: Minus, label: "Stable", color: "#555555" };
   };
 
   return (
@@ -105,7 +105,7 @@ export default function QueueDisplay({
             key={queue.id}
             className="rounded-xl p-4 transition-all duration-150"
             style={{
-              background: "#111",
+              background: "#FFFFFF",
               border: borderStyle,
               boxShadow: `4px 4px 0 ${shadowColor}`,
             }}
@@ -115,13 +115,13 @@ export default function QueueDisplay({
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-extrabold text-sm truncate" style={{ color: "#F5F0E8" }}>
+                  <h3 className="font-extrabold text-sm truncate" style={{ color: "#050505" }}>
                     {queue.name}
                   </h3>
                   {isBest && <span className="comic-label">SHORTEST</span>}
                   {!queue.isOpen && <span className="comic-label" style={{ background: "#FF3333", color: "#fff" }}>CLOSED</span>}
                 </div>
-                <div className="flex items-center gap-4 mt-2 text-xs" style={{ color: "#5c6bc0" }}>
+                <div className="flex items-center gap-4 mt-2 text-xs" style={{ color: "#555555" }}>
                   <span className="flex items-center gap-1">
                     <Users className="w-3.5 h-3.5" aria-hidden="true" />
                     {queue.currentQueue} in line
@@ -142,7 +142,7 @@ export default function QueueDisplay({
             </div>
 
             {/* Wait time bar */}
-            <div className="mt-3.5 h-1.5 rounded-full overflow-hidden" style={{ background: "#0A0A0A" }} aria-hidden="true">
+            <div className="mt-3.5 h-1.5 rounded-full overflow-hidden" style={{ background: "#FFFFFF" }} aria-hidden="true">
               <div
                 className="h-full rounded-full transition-all duration-700"
                 style={{
@@ -177,7 +177,7 @@ export default function QueueDisplay({
       })}
 
       {sortedQueues.length === 0 && (
-        <div className="rounded-xl p-8 text-center" style={{ background: "#111", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
+        <div className="rounded-xl p-8 text-center" style={{ background: "#FFFFFF", border: "2px dashed rgba(255,255,255,0.06)", color: "#3b4480" }}>
           <AlertCircle className="w-10 h-10 mx-auto mb-2 opacity-50" aria-hidden="true" />
           <p className="text-sm font-bold">No active queues in this category</p>
         </div>

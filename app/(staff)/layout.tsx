@@ -118,7 +118,7 @@ export default function StaffLayout({
         <aside
           className="w-64 flex flex-col hidden md:flex flex-shrink-0"
           style={{
-            background: "#0A0A0A",
+            background: "#FFFFFF",
             borderRight: "2px solid rgba(255,255,255,0.1)",
           }}
           role="navigation"
@@ -133,7 +133,7 @@ export default function StaffLayout({
                 <Activity className="w-5 h-5" />
               </div>
               <div>
-                <h1 className="text-sm font-extrabold" style={{ color: "#F5F0E8" }}>Staff Dashboard</h1>
+                <h1 className="text-sm font-extrabold" style={{ color: "#050505" }}>Staff Dashboard</h1>
                 <p className="text-[10px] uppercase font-bold" style={{ color: "#00C6FF" }}>StadiumFlow AI</p>
               </div>
             </div>
@@ -167,8 +167,8 @@ export default function StaffLayout({
             </div>
             <Link
               href="/"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors hover:text-white"
-              style={{ color: "#5c6bc0" }}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors hover:text-black"
+              style={{ color: "#555555" }}
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Home
@@ -180,7 +180,7 @@ export default function StaffLayout({
         <div
           className="md:hidden fixed top-0 left-0 right-0 z-40 px-4 py-3 flex-shrink-0"
           style={{
-            background: "#0A0A0A",
+            background: "#FFFFFF",
             borderBottom: "2px solid #00C6FF",
             boxShadow: "0 4px 0 rgba(0,198,255,0.12)",
           }}
@@ -193,9 +193,9 @@ export default function StaffLayout({
               >
                 <Activity className="w-4 h-4" />
               </div>
-              <span className="text-sm font-extrabold" style={{ color: "#F5F0E8" }}>Staff Dashboard</span>
+              <span className="text-sm font-extrabold" style={{ color: "#050505" }}>Staff Dashboard</span>
             </div>
-            <Link href="/" className="text-xs font-bold uppercase tracking-widest text-red-400 hover:text-white">
+            <Link href="/" className="text-xs font-bold uppercase tracking-widest text-red-400 hover:text-black">
               ← Exit
             </Link>
           </div>

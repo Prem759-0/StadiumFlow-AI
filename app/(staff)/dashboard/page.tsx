@@ -74,14 +74,14 @@ export default function DashboardPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="comic-label">FIFA WC 2026</span>
-            <span className="text-[10px] pulse-dot" style={{ color: "#5c6bc0" }}>
+            <span className="text-[10px] pulse-dot" style={{ color: "#555555" }}>
               &nbsp;&nbsp;LIVE MONITORING
             </span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold" style={{ color: "#F5F0E8" }}>
+          <h1 className="text-2xl md:text-3xl font-extrabold" style={{ color: "#050505" }}>
             Operations Overview
           </h1>
-          <p className="text-xs mt-1" style={{ color: "#5c6bc0" }}>
+          <p className="text-xs mt-1" style={{ color: "#555555" }}>
             MetLife Stadium · East Rutherford, NJ · 82,500 capacity
           </p>
         </div>
@@ -121,11 +121,11 @@ export default function DashboardPage() {
             <div
               key={card.label}
               className="rounded-xl p-4"
-              style={{ background: "#111", border: `2px solid ${c.border}`, boxShadow: `4px 4px 0 ${c.shadow}` }}
+              style={{ background: "#FFFFFF", border: `2px solid ${c.border}`, boxShadow: `4px 4px 0 ${c.shadow}` }}
               aria-label={`${card.label}: ${card.value}`}
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#5c6bc0" }}>{card.label}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#555555" }}>{card.label}</span>
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                   style={{ background: `${c.border}18`, border: `1px solid ${c.border}40` }}>
                   <Icon className="w-4 h-4" style={{ color: c.text }} aria-hidden="true" />
@@ -140,10 +140,10 @@ export default function DashboardPage() {
 
       {/* ── AI Performance Bars ── */}
       <div
-        className="rounded-xl p-5 comic-panel"
-        style={{ background: "#111", border: "2px solid rgba(255,255,255,0.08)", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}
+        className="rounded-xl p-5 comic-panel bg-white"
+        style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}
       >
-        <h2 className="text-sm font-bold flex items-center gap-2 mb-4" style={{ color: "#F5F0E8" }}>
+        <h2 className="text-sm font-bold flex items-center gap-2 mb-4" style={{ color: "#050505" }}>
           <Zap className="w-4 h-4" style={{ color: "#00FF87" }} />
           AI Performance Impact
           <span className="comic-label ml-auto">GEMINI 2.0</span>
@@ -157,10 +157,10 @@ export default function DashboardPage() {
             <div key={label} className="rounded-lg p-4" style={{ background: "rgba(0,0,0,0.4)", border: `1px solid ${color}25` }}>
               <div className="flex items-center gap-2 mb-2">
                 <Icon className="w-4 h-4" style={{ color }} />
-                <span className="text-xs" style={{ color: "#9fa8da" }}>{label}</span>
+                <span className="text-xs" style={{ color: "#555555" }}>{label}</span>
               </div>
               <p className="text-3xl font-black tabular-nums mb-2" style={{ color }}>{value}{label.includes("Score") ? "" : "%"}</p>
-              <div className="h-2 rounded-full" style={{ background: "#222" }}>
+              <div className="h-2 rounded-full" style={{ background: "#FFFFFF" }}>
                 <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${value}%`, background: gradient }} />
               </div>
             </div>
@@ -170,17 +170,17 @@ export default function DashboardPage() {
 
       {/* ── Live Heatmap + Zone List ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="rounded-xl p-5" style={{ background: "#111", border: "2px solid #FFE600", boxShadow: "4px 4px 0 #FFE600" }}>
+        <div className="rounded-xl p-5" style={{ background: "#FFFFFF", border: "2px solid #FFE600", boxShadow: "4px 4px 0 #FFE600" }}>
           <h2 className="text-sm font-bold flex items-center gap-2 mb-4" style={{ color: "#FFE600" }}>
             <BarChart3 className="w-4 h-4" />
             Live Stadium Heatmap
-            <span className="text-[10px] pulse-dot ml-3" style={{ color: "#5c6bc0" }}>&nbsp;&nbsp;Real-time</span>
+            <span className="text-[10px] pulse-dot ml-3" style={{ color: "#555555" }}>&nbsp;&nbsp;Real-time</span>
           </h2>
           <StadiumMap zones={zones} selectedZone={selectedZone} onZoneClick={setSelectedZone} className="aspect-square" />
         </div>
 
-        <div className="rounded-xl p-5" style={{ background: "#111", border: "2px solid rgba(255,255,255,0.1)", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}>
-          <h2 className="text-sm font-bold mb-4" style={{ color: "#F5F0E8" }}>Zone Occupancy</h2>
+        <div className="rounded-xl p-5" style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}>
+          <h2 className="text-sm font-bold mb-4" style={{ color: "#050505" }}>Zone Occupancy</h2>
           <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
             {zones
               .sort((a, b) => b.currentOccupancy / b.capacity - a.currentOccupancy / a.capacity)
@@ -194,14 +194,14 @@ export default function DashboardPage() {
                     className="w-full text-left p-3 rounded-lg transition-all"
                     style={{
                       background: selectedZone === zone.id ? "rgba(255,255,255,0.06)" : "transparent",
-                      border: `1px solid ${selectedZone === zone.id ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.04)"}`,
+                      border: `2px solid ${selectedZone === zone.id ? "#FFE600" : "#000"}`,
                     }}
                   >
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold truncate" style={{ color: "#F5F0E8" }}>{zone.name}</span>
+                      <span className="text-xs font-semibold truncate" style={{ color: "#050505" }}>{zone.name}</span>
                       <span className="text-sm font-black tabular-nums" style={{ color }}>{pct}%</span>
                     </div>
-                    <div className="h-1.5 rounded-full" style={{ background: "#222" }}>
+                    <div className="h-1.5 rounded-full" style={{ background: "#FFFFFF" }}>
                       <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, background: color }} />
                     </div>
                     <p className="text-[10px] mt-1" style={{ color: "#3b4480" }}>
@@ -222,11 +222,11 @@ export default function DashboardPage() {
           { icon: Shield, label: "Auth Guard", status: "Active", color: "#BF5FFF" },
         ].map(({ icon: Icon, label, status, color }) => (
           <div key={label} className="rounded-lg p-3 flex items-center gap-2"
-            style={{ background: "#111", border: `1px solid ${color}30` }}>
+            style={{ background: "#FFFFFF", border: `1px solid ${color}30` }}>
             <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: color }} />
             <Icon className="w-3.5 h-3.5" style={{ color }} />
             <div>
-              <p className="text-[10px] font-bold" style={{ color: "#F5F0E8" }}>{label}</p>
+              <p className="text-[10px] font-bold" style={{ color: "#050505" }}>{label}</p>
               <p className="text-[9px]" style={{ color }}>{status}</p>
             </div>
           </div>

@@ -51,7 +51,7 @@ const LanguageSwitcher = () => {
                 <span className="text-base">{lang.flag}</span>
                 <div>
                   <div className="font-medium">{lang.native}</div>
-                  <div className="text-xs text-gray-500">{lang.label}</div>
+                  <div className="text-xs text-gray-600">{lang.label}</div>
                 </div>
                 {i18n.language === lang.code && <span className="ml-auto text-blue-600">✓</span>}
               </button>

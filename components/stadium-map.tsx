@@ -76,7 +76,7 @@ export default function StadiumMap({
           rx="38"
           ry="36"
           fill="none"
-          stroke="rgba(255,255,255,0.08)"
+          stroke="#000000"
           strokeWidth="0.3"
         />
 

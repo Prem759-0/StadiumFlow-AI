@@ -37,8 +37,8 @@ export default function QueuesPage() {
           <Clock className="w-5 h-5 text-black" />
         </div>
         <div>
-          <h1 className="text-lg font-extrabold" style={{ color: "#F5F0E8" }}>Live Queue Predictor</h1>
-          <p className="text-xs" style={{ color: "#5c6bc0" }}>Real-time wait times & virtual queues</p>
+          <h1 className="text-lg font-extrabold" style={{ color: "#050505" }}>Live Queue Predictor</h1>
+          <p className="text-xs" style={{ color: "#555555" }}>Real-time wait times & virtual queues</p>
         </div>
         <span className="comic-label ml-auto">LIVE</span>
       </div>
@@ -55,11 +55,11 @@ export default function QueuesPage() {
               <div
                 key={ticket.id}
                 className="rounded-xl p-3 flex items-center justify-between animate-bounce-in"
-                style={{ background: "#111", border: "2px solid #BF5FFF", boxShadow: "3px 3px 0 #BF5FFF" }}
+                style={{ background: "#FFFFFF", border: "2px solid #BF5FFF", boxShadow: "3px 3px 0 #BF5FFF" }}
               >
                 <div>
-                  <p className="text-sm font-extrabold" style={{ color: "#F5F0E8" }}>{ticket.queueName}</p>
-                  <p className="text-xs mt-0.5" style={{ color: "#9fa8da" }}>
+                  <p className="text-sm font-extrabold" style={{ color: "#050505" }}>{ticket.queueName}</p>
+                  <p className="text-xs mt-0.5" style={{ color: "#555555" }}>
                     Position #{ticket.position} ·{" "}
                     {ticket.status === "waiting"
                       ? `Ready in ~${formatWaitTime(

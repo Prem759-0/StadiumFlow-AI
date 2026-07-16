@@ -63,10 +63,10 @@ export default function PredictionsPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="comic-label" style={{ background: "#BF5FFF", color: "#fff" }}>AI PANEL</span>
-            <span className="text-[10px] pulse-dot" style={{ color: "#5c6bc0" }}>&nbsp;&nbsp;GEMINI INSIGHTS</span>
+            <span className="text-[10px] pulse-dot" style={{ color: "#555555" }}>&nbsp;&nbsp;GEMINI INSIGHTS</span>
           </div>
-          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#F5F0E8" }}>AI Predictions</h1>
-          <p className="text-xs mt-1" style={{ color: "#5c6bc0" }}>
+          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#050505" }}>AI Predictions</h1>
+          <p className="text-xs mt-1" style={{ color: "#555555" }}>
             Real-time predictive analytics for proactive crowd coordination
           </p>
         </div>
@@ -83,11 +83,11 @@ export default function PredictionsPage() {
 
       {/* Gemini Banner */}
       <div className="rounded-xl p-4 flex items-center gap-3"
-        style={{ background: "#111", border: "2px solid #BF5FFF", boxShadow: "4px 4px 0 #BF5FFF" }}>
+        style={{ background: "#FFFFFF", border: "2px solid #BF5FFF", boxShadow: "4px 4px 0 #BF5FFF" }}>
         <Sparkles className="w-6 h-6 flex-shrink-0" style={{ color: "#BF5FFF" }} />
         <div>
-          <p className="text-sm font-bold" style={{ color: "#F5F0E8" }}>Powered by Google Gemini 2.0 Flash</p>
-          <p className="text-xs mt-0.5" style={{ color: "#5c6bc0" }}>
+          <p className="text-sm font-bold" style={{ color: "#050505" }}>Powered by Google Gemini 2.0 Flash</p>
+          <p className="text-xs mt-0.5" style={{ color: "#555555" }}>
             The reasoning engine evaluates live crowd flows, queue patterns, and historical event logs to generate real-time forecasts.
           </p>
         </div>
@@ -102,7 +102,7 @@ export default function PredictionsPage() {
               key={index}
               className="rounded-xl p-4 flex items-start gap-3 animate-slide-up"
               style={{
-                background: "#111",
+                background: "#FFFFFF",
                 border: `2px solid ${border}`,
                 boxShadow: "3px 3px 0 rgba(0,0,0,0.5)",
                 animationDelay: `${index * 80}ms`,
@@ -113,7 +113,7 @@ export default function PredictionsPage() {
                 <Icon className="w-4 h-4" style={{ color }} aria-hidden="true" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-bold leading-relaxed" style={{ color: "#F5F0E8" }}>{prediction}</p>
+                <p className="text-sm font-bold leading-relaxed" style={{ color: "#050505" }}>{prediction}</p>
               </div>
               <span className="comic-label flex-shrink-0">#{index + 1}</span>
             </div>
@@ -127,8 +127,8 @@ export default function PredictionsPage() {
       </p>
 
       {/* Quick Insights Grid */}
-      <div className="rounded-xl p-5" style={{ background: "#111", border: "2px solid rgba(255,255,255,0.08)", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}>
-        <h2 className="text-sm font-bold mb-4" style={{ color: "#F5F0E8" }}>Operational Insights</h2>
+      <div className="rounded-xl p-5" style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}>
+        <h2 className="text-sm font-bold mb-4" style={{ color: "#050505" }}>Operational Insights</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
             {
@@ -170,8 +170,8 @@ export default function PredictionsPage() {
               color: "#00C6FF",
             },
           ].map((insight) => (
-            <div key={insight.label} className="p-3.5 rounded-lg" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#5c6bc0" }}>{insight.label}</p>
+            <div key={insight.label} className="p-3.5 rounded-lg" style={{ background: "#FFFFFF", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#555555" }}>{insight.label}</p>
               <p className="text-sm font-extrabold mt-1" style={{ color: insight.color }}>{insight.value}</p>
             </div>
           ))}

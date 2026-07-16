@@ -45,18 +45,18 @@ export default function LeaderboardPage() {
           <Trophy className="w-5 h-5 text-black" />
         </div>
         <div>
-          <h1 className="text-lg font-extrabold" style={{ color: "#F5F0E8" }}>Fan Leaderboard</h1>
-          <p className="text-xs" style={{ color: "#5c6bc0" }}>Earn points by engaging with StadiumFlow AI</p>
+          <h1 className="text-lg font-extrabold" style={{ color: "#050505" }}>Fan Leaderboard</h1>
+          <p className="text-xs" style={{ color: "#555555" }}>Earn points by engaging with StadiumFlow AI</p>
         </div>
       </div>
 
       {/* My Score Card */}
-      <div className="rounded-xl p-4 comic-panel" style={{ background: "#111", border: "2px solid #FFE600", boxShadow: "4px 4px 0 #FFE600" }}>
+      <div className="rounded-xl p-4 comic-panel bg-white" style={{ background: "#FFFFFF", border: "2px solid #FFE600", boxShadow: "4px 4px 0 #FFE600" }}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#5c6bc0" }}>Your Score</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#555555" }}>Your Score</p>
             <p className="text-4xl font-black tabular-nums" style={{ color: "#FFE600" }}>{points}</p>
-            <p className="text-xs mt-1" style={{ color: "#9fa8da" }}>pts · Rank #{userRank}</p>
+            <p className="text-xs mt-1" style={{ color: "#555555" }}>pts · Rank #{userRank}</p>
           </div>
           <div className="text-right">
             <div className="w-16 h-16 rounded-xl flex items-center justify-center font-black text-2xl"
@@ -66,7 +66,7 @@ export default function LeaderboardPage() {
             <p className="text-[10px] mt-1 font-bold" style={{ color: "#FFE600" }}>Fan Rep</p>
           </div>
         </div>
-        <div className="mt-3 h-2 rounded-full" style={{ background: "#222" }}>
+        <div className="mt-3 h-2 rounded-full" style={{ background: "#FFFFFF" }}>
           <div className="h-full rounded-full transition-all duration-700"
             style={{ width: `${Math.min(100, (points / 1250) * 100)}%`, background: "linear-gradient(90deg, #CCBA00, #FFE600)" }} />
         </div>
@@ -100,14 +100,14 @@ export default function LeaderboardPage() {
               className="rounded-xl px-4 py-3 flex items-center gap-3"
               style={{
                 background: entry.rank <= 3 ? `rgba(${entry.rank === 1 ? "255,230,0" : entry.rank === 2 ? "192,192,192" : "205,127,50"},0.08)` : "#111",
-                border: `2px solid ${entry.rank === 1 ? "#FFE600" : entry.rank === 2 ? "#C0C0C0" : entry.rank === 3 ? "#CD7F32" : "rgba(255,255,255,0.08)"}`,
+                border: `2px solid ${entry.rank === 1 ? "#FFE600" : entry.rank === 2 ? "#C0C0C0" : entry.rank === 3 ? "#CD7F32" : "#000000"}`,
                 boxShadow: entry.rank <= 3 ? `3px 3px 0 ${entry.rank === 1 ? "#FFE600" : entry.rank === 2 ? "#C0C0C0" : "#CD7F32"}` : "none",
               }}
             >
               <span className="text-lg w-6 text-center">{entry.badge}</span>
-              <span className="font-black text-sm w-5 tabular-nums" style={{ color: "#5c6bc0" }}>#{entry.rank}</span>
+              <span className="font-black text-sm w-5 tabular-nums" style={{ color: "#555555" }}>#{entry.rank}</span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold truncate" style={{ color: "#F5F0E8" }}>
+                <p className="text-sm font-bold truncate" style={{ color: "#050505" }}>
                   {entry.country} {entry.name}
                 </p>
                 <p className="text-[10px]" style={{ color: "#3b4480" }}>{entry.title}</p>
@@ -139,8 +139,8 @@ export default function LeaderboardPage() {
       )}
 
       {/* How to Earn */}
-      <div className="rounded-xl p-4" style={{ background: "#111", border: "2px solid rgba(255,255,255,0.08)" }}>
-        <h2 className="text-xs font-black uppercase tracking-wider mb-3 flex items-center gap-2" style={{ color: "#F5F0E8" }}>
+      <div className="rounded-xl p-4" style={{ background: "#FFFFFF", border: "2px solid #000" }}>
+        <h2 className="text-xs font-black uppercase tracking-wider mb-3 flex items-center gap-2" style={{ color: "#050505" }}>
           <TrendingUp className="w-4 h-4" style={{ color: "#00FF87" }} />
           How To Earn Points
         </h2>
@@ -155,7 +155,7 @@ export default function LeaderboardPage() {
           ].map(({ action, pts }) => (
             <div key={action} className="flex items-center justify-between px-3 py-2 rounded-lg"
               style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <span className="text-[11px]" style={{ color: "#9fa8da" }}>{action}</span>
+              <span className="text-[11px]" style={{ color: "#555555" }}>{action}</span>
               <span className="text-[11px] font-black" style={{ color: "#00FF87" }}>{pts}</span>
             </div>
           ))}

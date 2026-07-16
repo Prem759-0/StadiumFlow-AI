@@ -115,7 +115,7 @@ export default function AttendeeLayout({
       <header
         className="sticky top-0 z-40 px-4 py-3 flex items-center justify-between"
         style={{
-          background: "#0A0A0A",
+          background: "#FFFFFF",
           borderBottom: "2px solid #00FF87",
           boxShadow: "0 4px 0 rgba(0,255,135,0.15)",
         }}
@@ -129,8 +129,8 @@ export default function AttendeeLayout({
             SF
           </div>
           <div>
-            <h1 className="text-sm font-extrabold" style={{ color: "#F5F0E8" }}>StadiumFlow AI</h1>
-            <p className="text-[10px]" style={{ color: "#5c6bc0" }}>
+            <h1 className="text-sm font-extrabold" style={{ color: "#050505" }}>StadiumFlow AI</h1>
+            <p className="text-[10px]" style={{ color: "#555555" }}>
               {profile.seatSection} · Row {profile.seatRow} · Seat {profile.seatNumber}
             </p>
           </div>
@@ -174,7 +174,7 @@ export default function AttendeeLayout({
       <nav
         className="fixed bottom-0 left-0 right-0 z-40"
         style={{
-          background: "#0A0A0A",
+          background: "#FFFFFF",
           borderTop: "2px solid rgba(255,255,255,0.1)",
           boxShadow: "0 -4px 0 rgba(0,0,0,0.5)",
         }}
