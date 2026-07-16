@@ -60,9 +60,12 @@ function getMockChat() {
 }
 
 export async function POST(request: NextRequest) {
+  let reqType = "chat";
+
   try {
     const body = await request.json();
     const { type, message, history, zoneData, queueData, timeContext } = body;
+    if (type) reqType = type;
 
     // Input validation
     if (!type || typeof type !== "string") {
@@ -199,8 +202,7 @@ Provide exactly 6 short predictions with emoji prefixes. One per line.`;
   } catch (error) {
     console.error("AI API error:", error);
     // Graceful fallback on errors
-    const { type } = await request.clone().json().catch(() => ({ type: "chat" }));
-    if (type === "predict") {
+    if (reqType === "predict") {
       return NextResponse.json({ predictions: getMockPredictions() });
     }
     return NextResponse.json({

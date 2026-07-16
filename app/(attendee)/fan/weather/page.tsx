@@ -106,16 +106,17 @@ export default function WeatherPage() {
         </div>
 
         {/* Weather Metrics Grid */}
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
           {[
             { icon: Droplets, label: "Humidity", value: `${WEATHER_DATA.humidity}%`, color: "#00C6FF" },
             { icon: Wind, label: "Wind", value: `${WEATHER_DATA.windSpeed} km/h`, color: "#00FF87" },
             { icon: Eye, label: "UV Index", value: `${WEATHER_DATA.uvIndex} Very High`, color: "#FFE600" },
           ].map(({ icon: Icon, label, value, color }) => (
-            <div key={label} className="rounded-lg p-2.5 text-center" style={{ background: "rgba(0,0,0,0.4)", border: `1px solid ${color}25` }}>
-              <Icon className="w-4 h-4 mx-auto mb-1" style={{ color }} />
-              <p className="text-xs font-bold" style={{ color: "#050505" }}>{value}</p>
-              <p className="text-[9px]" style={{ color: "#3b4480" }}>{label}</p>
+            <div key={label} className="rounded-xl p-4 text-center comic-panel bg-white aspect-square flex flex-col items-center justify-center transition-transform hover:-translate-y-1 hover:shadow-[6px_6px_0_#000]" 
+                 style={{ border: "4px solid #000", boxShadow: "4px 4px 0 #000" }}>
+              <Icon className="w-10 h-10 mb-2" style={{ color }} />
+              <p className="text-xl font-black text-black leading-none mb-1">{value}</p>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">{label}</p>
             </div>
           ))}
         </div>

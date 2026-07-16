@@ -73,12 +73,12 @@ export default function TriviaCard() {
 
   return (
     <div
-      className="rounded-xl p-4 comic-panel bg-white"
+      className="rounded-xl p-5 comic-panel bg-white"
       style={{
         background: "#FFFFFF",
-        border: `2px solid ${item.color}`,
-        boxShadow: `4px 4px 0 ${item.color}`,
-        transition: "border-color 0.3s, box-shadow 0.3s",
+        border: `4px solid #000`,
+        boxShadow: `8px 8px 0 #000`,
+        transition: "transform 0.3s, box-shadow 0.3s",
       }}
       aria-label="FIFA World Cup Trivia"
     >
@@ -115,29 +115,29 @@ export default function TriviaCard() {
       {/* Answer */}
       {revealed ? (
         <div
-          className="rounded-lg p-3 mb-3 animate-fade-in"
-          style={{ background: "rgba(0,0,0,0.4)", border: `1px solid ${item.color}40` }}
+          className="rounded-lg p-4 mb-4 animate-fade-in"
+          style={{ background: "#F5F0E8", border: `3px solid #000`, boxShadow: `4px 4px 0 #000` }}
         >
-          <p className="text-xs leading-relaxed" style={{ color: "#555555" }}>
+          <p className="text-sm font-bold leading-relaxed" style={{ color: "#000" }}>
             {item.answer}
           </p>
         </div>
       ) : (
         <button
           onClick={handleReveal}
-          className="w-full rounded-lg px-4 py-2.5 text-sm font-bold mb-3 transition-all duration-150"
+          className="w-full rounded-lg px-4 py-3 text-sm font-black uppercase tracking-wider mb-4 transition-all duration-150"
           style={{
-            background: `${item.color}22`,
-            border: `2px solid ${item.color}`,
-            color: item.color,
-            boxShadow: `3px 3px 0 ${item.color}`,
+            background: item.color,
+            border: `3px solid #000`,
+            color: "#000",
+            boxShadow: `4px 4px 0 #000`,
           }}
           onMouseEnter={e => {
-            (e.currentTarget as HTMLElement).style.boxShadow = `1px 1px 0 ${item.color}`;
+            (e.currentTarget as HTMLElement).style.boxShadow = `2px 2px 0 #000`;
             (e.currentTarget as HTMLElement).style.transform = "translate(2px, 2px)";
           }}
           onMouseLeave={e => {
-            (e.currentTarget as HTMLElement).style.boxShadow = `3px 3px 0 ${item.color}`;
+            (e.currentTarget as HTMLElement).style.boxShadow = `4px 4px 0 #000`;
             (e.currentTarget as HTMLElement).style.transform = "translate(0, 0)";
           }}
         >

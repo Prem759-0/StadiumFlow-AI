@@ -69,7 +69,7 @@ export default function QueueDisplay({
   };
 
   return (
-    <div className="space-y-4" role="list" aria-label="Queue wait times">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5" role="list" aria-label="Queue wait times">
       {sortedQueues.map((queue, index) => {
         const trend = getTrend(queue);
         const TrendIcon = trend.icon;
@@ -133,24 +133,21 @@ export default function QueueDisplay({
                 </div>
               </div>
 
-              <div className="text-right flex-shrink-0">
-                <div className="text-sm font-black tabular-nums flex items-center gap-1" style={{ color: waitColor }}>
-                  <Clock className="w-3.5 h-3.5" aria-hidden="true" />
-                  {formatWaitTime(queue.estimatedWait)}
+                <div className="relative w-14 h-14 flex-shrink-0 group cursor-pointer hover:scale-110 transition-transform">
+                  <svg viewBox="0 0 36 36" className="w-14 h-14 transform -rotate-90">
+                    <path stroke="#E5E7EB" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" strokeWidth="4" />
+                    <path style={{ color: waitColor }} className="transition-all duration-1000 ease-out animate-draw" strokeDasharray={`${Math.min(100, (queue.estimatedWait / 20) * 100)}, 100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="4" />
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center leading-none">
+                    <span className="text-[10px] font-black" style={{ color: waitColor }}>{formatWaitTime(queue.estimatedWait).replace('m', '')}</span>
+                    <span className="text-[8px] font-bold" style={{ color: waitColor }}>MIN</span>
+                  </div>
+                  {/* Hover tooltip */}
+                  <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-[#00FF87] text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-[#00FF87] shadow-[2px_2px_0_#00FF87] whitespace-nowrap z-10 pointer-events-none">
+                    {queue.currentQueue} fans in line!
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Wait time bar */}
-            <div className="mt-3.5 h-1.5 rounded-full overflow-hidden" style={{ background: "#FFFFFF" }} aria-hidden="true">
-              <div
-                className="h-full rounded-full transition-all duration-700"
-                style={{
-                  width: `${Math.min(100, (queue.estimatedWait / 20) * 100)}%`,
-                  background: waitColor,
-                }}
-              />
-            </div>
 
             {/* Virtual Queue Button */}
             {showVirtualQueue && queue.isOpen && (

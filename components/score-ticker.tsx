@@ -74,29 +74,30 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
         </div>
 
         {/* Scrolling ticker */}
-        <div className="ticker-wrapper rounded-lg px-2 py-1.5"
-          style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.06)" }}>
-          <div className="ticker-content flex items-center gap-8">
+        <div className="ticker-wrapper rounded-lg px-2 py-2"
+          style={{ background: "#F5F0E8", border: "2px solid #000", boxShadow: "2px 2px 0 #000" }}>
+          <div className="ticker-content flex items-center gap-8" style={{ animationDuration: "15s" }}>
             {[...FIFA_MATCHES, ...FIFA_MATCHES].map((match, i) => (
-              <span key={`${match.id}-${i}`} className="inline-flex items-center gap-3 tabular-nums">
+              <span key={`${match.id}-${i}`} className="inline-flex items-center gap-3 tabular-nums whitespace-nowrap text-black">
                 {match.status === "live" && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
+                  <span className="w-2 h-2 rounded-full bg-[#FF3333] animate-pulse inline-block border border-black" />
                 )}
-                <span className="font-bold text-sm" style={{ color: "#050505" }}>{match.home}</span>
-                <span className="font-black text-base" style={{
-                  color: match.status === "live" ? "#00FF87" : match.status === "completed" ? "#5c6bc0" : "#FFE600"
+                <span className="font-black text-sm uppercase">{match.home}</span>
+                <span className="font-black text-base px-2 py-0.5 rounded border-2 border-black" style={{
+                  background: match.status === "live" ? "#00FF87" : match.status === "completed" ? "#FFFFFF" : "#FFE600",
+                  color: "#000"
                 }}>
-                  {match.status === "upcoming" ? "vs" : `${match.homeScore} – ${match.awayScore}`}
+                  {match.status === "upcoming" ? "VS" : `${match.homeScore} – ${match.awayScore}`}
                 </span>
-                <span className="font-bold text-sm" style={{ color: "#050505" }}>{match.away}</span>
+                <span className="font-black text-sm uppercase">{match.away}</span>
                 {match.time && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded font-mono"
-                    style={{ background: match.status === "live" ? "rgba(255,51,51,0.2)" : "rgba(255,255,255,0.06)", color: match.status === "live" ? "#FF3333" : "#5c6bc0" }}>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded font-black border-2 border-black"
+                    style={{ background: match.status === "live" ? "#FF3333" : "#FFFFFF", color: match.status === "live" ? "#FFFFFF" : "#000" }}>
                     {match.time}
                   </span>
                 )}
-                <span className="text-[10px]" style={{ color: "#3b4480" }}>{match.venue}</span>
-                <span style={{ color: "#333" }}>|</span>
+                <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider">{match.venue}</span>
+                <span className="font-black text-gray-400">|</span>
               </span>
             ))}
           </div>

@@ -7,10 +7,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   MapPin, LayoutDashboard, Zap, Users, Clock, Route, Bot, Shield,
   Globe, TrendingUp, Trophy, Cpu, Radio, Flame, ChevronRight,
-  Star, ArrowRight, Activity,
+  Star, ArrowRight, Activity, Loader2,
 } from "lucide-react";
 
 const FEATURES = [
@@ -107,6 +108,19 @@ const WORKFLOW = [
 export default function HomePage() {
   const [tick, setTick] = useState(0);
   const [hovered, setHovered] = useState<number | null>(null);
+  const [isPendingFan, setIsPendingFan] = useState(false);
+  const [isPendingStaff, setIsPendingStaff] = useState(false);
+  const router = useRouter();
+
+  const handleNavFan = () => {
+    setIsPendingFan(true);
+    router.push("/fan");
+  };
+
+  const handleNavStaff = () => {
+    setIsPendingStaff(true);
+    router.push("/dashboard");
+  };
 
   useEffect(() => {
     const id = setInterval(() => setTick(t => t + 1), 2000);
@@ -140,11 +154,11 @@ export default function HomePage() {
                 Powered by Google Gemini 2.0 Flash
               </span>
             </div>
-            <div className="comic-label">FIFA WC 2026</div>
+            <div className="comic-label bg-[#00FF87] border-2 border-black text-black">FIFA WC 2026</div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1"
-              style={{ background: "#FFFFFF", border:"2px solid #00FF87", boxShadow:"2px 2px 0 #00FF87" }}>
-              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background:"#00FF87" }} />
-              <span className="text-[10px] font-black uppercase tracking-wider" style={{ color:"#00FF87" }}>Live Now</span>
+              style={{ background: "#FFFFFF", border:"2px solid #000000", boxShadow:"3px 3px 0 #000000" }}>
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background:"#FF3333" }} />
+              <span className="text-[10px] font-black uppercase tracking-wider text-black">Live Now</span>
             </div>
           </div>
 
@@ -159,10 +173,10 @@ export default function HomePage() {
 
           {/* Comic sub-headline box */}
           <div className="inline-block mb-6 px-6 py-3 comic-panel bg-white"
-            style={{ background:"rgba(255,255,255,0.04)", border:"2px solid rgba(255,255,255,0.15)", boxShadow:"4px 4px 0 rgba(255,255,255,0.06)" }}>
-            <p className="text-lg md:text-xl font-bold" style={{ color:"#555555" }}>
+            style={{ border:"3px solid #000", boxShadow:"6px 6px 0 #000" }}>
+            <p className="text-lg md:text-xl font-bold text-black uppercase tracking-wide">
               Smart Stadium Ops for&nbsp;
-              <span className="gradient-text-fifa font-black">FIFA World Cup 2026</span>
+              <span className="text-[#00C6FF] font-black">FIFA World Cup 2026</span>
             </p>
           </div>
 
@@ -347,12 +361,12 @@ export default function HomePage() {
       <div className="section-divider w-full" />
 
       {/* ═══════════════════════════════════ CTA BOTTOM ═══ */}
-      <section className="w-full max-w-4xl px-4 py-20 text-center">
-        <div className="rounded-2xl p-10 comic-panel bg-white relative overflow-hidden"
+      <section className="w-full max-w-4xl px-4 py-8 text-center mt-4">
+        <div className="rounded-2xl px-6 py-10 sm:p-10 comic-panel bg-white relative overflow-hidden"
           style={{ background: "#FFFFFF", border:"3px solid #00FF87", boxShadow:"8px 8px 0 #00FF87" }}>
           <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl opacity-10 pointer-events-none"
             style={{ background:"radial-gradient(circle, #00FF87, transparent)" }} />
-          <div className="comic-label mb-4">Join Now</div>
+          <div className="comic-label mb-2">Join Now</div>
           <h2 className="text-4xl md:text-6xl font-black mb-4" style={{ color:"#050505" }}>
             Ready to Experience<br />
             <span className="gradient-text">World Cup 2026?</span>
@@ -361,16 +375,16 @@ export default function HomePage() {
             Choose your role and dive into the most intelligent stadium experience ever built.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/fan" className="nb-btn nb-btn-green rounded-xl px-10 py-5 text-sm">
-              <MapPin className="w-5 h-5" />
+            <button onClick={handleNavFan} disabled={isPendingFan} className="nb-btn nb-btn-green rounded-xl px-10 py-5 text-sm flex items-center justify-center gap-2">
+              {isPendingFan ? <Loader2 className="w-5 h-5 animate-spin" /> : <MapPin className="w-5 h-5" />}
               I'm a Fan
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href="/dashboard" className="nb-btn nb-btn-blue rounded-xl px-10 py-5 text-sm">
-              <LayoutDashboard className="w-5 h-5" />
+              {!isPendingFan && <ArrowRight className="w-4 h-4" />}
+            </button>
+            <button onClick={handleNavStaff} disabled={isPendingStaff} className="nb-btn nb-btn-blue rounded-xl px-10 py-5 text-sm flex items-center justify-center gap-2">
+              {isPendingStaff ? <Loader2 className="w-5 h-5 animate-spin" /> : <LayoutDashboard className="w-5 h-5" />}
               I'm Staff / Organizer
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+              {!isPendingStaff && <ArrowRight className="w-4 h-4" />}
+            </button>
           </div>
         </div>
 

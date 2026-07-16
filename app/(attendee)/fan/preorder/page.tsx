@@ -88,14 +88,14 @@ export default function PreOrderPage() {
 
       {/* Order Success Banner */}
       {orderPlaced && (
-        <div className="rounded-xl p-4 flex items-center gap-3 animate-bounce-in"
-          style={{ background: "rgba(0,255,135,0.08)", border: "2px solid #00FF87", boxShadow: "4px 4px 0 #00FF87" }}>
-          <Check className="w-6 h-6 flex-shrink-0" style={{ color: "#00FF87" }} />
+        <div className="rounded-xl p-4 flex items-center gap-3 animate-bounce-in comic-panel"
+          style={{ background: "#00FF87", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
+          <Check className="w-6 h-6 flex-shrink-0 text-black" />
           <div>
-            <p className="text-sm font-black" style={{ color: "#00FF87" }}>Order Placed! 🎉</p>
-            <p className="text-xs" style={{ color: "#555555" }}>Ready in ~{pickupSlot} min. +30 points earned!</p>
+            <p className="text-sm font-black text-black">Order Placed! 🎉</p>
+            <p className="text-xs font-bold text-black/80">Ready in ~{pickupSlot} min. +30 points earned!</p>
           </div>
-          <span className="comic-label ml-auto">+30 PTS</span>
+          <span className="comic-label ml-auto bg-white text-black">+30 PTS</span>
         </div>
       )}
 
@@ -109,7 +109,7 @@ export default function PreOrderPage() {
             id="vendor-select"
             value={selectedVendor}
             onChange={(e) => { setSelectedVendor(e.target.value); setCart({}); }}
-            className="w-full px-4 py-3 rounded-xl text-sm font-bold border-2 focus:outline-none appearance-none cursor-pointer"
+            className="w-full px-4 py-3 rounded-xl text-sm font-black border-[3px] focus:outline-none appearance-none cursor-pointer transition-shadow hover:shadow-[4px_4px_0_#000]"
             style={{ background: "#FFFFFF", borderColor: "#000000", color: "#050505" }}
           >
             {foodVendors.map((v) => (
@@ -123,22 +123,22 @@ export default function PreOrderPage() {
       </div>
 
       {/* Vendor Info Card */}
-      <div className="rounded-xl p-4 flex items-center justify-between"
-        style={{ background: "#FFFFFF", border: "2px solid #BF5FFF", boxShadow: "4px 4px 0 #BF5FFF" }}>
+      <div className="rounded-xl p-4 flex items-center justify-between comic-panel"
+        style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
         <div>
           <p className="text-sm font-black" style={{ color: "#050505" }}>{vendor.name}</p>
-          <p className="text-xs capitalize mt-0.5" style={{ color: "#555555" }}>{vendor.category}</p>
+          <p className="text-xs font-bold capitalize mt-0.5" style={{ color: "#555555" }}>{vendor.category}</p>
         </div>
         <div className="flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg"
-            style={{ background: "rgba(0,255,135,0.1)", border: "1px solid rgba(0,255,135,0.3)", color: "#00FF87" }}>
+            style={{ background: "#00FF87", border: "2px solid #000", color: "#000" }}>
             <Clock className="w-3.5 h-3.5" />
             <span className="font-black">{vendor.currentWait} min</span>
           </div>
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg"
-            style={{ background: "rgba(0,0,0,0.04)", border: "1px solid #000000", color: "#555555" }}>
+            style={{ background: "#FFFFFF", border: "2px solid #000000", color: "#050505" }}>
             <MapPin className="w-3.5 h-3.5" />
-            <span className="font-semibold">{vendor.zoneId.replace("food-", "").toUpperCase()} Court</span>
+            <span className="font-bold">{vendor.zoneId.replace("food-", "").toUpperCase()} Court</span>
           </div>
         </div>
       </div>
@@ -154,20 +154,21 @@ export default function PreOrderPage() {
                 key={item.id}
                 className="rounded-xl p-3.5 flex items-center justify-between transition-all duration-150"
                 style={{
-                  background: "#FFFFFF",
-                  border: `2px solid ${qty > 0 ? "#BF5FFF" : "rgba(255,255,255,0.07)"}`,
-                  boxShadow: qty > 0 ? "3px 3px 0 #BF5FFF" : "3px 3px 0 rgba(0,0,0,0.4)",
+                  background: qty > 0 ? "#BF5FFF" : "#FFFFFF",
+                  border: "3px solid #000",
+                  boxShadow: qty > 0 ? "6px 6px 0 #000" : "3px 3px 0 #000",
+                  transform: qty > 0 ? "translate(-3px, -3px)" : "none",
                   opacity: item.available ? 1 : 0.45,
                 }}
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-bold" style={{ color: "#050505" }}>{item.name}</p>
+                    <p className={`text-sm font-black ${qty > 0 ? 'text-white' : 'text-black'}`}>{item.name}</p>
                     {item.popular && (
                       <span className="comic-label text-[9px]" style={{ background: "#FF3333", color: "#fff", borderColor: "#000" }}>🔥 HOT</span>
                     )}
                   </div>
-                  <p className="text-xs mt-0.5" style={{ color: "#555555" }}>
+                  <p className={`text-xs mt-0.5 font-bold ${qty > 0 ? 'text-white/80' : 'text-[#555555]'}`}>
                     ₹{item.price} · Ready in {item.prepTime} min
                   </p>
                 </div>
@@ -177,21 +178,21 @@ export default function PreOrderPage() {
                     {qty > 0 && (
                       <>
                         <button onClick={() => updateCart(item.id, -1)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center font-black transition-all"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center font-black transition-all hover:scale-110 active:scale-95"
                           style={{ background: "#FFFFFF", border: "2px solid #000000", color: "#050505" }}
                           aria-label={`Remove one ${item.name}`}>
                           <Minus className="w-3.5 h-3.5" />
                         </button>
-                        <span className="text-sm font-black w-5 text-center tabular-nums" style={{ color: "#BF5FFF" }}>{qty}</span>
+                        <span className={`text-sm font-black w-5 text-center tabular-nums ${qty > 0 ? 'text-white' : 'text-black'}`}>{qty}</span>
                       </>
                     )}
                     <button onClick={() => updateCart(item.id, 1)}
-                      className="w-8 h-8 rounded-lg flex items-center justify-center font-black transition-all"
+                      className="w-8 h-8 rounded-lg flex items-center justify-center font-black transition-all hover:scale-110 active:scale-95"
                       style={{
-                        background: qty > 0 ? "#BF5FFF" : "rgba(191,95,255,0.15)",
-                        border: "2px solid #BF5FFF",
-                        boxShadow: qty > 0 ? "2px 2px 0 #000" : "none",
-                        color: qty > 0 ? "#fff" : "#BF5FFF",
+                        background: qty > 0 ? "#FFFFFF" : "#FFFFFF",
+                        border: "2px solid #000",
+                        boxShadow: "2px 2px 0 #000",
+                        color: "#000",
                       }}
                       aria-label={`Add one ${item.name}`}>
                       <Plus className="w-3.5 h-3.5" />
@@ -208,9 +209,9 @@ export default function PreOrderPage() {
 
       {/* Cart & Checkout */}
       {cartItems.length > 0 && (
-        <div className="rounded-xl p-4 space-y-4 animate-slide-up"
-          style={{ background: "#FFFFFF", border: "2px solid #00FF87", boxShadow: "4px 4px 0 #00FF87" }}>
-          <h3 className="text-xs font-black uppercase tracking-wider" style={{ color: "#00FF87" }}>Your Order</h3>
+        <div className="rounded-xl p-4 space-y-4 animate-slide-up comic-panel"
+          style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
+          <h3 className="text-xs font-black uppercase tracking-wider text-black">Your Order</h3>
 
           <div className="space-y-2">
             {cartItems.map((item) => (
@@ -232,12 +233,13 @@ export default function PreOrderPage() {
             <div className="grid grid-cols-4 gap-2">
               {["10", "15", "20", "30"].map((mins) => (
                 <button key={mins} onClick={() => setPickupSlot(mins)}
-                  className="py-2.5 rounded-lg text-xs font-black uppercase transition-all duration-150"
+                  className="py-2.5 rounded-lg text-xs font-black uppercase transition-all duration-150 active:translate-y-1 hover:-translate-y-1"
                   style={{
-                    background: pickupSlot === mins ? "#00FF87" : "#0A0A0A",
-                    color: pickupSlot === mins ? "#0A0A0A" : "#5c6bc0",
-                    border: `2px solid ${pickupSlot === mins ? "#000" : "rgba(255,255,255,0.06)"}`,
-                    boxShadow: pickupSlot === mins ? "2px 2px 0 #000" : "none",
+                    background: pickupSlot === mins ? "#BF5FFF" : "#FFFFFF",
+                    color: pickupSlot === mins ? "#FFFFFF" : "#000",
+                    border: "2px solid #000",
+                    boxShadow: pickupSlot === mins ? "none" : "3px 3px 0 #000",
+                    transform: pickupSlot === mins ? "translate(3px, 3px)" : "none"
                   }}>
                   {mins} min
                 </button>

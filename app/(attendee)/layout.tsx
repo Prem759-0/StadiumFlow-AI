@@ -116,8 +116,7 @@ export default function AttendeeLayout({
         className="sticky top-0 z-40 px-4 py-3 flex items-center justify-between"
         style={{
           background: "#FFFFFF",
-          borderBottom: "2px solid #00FF87",
-          boxShadow: "0 4px 0 rgba(0,255,135,0.15)",
+          borderBottom: "4px solid #000000",
         }}
       >
         <div className="flex items-center gap-2">
@@ -142,11 +141,12 @@ export default function AttendeeLayout({
           {/* Accessibility toggle */}
           <button
             onClick={toggleAccessibility}
-            className="p-2 rounded-lg transition-colors"
+            className="p-2 rounded-xl transition-colors hover:-translate-y-1 hover:shadow-[4px_4px_0_#000]"
             style={{
-              background: isAccessibilityMode ? "rgba(0,255,135,0.15)" : "transparent",
-              border: `2px solid ${isAccessibilityMode ? "#00FF87" : "rgba(255,255,255,0.1)"}`,
-              color: isAccessibilityMode ? "#00FF87" : "#5c6bc0",
+              background: isAccessibilityMode ? "#00FF87" : "#FFFFFF",
+              border: "3px solid #000000",
+              color: isAccessibilityMode ? "#0A0A0A" : "#050505",
+              boxShadow: isAccessibilityMode ? "4px 4px 0 #000" : "none",
             }}
             aria-label={`Accessibility mode: ${isAccessibilityMode ? "On" : "Off"}`}
             aria-pressed={isAccessibilityMode}
@@ -175,8 +175,7 @@ export default function AttendeeLayout({
         className="fixed bottom-0 left-0 right-0 z-40"
         style={{
           background: "#FFFFFF",
-          borderTop: "2px solid rgba(255,255,255,0.1)",
-          boxShadow: "0 -4px 0 rgba(0,0,0,0.5)",
+          borderTop: "4px solid #000000",
         }}
         role="navigation"
         aria-label="Main navigation"
@@ -188,11 +187,12 @@ export default function AttendeeLayout({
               <Link
                 key={href}
                 href={href}
-                className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200"
+                className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl transition-all duration-200 ${isActive ? 'scale-110' : 'hover:-translate-y-1'}`}
                 style={{
-                  color: isActive ? "#00FF87" : "#5c6bc0",
-                  background: isActive ? "rgba(0,255,135,0.08)" : "transparent",
-                  border: isActive ? "1px solid rgba(0,255,135,0.2)" : "1px solid transparent",
+                  color: isActive ? "#000" : "#555555",
+                  background: isActive ? "#00FF87" : "transparent",
+                  border: isActive ? "3px solid #000" : "3px solid transparent",
+                  boxShadow: isActive ? "4px 4px 0 #000" : "none",
                 }}
                 aria-current={isActive ? "page" : undefined}
                 aria-label={label}

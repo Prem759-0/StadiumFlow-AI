@@ -35,15 +35,17 @@ const LOCATIONS = [
 
 const SELECT_STYLE = {
   background: "#FFFFFF",
-  border: "2px solid #000000",
+  border: "3px solid #000000",
+  boxShadow: "4px 4px 0 #000000",
   color: "#050505",
   borderRadius: "12px",
   padding: "10px 40px 10px 16px",
   width: "100%",
   fontSize: "14px",
-  fontWeight: "600",
+  fontWeight: "900",
   appearance: "none" as const,
   cursor: "pointer",
+  transition: "transform 0.15s, box-shadow 0.15s",
 };
 
 export default function NavigatePage() {
@@ -86,7 +88,7 @@ export default function NavigatePage() {
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm"
-          style={{ background: "#00FF87", color: "#0A0A0A", border: "2px solid #000", boxShadow: "3px 3px 0 #000" }}>
+          style={{ background: "#00FF87", color: "#0A0A0A", border: "3px solid #000", boxShadow: "4px 4px 0 #000" }}>
           <Navigation className="w-5 h-5" />
         </div>
         <div>
@@ -97,13 +99,13 @@ export default function NavigatePage() {
       </div>
 
       {/* Map Preview */}
-      <div className="rounded-xl p-2" style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}>
+      <div className="rounded-xl p-2" style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
         <StadiumMap zones={zones} className="aspect-[4/3] rounded-lg" compact showLabels={false} />
       </div>
 
       {/* Route Selection Card */}
-      <div className="rounded-xl p-4 space-y-3" style={{ background: "#FFFFFF", border: "2px solid #00FF87", boxShadow: "4px 4px 0 #00FF87" }}>
-        <h2 className="text-xs font-bold uppercase tracking-wider" style={{ color: "#00FF87" }}>Plan Your Route</h2>
+      <div className="rounded-xl p-4 space-y-3" style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
+        <h2 className="text-xs font-black uppercase tracking-wider" style={{ color: "#000" }}>Plan Your Route</h2>
 
         {/* FROM */}
         <div>
@@ -123,8 +125,8 @@ export default function NavigatePage() {
         {/* Arrow */}
         <div className="flex justify-center">
           <div className="w-8 h-8 rounded-full flex items-center justify-center"
-            style={{ background: "#FFFFFF", border: "2px solid #000" }}>
-            <ArrowDown className="w-4 h-4" style={{ color: "#555555" }} />
+            style={{ background: "#FFE600", border: "3px solid #000", boxShadow: "2px 2px 0 #000" }}>
+            <ArrowDown className="w-4 h-4" style={{ color: "#000" }} />
           </div>
         </div>
 
@@ -145,9 +147,9 @@ export default function NavigatePage() {
 
         {/* Accessibility badge */}
         {profile.needsAccessibility && (
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: "rgba(0,198,255,0.1)", border: "1px solid rgba(0,198,255,0.3)" }}>
-            <Accessibility className="w-4 h-4" style={{ color: "#00C6FF" }} />
-            <span className="text-xs font-semibold" style={{ color: "#00C6FF" }}>Accessibility-optimized route enabled</span>
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: "#00C6FF", border: "3px solid #000", boxShadow: "3px 3px 0 #000" }}>
+            <Accessibility className="w-4 h-4 text-black" />
+            <span className="text-xs font-black text-black">Accessibility-optimized route enabled</span>
           </div>
         )}
 
@@ -155,14 +157,7 @@ export default function NavigatePage() {
         <button
           onClick={handleOptimize}
           disabled={isLoading || from === to}
-          className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-black text-sm uppercase tracking-wider transition-all"
-          style={{
-            background: isLoading || from === to ? "#222" : "#00FF87",
-            color: isLoading || from === to ? "#5c6bc0" : "#0A0A0A",
-            border: `2px solid ${isLoading || from === to ? "#000000" : "#000"}`,
-            boxShadow: isLoading || from === to ? "none" : "4px 4px 0 #000",
-            cursor: isLoading || from === to ? "not-allowed" : "pointer",
-          }}
+          className={`w-full py-3.5 rounded-xl font-black text-sm uppercase tracking-wider ${isLoading || from === to ? 'opacity-50 cursor-not-allowed border-4 border-black bg-gray-300' : 'nb-btn nb-btn-green'}`}
           aria-label="Get optimized route"
         >
           {isLoading ? (
@@ -177,28 +172,28 @@ export default function NavigatePage() {
       {route && (() => {
         const cfg = congestionConfig[route.congestionLevel] || congestionConfig.medium;
         return (
-          <div className="rounded-xl p-4 space-y-4 animate-slide-up" style={{ background: "#FFFFFF", border: `2px solid ${cfg.color}`, boxShadow: `4px 4px 0 ${cfg.color}` }}>
+          <div className="rounded-xl p-4 space-y-4 animate-slide-up comic-panel" style={{ background: "#FFFFFF", border: `3px solid #000`, boxShadow: `6px 6px 0 #000` }}>
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-extrabold flex items-center gap-2" style={{ color: "#050505" }}>
-                <Route className="w-4 h-4" style={{ color: cfg.color }} />
+              <h2 className="text-sm font-extrabold flex items-center gap-2 text-black">
+                <Route className="w-4 h-4 text-black" />
                 Best Route Found
               </h2>
-              <span className="text-xs font-black px-2.5 py-1 rounded-lg" style={{ background: cfg.bg, color: cfg.color, border: `1px solid ${cfg.color}` }}>
+              <span className="text-xs font-black px-2.5 py-1 rounded-lg border-2 border-black" style={{ background: cfg.color, color: "#000" }}>
                 {cfg.label}
               </span>
             </div>
 
             {/* Stats Row */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-lg p-3 text-center" style={{ background: "#FFFFFF", border: "1px solid #000000" }}>
-                <Clock className="w-5 h-5 mx-auto mb-1" style={{ color: "#00C6FF" }} />
-                <p className="text-2xl font-black tabular-nums" style={{ color: "#050505" }}>{route.estimatedTime}<span className="text-sm font-normal"> min</span></p>
-                <p className="text-[10px]" style={{ color: "#3b4480" }}>Est. time</p>
+              <div className="rounded-lg p-3 text-center hover:-translate-y-1 transition-transform" style={{ background: "#00C6FF", border: "3px solid #000000", boxShadow: "4px 4px 0 #000" }}>
+                <Clock className="w-6 h-6 mx-auto mb-1 text-black" />
+                <p className="text-3xl font-black tabular-nums text-black">{route.estimatedTime}<span className="text-sm font-black"> MIN</span></p>
+                <p className="text-[10px] font-bold text-black uppercase tracking-wider">Est. Time</p>
               </div>
-              <div className="rounded-lg p-3 text-center" style={{ background: "#FFFFFF", border: "1px solid #000000" }}>
-                <Footprints className="w-5 h-5 mx-auto mb-1" style={{ color: "#BF5FFF" }} />
-                <p className="text-2xl font-black tabular-nums" style={{ color: "#050505" }}>{route.estimatedTime * 75}<span className="text-sm font-normal"> m</span></p>
-                <p className="text-[10px]" style={{ color: "#3b4480" }}>Distance</p>
+              <div className="rounded-lg p-3 text-center hover:-translate-y-1 transition-transform" style={{ background: "#BF5FFF", border: "3px solid #000000", boxShadow: "4px 4px 0 #000" }}>
+                <Footprints className="w-6 h-6 mx-auto mb-1 text-black" />
+                <p className="text-3xl font-black tabular-nums text-black">{route.estimatedTime * 75}<span className="text-sm font-black"> M</span></p>
+                <p className="text-[10px] font-bold text-black uppercase tracking-wider">Distance</p>
               </div>
             </div>
 
@@ -227,9 +222,9 @@ export default function NavigatePage() {
 
             {/* High congestion warning */}
             {route.congestionLevel === "high" && (
-              <div className="flex items-start gap-2 p-3 rounded-lg" style={{ background: "rgba(255,51,51,0.1)", border: "2px solid rgba(255,51,51,0.4)" }}>
-                <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#FF3333" }} />
-                <p className="text-xs" style={{ color: "#FF3333" }}>
+              <div className="flex items-start gap-2 p-3 rounded-lg" style={{ background: "#FF3333", border: "3px solid #000", boxShadow: "4px 4px 0 #000" }}>
+                <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5 text-black" />
+                <p className="text-xs font-black text-black">
                   High congestion detected. Consider waiting 5–10 minutes or ask the AI chat for an alternative.
                 </p>
               </div>

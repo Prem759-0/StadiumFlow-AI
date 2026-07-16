@@ -37,9 +37,9 @@ const POLL_OPTIONS = [
 ];
 
 const QUICK_ACTIONS = [
-  { href: "/fan/navigate", icon: Navigation, label: "AI Route", desc: "Smart paths", color: "#00FF87", border: "#00FF87" },
-  { href: "/fan/queues", icon: Clock, label: "Live Queues", desc: "Wait times", color: "#00C6FF", border: "#00C6FF" },
-  { href: "/fan/preorder", icon: ShoppingBag, label: "Pre-Order", desc: "Skip the line", color: "#BF5FFF", border: "#BF5FFF" },
+  { href: "/fan/navigate", icon: Navigation, label: "AI Route", desc: "Smart paths", bg: "#00FF87" },
+  { href: "/fan/queues", icon: Clock, label: "Live Queues", desc: "Wait times", bg: "#00C6FF" },
+  { href: "/fan/preorder", icon: ShoppingBag, label: "Pre-Order", desc: "Skip the line", bg: "#BF5FFF" },
 ];
 
 export default function FanHomePage() {
@@ -110,15 +110,17 @@ export default function FanHomePage() {
 
       {/* ── Promo Banner ── */}
       <div
-        className="rounded-xl p-3 flex items-center gap-3"
-        style={{ background: "#FFFFFF", border: "2px solid #FFE600", boxShadow: "3px 3px 0 #FFE600" }}
+        className="rounded-xl p-3 flex items-center gap-3 comic-panel bg-[#FFE600] transition-transform hover:-translate-y-1 hover:shadow-[6px_6px_0_#000]"
+        style={{ border: "3px solid #000", boxShadow: "4px 4px 0 #000" }}
       >
-        <Gift className="w-5 h-5 flex-shrink-0" style={{ color: "#FFE600" }} aria-hidden="true" />
-        <div className="min-w-0">
-          <p className="text-sm font-bold" style={{ color: "#FFE600" }}>{promo.title}</p>
-          <p className="text-xs" style={{ color: "#555555" }}>{promo.description}</p>
+        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center flex-shrink-0" style={{ border: "2px solid #000" }}>
+          <Gift className="w-4 h-4 text-black" aria-hidden="true" />
         </div>
-        <span className="comic-label ml-auto flex-shrink-0">OFFER</span>
+        <div className="min-w-0">
+          <p className="text-sm font-black text-black">{promo.title}</p>
+          <p className="text-[10px] font-bold text-black uppercase tracking-wider">{promo.description}</p>
+        </div>
+        <span className="comic-label ml-auto flex-shrink-0 bg-white text-black">OFFER</span>
       </div>
 
       {/* ── Stadium Heatmap ── */}
@@ -145,8 +147,8 @@ export default function FanHomePage() {
         </div>
         {selectedZone && (
           <div
-            className="mt-2 rounded-lg p-3 animate-fade-in"
-            style={{ background: "#FFFFFF", border: "2px solid #00C6FF", boxShadow: "3px 3px 0 #00C6FF" }}
+            className="mt-2 rounded-xl p-3 animate-fade-in"
+            style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "4px 4px 0 #000" }}
           >
             {(() => {
               const zone = zones.find((z) => z.id === selectedZone);
@@ -175,28 +177,22 @@ export default function FanHomePage() {
           Quick Actions
         </h2>
         <div className="grid grid-cols-3 gap-2 mb-2">
-          {QUICK_ACTIONS.map(({ href, icon: Icon, label, desc, color, border }) => (
+          {QUICK_ACTIONS.map(({ href, icon: Icon, label, desc, bg }) => (
             <Link
               key={href}
               href={href}
-              className="rounded-xl p-3 flex flex-col items-center gap-1.5 text-center transition-all duration-150"
+              className="rounded-xl p-3 flex flex-col items-center gap-1.5 text-center transition-all duration-150 active:translate-y-1 hover:-translate-y-1"
               style={{
-                background: "#FFFFFF",
-                border: `2px solid ${border}`,
-                boxShadow: `4px 4px 0 ${border}`,
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = `2px 2px 0 ${border}`;
-                (e.currentTarget as HTMLElement).style.transform = "translate(2px, 2px)";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = `4px 4px 0 ${border}`;
-                (e.currentTarget as HTMLElement).style.transform = "translate(0,0)";
+                background: bg,
+                border: `3px solid #000`,
+                boxShadow: `4px 4px 0 #000`,
               }}
             >
-              <Icon className="w-6 h-6" style={{ color }} aria-hidden="true" />
-              <span className="text-xs font-bold" style={{ color: "#050505" }}>{label}</span>
-              <span className="text-[9px]" style={{ color: "#555555" }}>{desc}</span>
+              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border-2 border-black">
+                <Icon className="w-4 h-4 text-black" aria-hidden="true" />
+              </div>
+              <span className="text-xs font-black text-black leading-tight uppercase tracking-wider">{label}</span>
+              <span className="text-[9px] font-bold text-black/70">{desc}</span>
             </Link>
           ))}
         </div>
@@ -251,12 +247,12 @@ export default function FanHomePage() {
       <section
         aria-labelledby="poll-title"
         className="rounded-xl p-4 comic-panel bg-white"
-        style={{ background: "#FFFFFF", border: "2px solid #BF5FFF", boxShadow: "4px 4px 0 #BF5FFF" }}
+        style={{ border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}
       >
-        <h2 id="poll-title" className="text-sm font-bold flex items-center gap-2 mb-3" style={{ color: "#BF5FFF" }}>
+        <h2 id="poll-title" className="text-sm font-black flex items-center gap-2 mb-3 text-black">
           <Vote className="w-4 h-4" aria-hidden="true" />
           Match Prediction Poll
-          <span className="comic-label ml-auto">+25 PTS</span>
+          <span className="comic-label ml-auto bg-[#BF5FFF] text-white">+25 PTS</span>
         </h2>
         <div className="grid grid-cols-2 gap-2">
           {POLL_OPTIONS.map((option) => (
@@ -264,12 +260,14 @@ export default function FanHomePage() {
               key={option.id}
               onClick={() => handleVote(option.id)}
               disabled={!!pollVote}
-              className="px-3 py-2.5 rounded-lg text-xs font-bold border-2 transition-all duration-150"
+              className="px-3 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-150"
               style={{
-                background: pollVote === option.id ? "rgba(191,95,255,0.2)" : pollVote ? "rgba(255,255,255,0.03)" : "#0A0A0A",
-                borderColor: pollVote === option.id ? "#BF5FFF" : "rgba(255,255,255,0.1)",
-                color: pollVote === option.id ? "#BF5FFF" : pollVote ? "#3b4480" : "#F5F0E8",
-                boxShadow: pollVote === option.id ? "2px 2px 0 #BF5FFF" : "none",
+                background: pollVote === option.id ? "#BF5FFF" : pollVote ? "#f0f0f0" : "#FFFFFF",
+                borderColor: "#000",
+                borderWidth: "3px",
+                color: pollVote === option.id ? "#fff" : pollVote ? "#a0a0a0" : "#000",
+                boxShadow: pollVote === option.id ? "none" : pollVote ? "none" : "3px 3px 0 #000",
+                transform: pollVote === option.id ? "translate(3px, 3px)" : "none"
               }}
             >
               {option.label}
@@ -286,7 +284,7 @@ export default function FanHomePage() {
       {/* ── Seat Info ── */}
       <section
         className="rounded-xl p-4"
-        style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "3px 3px 0 rgba(0,0,0,0.5)" }}
+        style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}
       >
         <div className="flex items-center gap-2 text-sm">
           <MapPin className="w-4 h-4" style={{ color: "#00FF87" }} aria-hidden="true" />

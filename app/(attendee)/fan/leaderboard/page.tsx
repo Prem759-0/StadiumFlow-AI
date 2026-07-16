@@ -74,17 +74,18 @@ export default function LeaderboardPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         {(["leaderboard", "badges"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
-            className="flex-1 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all"
+            className="flex-1 py-3 rounded-xl text-sm font-black uppercase tracking-wider transition-all"
             style={{
-              background: tab === t ? "#FFE600" : "#111",
-              color: tab === t ? "#0A0A0A" : "#5c6bc0",
-              border: `2px solid ${tab === t ? "#000" : "rgba(255,255,255,0.1)"}`,
-              boxShadow: tab === t ? "3px 3px 0 #000" : "none",
+              background: tab === t ? "#FFE600" : "#FFFFFF",
+              color: "#000",
+              border: "3px solid #000",
+              boxShadow: tab === t ? "4px 4px 0 #000" : "none",
+              transform: tab === t ? "translate(-2px, -2px)" : "none",
             }}
           >
             {t === "leaderboard" ? "🏆 Rankings" : "🎖️ My Badges"}
@@ -93,70 +94,72 @@ export default function LeaderboardPage() {
       </div>
 
       {tab === "leaderboard" ? (
-        <div className="space-y-2">
+        <div className="space-y-4">
           {MOCK_LEADERBOARD.map((entry) => (
             <div
               key={entry.rank}
-              className="rounded-xl px-4 py-3 flex items-center gap-3"
+              className="rounded-xl px-4 py-4 flex items-center gap-4 comic-panel bg-white transition-transform hover:-translate-y-1"
               style={{
-                background: entry.rank <= 3 ? `rgba(${entry.rank === 1 ? "255,230,0" : entry.rank === 2 ? "192,192,192" : "205,127,50"},0.08)` : "#111",
-                border: `2px solid ${entry.rank === 1 ? "#FFE600" : entry.rank === 2 ? "#C0C0C0" : entry.rank === 3 ? "#CD7F32" : "#000000"}`,
-                boxShadow: entry.rank <= 3 ? `3px 3px 0 ${entry.rank === 1 ? "#FFE600" : entry.rank === 2 ? "#C0C0C0" : "#CD7F32"}` : "none",
+                border: `3px solid ${entry.rank === 1 ? "#FFE600" : entry.rank === 2 ? "#C0C0C0" : entry.rank === 3 ? "#CD7F32" : "#000000"}`,
+                boxShadow: `4px 4px 0 ${entry.rank === 1 ? "#FFE600" : entry.rank === 2 ? "#C0C0C0" : entry.rank === 3 ? "#CD7F32" : "#000000"}`,
               }}
             >
-              <span className="text-lg w-6 text-center">{entry.badge}</span>
-              <span className="font-black text-sm w-5 tabular-nums" style={{ color: "#555555" }}>#{entry.rank}</span>
+              <span className="text-2xl w-8 text-center">{entry.badge}</span>
+              <span className="font-black text-lg w-8 tabular-nums text-black">#{entry.rank}</span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold truncate" style={{ color: "#050505" }}>
+                <p className="text-lg font-black truncate text-black uppercase tracking-wide">
                   {entry.country} {entry.name}
                 </p>
-                <p className="text-[10px]" style={{ color: "#3b4480" }}>{entry.title}</p>
+                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{entry.title}</p>
               </div>
-              <p className="text-sm font-black tabular-nums" style={{ color: "#FFE600" }}>{entry.points}</p>
+              <div className="text-right">
+                <p className="text-xl font-black tabular-nums text-black">{entry.points}</p>
+                <p className="text-[10px] font-bold text-gray-500 uppercase">PTS</p>
+              </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {BADGES.map((badge) => (
             <div
               key={badge.label}
-              className="rounded-xl p-3 text-center"
+              className="rounded-xl p-4 text-center comic-panel bg-white flex flex-col items-center justify-center"
               style={{
-                background: badge.earned ? "#111" : "#0A0A0A",
-                border: `2px solid ${badge.earned ? "#FFE600" : "rgba(255,255,255,0.06)"}`,
-                boxShadow: badge.earned ? "3px 3px 0 #FFE600" : "none",
-                opacity: badge.earned ? 1 : 0.4,
+                border: `3px solid ${badge.earned ? "#FFE600" : "#E5E7EB"}`,
+                boxShadow: badge.earned ? "4px 4px 0 #FFE600" : "none",
+                opacity: badge.earned ? 1 : 0.6,
+                filter: badge.earned ? "none" : "grayscale(100%)",
               }}
             >
-              <p className="text-3xl mb-1">{badge.icon}</p>
-              <p className="text-[10px] font-bold" style={{ color: badge.earned ? "#FFE600" : "#5c6bc0" }}>{badge.label}</p>
-              <p className="text-[9px] mt-0.5" style={{ color: "#3b4480" }}>{badge.desc}</p>
-              {badge.earned && <p className="text-[9px] mt-1 font-bold" style={{ color: "#00FF87" }}>✓ Earned</p>}
+              <p className="text-4xl mb-2">{badge.icon}</p>
+              <p className="text-xs font-black uppercase tracking-wider text-black">{badge.label}</p>
+              <p className="text-[10px] mt-1 font-bold text-gray-500 leading-tight">{badge.desc}</p>
+              {badge.earned && <p className="text-[10px] mt-2 font-black px-2 py-1 bg-[#FFE600] text-black border-2 border-black rounded shadow-[1px_1px_0_#000]">✓ EARNED</p>}
             </div>
           ))}
         </div>
       )}
 
       {/* How to Earn */}
-      <div className="rounded-xl p-4" style={{ background: "#FFFFFF", border: "2px solid #000" }}>
-        <h2 className="text-xs font-black uppercase tracking-wider mb-3 flex items-center gap-2" style={{ color: "#050505" }}>
-          <TrendingUp className="w-4 h-4" style={{ color: "#00FF87" }} />
+      <div className="rounded-xl p-6 comic-panel bg-white" style={{ border: "4px solid #000", boxShadow: "8px 8px 0 #000" }}>
+        <h2 className="text-sm font-black uppercase tracking-widest mb-4 flex items-center gap-2 text-black">
+          <TrendingUp className="w-5 h-5 text-[#00FF87]" />
           How To Earn Points
         </h2>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { action: "Vote in a poll", pts: "+25 pts" },
-            { action: "Answer trivia", pts: "+10 pts" },
-            { action: "Use AI Route", pts: "+15 pts" },
-            { action: "Pre-order food", pts: "+20 pts" },
-            { action: "Join virtual queue", pts: "+10 pts" },
-            { action: "Share feedback", pts: "+30 pts" },
-          ].map(({ action, pts }) => (
-            <div key={action} className="flex items-center justify-between px-3 py-2 rounded-lg"
-              style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <span className="text-[11px]" style={{ color: "#555555" }}>{action}</span>
-              <span className="text-[11px] font-black" style={{ color: "#00FF87" }}>{pts}</span>
+            { action: "Vote in a poll", pts: "+25 pts", color: "#00C6FF" },
+            { action: "Answer trivia", pts: "+10 pts", color: "#BF5FFF" },
+            { action: "Use AI Route", pts: "+15 pts", color: "#00FF87" },
+            { action: "Pre-order food", pts: "+20 pts", color: "#FF3333" },
+            { action: "Join virtual queue", pts: "+10 pts", color: "#FFE600" },
+            { action: "Share feedback", pts: "+30 pts", color: "#00C6FF" },
+          ].map(({ action, pts, color }) => (
+            <div key={action} className="flex items-center justify-between px-4 py-3 rounded-lg comic-panel bg-white transition-transform hover:-translate-y-1"
+              style={{ border: "2px solid #000", boxShadow: `3px 3px 0 ${color}` }}>
+              <span className="text-xs font-bold uppercase tracking-wider text-black">{action}</span>
+              <span className="text-sm font-black px-2 py-0.5 rounded border-2 border-black" style={{ backgroundColor: color, color: "#000" }}>{pts}</span>
             </div>
           ))}
         </div>
