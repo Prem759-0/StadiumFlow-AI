@@ -1,11 +1,10 @@
 "use client";
 
 // ============================================================
-// StadiumFlow AI - Enhanced Score Ticker
-// Live FIFA match scores with Neo-Brutalist styling
+// StadiumFlow AI - Enhanced Score Ticker (Redesign)
+// Live FIFA match scores with bold, static Neo-Brutalist styling
 // ============================================================
 
-import { useState, useEffect } from "react";
 import { Trophy, Radio, Clock } from "lucide-react";
 
 interface Match {
@@ -23,98 +22,76 @@ const FIFA_MATCHES: Match[] = [
   { id: "m1", home: "BRA", away: "ARG", homeScore: "2", awayScore: "1", status: "live", time: "72'", venue: "MetLife Stadium" },
   { id: "m2", home: "FRA", away: "GER", homeScore: "1", awayScore: "1", status: "live", time: "45+2'", venue: "AT&T Stadium" },
   { id: "m3", home: "ESP", away: "POR", homeScore: "0", awayScore: "0", status: "upcoming", time: "18:00", venue: "SoFi Stadium" },
-  { id: "m4", home: "ENG", away: "USA", homeScore: "3", awayScore: "0", status: "completed", venue: "Levi's Stadium" },
-  { id: "m5", home: "MEX", away: "CAN", homeScore: "1", awayScore: "2", status: "live", time: "88'", venue: "Estadio Azteca" },
 ];
 
 interface ScoreTickerProps {
-  matchTitle?: string;
-  venue?: string;
-  homeScore?: string;
-  awayScore?: string;
-  overs?: string;
   status?: "live" | "upcoming" | "completed";
 }
 
 export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const liveMatches = FIFA_MATCHES.filter(m => m.status === "live");
-  const upcomingMatches = FIFA_MATCHES.filter(m => m.status === "upcoming");
-
-  // Auto-cycle through live matches
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIdx(prev => (prev + 1) % FIFA_MATCHES.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
+  const liveMatch = FIFA_MATCHES.find(m => m.status === "live") || FIFA_MATCHES[0];
+  const nextMatch = FIFA_MATCHES.find(m => m.status === "upcoming");
 
   return (
-    <div className="space-y-2 animate-fade-in">
-      {/* Main live match card */}
+    <div className="space-y-3 animate-fade-in">
+      {/* ── Featured Match Card ── */}
       <div
-        className="rounded-xl p-4 comic-panel bg-white overflow-hidden"
-        style={{ background: "#FFFFFF", border: "2px solid #FF3333", boxShadow: "4px 4px 0 #FF3333" }}
+        className="rounded-none p-5 relative overflow-hidden"
+        style={{ background: "#FFE600", border: "4px solid #000", boxShadow: "8px 8px 0 #000" }}
         role="region"
-        aria-label="Live FIFA match scores"
-        aria-live="polite"
+        aria-label="Featured Match"
       >
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Trophy className="w-4 h-4" style={{ color: "#FFE600" }} aria-hidden="true" />
-            <span className="comic-label">FIFA World Cup 2026</span>
+            <div className="w-8 h-8 bg-white border-2 border-black flex items-center justify-center">
+              <Trophy className="w-4 h-4 text-black" aria-hidden="true" />
+            </div>
+            <span className="text-xs font-black uppercase tracking-widest text-black">World Cup 2026</span>
           </div>
-          <div className="flex items-center gap-1.5 px-2 py-1 rounded-full"
-            style={{ background: "rgba(255,51,51,0.15)", border: "1px solid rgba(255,51,51,0.3)" }}>
-            <Radio className="w-3 h-3 animate-pulse" style={{ color: "#FF3333" }} aria-hidden="true" />
-            <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#FF3333" }}>
-              {liveMatches.length} Live
+          <div className="flex items-center gap-2 bg-[#FF3333] px-3 py-1 border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
+            <Radio className="w-3.5 h-3.5 animate-pulse text-white" aria-hidden="true" />
+            <span className="text-xs font-black uppercase tracking-widest text-white">
+              LIVE NOW
             </span>
           </div>
         </div>
 
-        {/* Scrolling ticker */}
-        <div className="ticker-wrapper rounded-lg px-2 py-2"
-          style={{ background: "#F5F0E8", border: "2px solid #000", boxShadow: "2px 2px 0 #000" }}>
-          <div className="ticker-content flex items-center gap-8" style={{ animationDuration: "15s" }}>
-            {[...FIFA_MATCHES, ...FIFA_MATCHES].map((match, i) => (
-              <span key={`${match.id}-${i}`} className="inline-flex items-center gap-3 tabular-nums whitespace-nowrap text-black">
-                {match.status === "live" && (
-                  <span className="w-2 h-2 rounded-full bg-[#FF3333] animate-pulse inline-block border border-black" />
-                )}
-                <span className="font-black text-sm uppercase">{match.home}</span>
-                <span className="font-black text-base px-2 py-0.5 rounded border-2 border-black" style={{
-                  background: match.status === "live" ? "#00FF87" : match.status === "completed" ? "#FFFFFF" : "#FFE600",
-                  color: "#000"
-                }}>
-                  {match.status === "upcoming" ? "VS" : `${match.homeScore} – ${match.awayScore}`}
-                </span>
-                <span className="font-black text-sm uppercase">{match.away}</span>
-                {match.time && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded font-black border-2 border-black"
-                    style={{ background: match.status === "live" ? "#FF3333" : "#FFFFFF", color: match.status === "live" ? "#FFFFFF" : "#000" }}>
-                    {match.time}
-                  </span>
-                )}
-                <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider">{match.venue}</span>
-                <span className="font-black text-gray-400">|</span>
-              </span>
-            ))}
+        <div className="flex items-center justify-between mt-2">
+          {/* Home Team */}
+          <div className="text-center">
+            <p className="text-5xl font-black text-black tracking-tighter" style={{ textShadow: "3px 3px 0 #FFF" }}>{liveMatch.home}</p>
+          </div>
+
+          {/* Score & Time */}
+          <div className="flex flex-col items-center">
+            <div className="text-5xl font-black text-black px-4 py-2 bg-white border-4 border-black" style={{ boxShadow: "4px 4px 0 #000" }}>
+              {liveMatch.homeScore} - {liveMatch.awayScore}
+            </div>
+            <div className="mt-3 bg-black text-[#00FF87] px-3 py-1 text-sm font-black tracking-widest uppercase border-2 border-black">
+              {liveMatch.time}
+            </div>
+          </div>
+
+          {/* Away Team */}
+          <div className="text-center">
+            <p className="text-5xl font-black text-black tracking-tighter" style={{ textShadow: "3px 3px 0 #FFF" }}>{liveMatch.away}</p>
           </div>
         </div>
       </div>
 
-      {/* Quick upcoming match */}
-      {upcomingMatches.length > 0 && (
-        <div className="rounded-lg px-3 py-2 flex items-center gap-2"
-          style={{ background: "#FFFFFF", border: "2px solid #FFE600", boxShadow: "3px 3px 0 #FFE600" }}>
-          <Clock className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#FFE600" }} />
-          <span className="text-xs font-bold" style={{ color: "#FFE600" }}>Next:</span>
-          <span className="text-xs font-semibold" style={{ color: "#050505" }}>
-            {upcomingMatches[0].home} vs {upcomingMatches[0].away}
-          </span>
-          <span className="text-[10px]" style={{ color: "#555555" }}>
-            {upcomingMatches[0].time} · {upcomingMatches[0].venue}
+      {/* ── Next Match Preview ── */}
+      {nextMatch && (
+        <div className="rounded-none px-4 py-3 flex items-center justify-between"
+          style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "4px 4px 0 #000" }}>
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-black" />
+            <span className="text-xs font-black uppercase tracking-widest bg-black text-white px-2 py-0.5">NEXT</span>
+            <span className="text-sm font-black text-black ml-2">
+              {nextMatch.home} VS {nextMatch.away}
+            </span>
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-gray-600">
+            {nextMatch.time} · {nextMatch.venue}
           </span>
         </div>
       )}

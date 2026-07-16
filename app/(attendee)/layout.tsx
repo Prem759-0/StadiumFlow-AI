@@ -136,6 +136,19 @@ export default function AttendeeLayout({
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Staff Dashboard Toggle */}
+          <Link
+            href="/dashboard"
+            className="px-3 py-1.5 rounded-none text-[10px] font-black uppercase tracking-widest transition-all hover:-translate-y-1 active:translate-y-1"
+            style={{
+              background: "#00C6FF",
+              color: "#000",
+              border: "2px solid #000",
+              boxShadow: "3px 3px 0 #000"
+            }}
+          >
+            Staff Mode
+          </Link>
           {/* Language Switcher */}
           <LanguageSwitcher />
           {/* Accessibility toggle */}

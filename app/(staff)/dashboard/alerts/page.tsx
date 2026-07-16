@@ -46,14 +46,19 @@ export default function AlertsPage() {
   return (
     <div className="space-y-5 animate-fade-in max-w-4xl">
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-2">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="comic-label" style={{ background: "#FF3333", color: "#fff" }}>ALERTS</span>
-            <span className="text-[10px] pulse-dot" style={{ color: "#555555" }}>&nbsp;&nbsp;REAL-TIME STATUS</span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="comic-label bg-black text-white px-2 py-0.5">ALERTS</span>
+            <div className="flex items-center gap-1.5 bg-[#FF3333] px-2 py-0.5 border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
+              <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              <span className="text-[10px] font-black text-white uppercase tracking-wider">
+                REAL-TIME STATUS
+              </span>
+            </div>
           </div>
-          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#050505" }}>Alert Feed & Dispatch</h1>
-          <p className="text-xs mt-1" style={{ color: "#555555" }}>
+          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-black" style={{ textShadow: "2px 2px 0 #FF3333" }}>Alert Feed & Dispatch</h1>
+          <p className="text-xs mt-1 font-bold text-gray-700 uppercase tracking-widest">
             {alerts.filter((a) => a.status === "pending").length} pending ·{" "}
             {alerts.filter((a) => a.status === "dispatched").length} dispatched ·{" "}
             {alerts.filter((a) => a.status === "resolved").length} resolved

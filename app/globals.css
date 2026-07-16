@@ -148,6 +148,20 @@
     50%  { opacity:1; transform:scaleX(1) translateX(0); }
     100% { opacity:0; transform:scaleX(0) translateX(50%); }
   }
+  @keyframes radar-sweep {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes marquee-tape {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes particle-flow {
+    0%   { transform: translate(0, 0); opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { transform: translate(var(--tx, 50px), var(--ty, 50px)); opacity: 0; }
+  }
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -378,6 +392,32 @@ body::before {
 
 /* Float animation */
 .animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Radar sweep animation */
+.animate-radar {
+  transform-origin: center center;
+  animation: radar-sweep 4s linear infinite;
+}
+
+/* Particle flow animation */
+.animate-particle {
+  animation: particle-flow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Tilt effect on hover */
+.hover-tilt {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.hover-tilt:hover {
+  transform: perspective(1000px) rotateX(10deg) rotateY(-10deg) scale3d(1.02, 1.02, 1.02);
+}
+
+/* Marquee tape effect */
+.marquee-tape {
+  display: flex;
+  width: 200%;
+  animation: marquee-tape 10s linear infinite;
+}
 
 /* ════════════════════════════════════════════════════════════
    GLASS (legacy compat, updated look)

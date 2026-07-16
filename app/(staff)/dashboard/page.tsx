@@ -72,28 +72,31 @@ export default function DashboardPage() {
       {/* ── Header ── */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="comic-label">FIFA WC 2026</span>
-            <span className="text-[10px] pulse-dot" style={{ color: "#555555" }}>
-              &nbsp;&nbsp;LIVE MONITORING
-            </span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="comic-label bg-black text-white px-2 py-0.5">FIFA WC 2026</span>
+            <div className="flex items-center gap-1.5 bg-[#FF3333] px-2 py-0.5 border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
+              <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              <span className="text-[10px] font-black text-white uppercase tracking-wider">
+                LIVE MONITORING
+              </span>
+            </div>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold" style={{ color: "#050505" }}>
+          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-black" style={{ textShadow: "2px 2px 0 #00FF87" }}>
             Operations Overview
           </h1>
-          <p className="text-xs mt-1" style={{ color: "#555555" }}>
+          <p className="text-xs mt-1 font-bold text-gray-700 uppercase tracking-widest">
             MetLife Stadium · East Rutherford, NJ · 82,500 capacity
           </p>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={toggleSimulation}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all"
+            className="flex items-center gap-2 px-4 py-2 rounded-none text-sm font-black uppercase tracking-wider transition-all hover:-translate-y-1 active:translate-y-1"
             style={{
-              background: isSimulationRunning ? "rgba(0,255,135,0.1)" : "rgba(255,255,255,0.04)",
-              border: `2px solid ${isSimulationRunning ? "#00FF87" : "rgba(255,255,255,0.1)"}`,
-              color: isSimulationRunning ? "#00FF87" : "#5c6bc0",
-              boxShadow: isSimulationRunning ? "3px 3px 0 #00FF87" : "none",
+              background: isSimulationRunning ? "#00FF87" : "#F5F0E8",
+              border: "3px solid #000",
+              color: "#000",
+              boxShadow: "4px 4px 0 #000",
             }}
             aria-label={isSimulationRunning ? "Pause simulation" : "Resume simulation"}
           >
@@ -102,8 +105,8 @@ export default function DashboardPage() {
 
           {criticalAlerts > 0 && (
             <div
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-black"
-              style={{ background: "rgba(255,51,51,0.15)", border: "2px solid #FF3333", color: "#FF3333", boxShadow: "3px 3px 0 #FF3333", animation: "sos-pulse 1.5s ease-in-out infinite" }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-none text-sm font-black uppercase tracking-widest"
+              style={{ background: "#FF3333", border: "3px solid #000", color: "#FFF", boxShadow: "4px 4px 0 #000", animation: "sos-pulse 1.5s ease-in-out infinite" }}
             >
               <AlertTriangle className="w-4 h-4" />
               {criticalAlerts} CRITICAL
@@ -140,28 +143,32 @@ export default function DashboardPage() {
 
       {/* ── AI Performance Bars ── */}
       <div
-        className="rounded-xl p-5 comic-panel bg-white"
-        style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}
+        className="rounded-none p-5 comic-panel bg-white mt-6"
+        style={{ border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}
       >
-        <h2 className="text-sm font-bold flex items-center gap-2 mb-4" style={{ color: "#050505" }}>
-          <Zap className="w-4 h-4" style={{ color: "#00FF87" }} />
+        <h2 className="text-sm font-black flex items-center gap-2 mb-4 uppercase tracking-widest text-black">
+          <div className="w-6 h-6 bg-black flex items-center justify-center">
+            <Zap className="w-4 h-4 text-[#00FF87]" />
+          </div>
           AI Performance Impact
-          <span className="comic-label ml-auto">GEMINI 2.0</span>
+          <span className="comic-label ml-auto bg-[#BF5FFF] text-white border-2 border-black">GEMINI 2.0</span>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
-            { label: "Wait Time Reduction", value: metrics.waitTimeReduction, icon: TrendingDown, color: "#00FF87", gradient: "linear-gradient(90deg, #00CC6A, #00FF87)" },
-            { label: "Throughput Increase", value: metrics.throughputIncrease, icon: TrendingUp, color: "#00C6FF", gradient: "linear-gradient(90deg, #0099CC, #00C6FF)" },
-            { label: "Crowd Flow Score", value: metrics.crowdFlowScore, icon: Activity, color: "#BF5FFF", gradient: "linear-gradient(90deg, #8b35cc, #BF5FFF)" },
-          ].map(({ label, value, icon: Icon, color, gradient }) => (
-            <div key={label} className="rounded-lg p-4" style={{ background: "rgba(0,0,0,0.4)", border: `1px solid ${color}25` }}>
+            { label: "Wait Time Reduction", value: metrics.waitTimeReduction, icon: TrendingDown, color: "#00FF87" },
+            { label: "Throughput Increase", value: metrics.throughputIncrease, icon: TrendingUp, color: "#00C6FF" },
+            { label: "Crowd Flow Score", value: metrics.crowdFlowScore, icon: Activity, color: "#FFE600" },
+          ].map(({ label, value, icon: Icon, color }) => (
+            <div key={label} className="rounded-none p-4" style={{ background: color, border: "3px solid #000", boxShadow: "3px 3px 0 #000" }}>
               <div className="flex items-center gap-2 mb-2">
-                <Icon className="w-4 h-4" style={{ color }} />
-                <span className="text-xs" style={{ color: "#555555" }}>{label}</span>
+                <div className="w-6 h-6 bg-white border-2 border-black flex items-center justify-center">
+                  <Icon className="w-3.5 h-3.5 text-black" />
+                </div>
+                <span className="text-xs font-black uppercase tracking-wider text-black">{label}</span>
               </div>
-              <p className="text-3xl font-black tabular-nums mb-2" style={{ color }}>{value}{label.includes("Score") ? "" : "%"}</p>
-              <div className="h-2 rounded-full" style={{ background: "#FFFFFF" }}>
-                <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${value}%`, background: gradient }} />
+              <p className="text-3xl font-black tabular-nums mb-2 text-black">{value}{label.includes("Score") ? "" : "%"}</p>
+              <div className="h-3 border-2 border-black bg-white">
+                <div className="h-full bg-black transition-all duration-1000" style={{ width: `${value}%` }} />
               </div>
             </div>
           ))}
@@ -179,9 +186,9 @@ export default function DashboardPage() {
           <StadiumMap zones={zones} selectedZone={selectedZone} onZoneClick={setSelectedZone} className="aspect-square" />
         </div>
 
-        <div className="rounded-xl p-5" style={{ background: "#FFFFFF", border: "2px solid #000", boxShadow: "4px 4px 0 rgba(0,0,0,0.5)" }}>
-          <h2 className="text-sm font-bold mb-4" style={{ color: "#050505" }}>Zone Occupancy</h2>
-          <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
+        <div className="rounded-none p-5" style={{ background: "#F5F0E8", border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}>
+          <h2 className="text-sm font-black mb-4 uppercase tracking-widest text-black">Zone Occupancy</h2>
+          <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
             {zones
               .sort((a, b) => b.currentOccupancy / b.capacity - a.currentOccupancy / a.capacity)
               .map((zone) => {
@@ -191,21 +198,23 @@ export default function DashboardPage() {
                   <button
                     key={zone.id}
                     onClick={() => setSelectedZone(zone.id)}
-                    className="w-full text-left p-3 rounded-lg transition-all"
+                    className="w-full text-left p-3 rounded-none transition-all hover:-translate-y-0.5 active:translate-y-0.5"
                     style={{
-                      background: selectedZone === zone.id ? "rgba(255,255,255,0.06)" : "transparent",
-                      border: `2px solid ${selectedZone === zone.id ? "#FFE600" : "#000"}`,
+                      background: "#FFFFFF",
+                      border: "3px solid #000",
+                      boxShadow: selectedZone === zone.id ? "none" : "3px 3px 0 #000",
+                      transform: selectedZone === zone.id ? "translate(3px, 3px)" : "none",
                     }}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold truncate" style={{ color: "#050505" }}>{zone.name}</span>
-                      <span className="text-sm font-black tabular-nums" style={{ color }}>{pct}%</span>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-black uppercase tracking-wider truncate text-black">{zone.name}</span>
+                      <span className="text-sm font-black tabular-nums px-2 py-0.5 border-2 border-black" style={{ background: color, color: "#000" }}>{pct}%</span>
                     </div>
-                    <div className="h-1.5 rounded-full" style={{ background: "#FFFFFF" }}>
-                      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, background: color }} />
+                    <div className="h-2.5 border-2 border-black bg-white">
+                      <div className="h-full transition-all duration-700 border-r-2 border-black" style={{ width: `${pct}%`, background: color }} />
                     </div>
-                    <p className="text-[10px] mt-1" style={{ color: "#3b4480" }}>
-                      {zone.currentOccupancy.toLocaleString()} / {zone.capacity.toLocaleString()}
+                    <p className="text-[10px] mt-2 font-bold uppercase tracking-wider text-gray-700">
+                      {zone.currentOccupancy.toLocaleString()} / {zone.capacity.toLocaleString()} Fans
                     </p>
                   </button>
                 );
