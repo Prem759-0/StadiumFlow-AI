@@ -48,8 +48,8 @@ export default function StadiumMap({
         {/* Background */}
         <defs>
           <radialGradient id="field-gradient" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#00e639" stopOpacity="0.15" />
-            <stop offset="100%" stopColor="#00e639" stopOpacity="0.03" />
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
+            <stop offset="100%" stopColor="#F5F0E8" stopOpacity="1" />
           </radialGradient>
           <filter id="glow-filter">
             <feGaussianBlur stdDeviation="1" result="blur" />
@@ -66,9 +66,9 @@ export default function StadiumMap({
           cy="50"
           rx="46"
           ry="44"
-          fill="none"
-          stroke="rgba(255,255,255,0.1)"
-          strokeWidth="0.5"
+          fill="#FFFFFF"
+          stroke="#000000"
+          strokeWidth="2"
         />
         <ellipse
           cx="50"
@@ -77,7 +77,8 @@ export default function StadiumMap({
           ry="36"
           fill="none"
           stroke="#000000"
-          strokeWidth="0.3"
+          strokeWidth="1.5"
+          strokeDasharray="4 4"
         />
 
         {/* Playing field */}
@@ -87,8 +88,8 @@ export default function StadiumMap({
           rx="18"
           ry="14"
           fill="url(#field-gradient)"
-          stroke="rgba(0,230,57,0.3)"
-          strokeWidth="0.3"
+          stroke="#000000"
+          strokeWidth="1.5"
         />
         {/* Pitch */}
         <rect
@@ -97,9 +98,9 @@ export default function StadiumMap({
           width="6"
           height="12"
           rx="0.5"
-          fill="rgba(0,230,57,0.1)"
-          stroke="rgba(0,230,57,0.2)"
-          strokeWidth="0.2"
+          fill="none"
+          stroke="#000000"
+          strokeWidth="1"
         />
 
         {/* Zone rectangles */}
@@ -114,13 +115,13 @@ export default function StadiumMap({
                 y={zone.position.y - zone.dimensions.height / 2}
                 width={zone.dimensions.width}
                 height={zone.dimensions.height}
-                rx="1"
+                rx="0"
                 fill={color}
-                fillOpacity={isSelected ? 0.7 : 0.35}
-                stroke={isSelected ? "#fff" : color}
-                strokeWidth={isSelected ? 0.6 : 0.3}
+                fillOpacity={isSelected ? 1 : 0.8}
+                stroke="#000"
+                strokeWidth={isSelected ? 1.5 : 0.8}
                 className="transition-all duration-500 cursor-pointer"
-                style={{ animation: zone.level === "high" ? "heatmapPulse 2s ease-in-out infinite" : undefined }}
+                style={{ animation: zone.level === "high" ? "heatmapPulse 2s ease-in-out infinite" : undefined, filter: isSelected ? "drop-shadow(2px 2px 0px #000)" : "drop-shadow(1px 1px 0px #000)" }}
                 onClick={() => onZoneClick?.(zone.id)}
                 role="button"
                 tabIndex={0}
@@ -138,10 +139,10 @@ export default function StadiumMap({
                   y={zone.position.y + 0.5}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  fill="white"
+                  fill="#000"
                   fontSize="1.8"
-                  fontWeight="600"
-                  className="pointer-events-none select-none"
+                  fontWeight="900"
+                  className="pointer-events-none select-none uppercase"
                   aria-hidden="true"
                 >
                   {zone.name.replace(/Section |Food Court |Restroom |Parking Lot /, "").slice(0, 6)}
@@ -158,14 +159,50 @@ export default function StadiumMap({
             y="50"
             textAnchor="middle"
             dominantBaseline="middle"
-            fill="rgba(255,255,255,0.4)"
+            fill="#000"
             fontSize="2.5"
-            fontWeight="700"
-            className="pointer-events-none"
+            fontWeight="900"
+            className="pointer-events-none opacity-40 uppercase"
             aria-hidden="true"
           >
             FIELD
           </text>
+        )}
+
+        {/* Advanced Animations: Radar Sweep and Particle Flow */}
+        {!compact && (
+          <>
+            <g className="animate-radar pointer-events-none">
+              <path
+                d="M50 50 L50 4 A46 46 0 0 1 96 50 Z"
+                fill="url(#radar-gradient)"
+              />
+              <line x1="50" y1="50" x2="50" y2="4" stroke="#00C6FF" strokeWidth="0.5" />
+            </g>
+            <defs>
+              <linearGradient id="radar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#00C6FF" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#00C6FF" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+
+            {/* Simulating crowd flow with particles */}
+            {[...Array(6)].map((_, i) => (
+              <circle
+                key={i}
+                cx="50"
+                cy="50"
+                r="0.6"
+                fill="#000"
+                className="animate-particle pointer-events-none"
+                style={{
+                  '--tx': `${Math.cos(i * 1.047) * 40}px`,
+                  '--ty': `${Math.sin(i * 1.047) * 40}px`,
+                  animationDelay: `${i * 0.3}s`
+                } as any}
+              />
+            ))}
+          </>
         )}
       </svg>
 
@@ -176,17 +213,17 @@ export default function StadiumMap({
           aria-label="Heatmap legend"
         >
           {[
-            { level: "Low", color: "#22c55e" },
-            { level: "Medium", color: "#eab308" },
-            { level: "High", color: "#ef4444" },
+            { level: "Low", color: "#00FF87" },
+            { level: "Medium", color: "#FFE600" },
+            { level: "High", color: "#FF3333" },
           ].map(({ level, color }) => (
-            <div key={level} className="flex items-center gap-1">
+            <div key={level} className="flex items-center gap-1.5 px-2 py-0.5 bg-white border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
               <span
-                className="w-2.5 h-2.5 rounded-sm"
-                style={{ backgroundColor: color, opacity: 0.6 }}
+                className="w-2.5 h-2.5 rounded-none border border-black"
+                style={{ backgroundColor: color }}
                 aria-hidden="true"
               />
-              <span className="text-navy-300">{level}</span>
+              <span className="text-black font-black uppercase tracking-wider text-[9px]">{level}</span>
             </div>
           ))}
         </div>

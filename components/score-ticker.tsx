@@ -36,12 +36,21 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
     <div className="space-y-3 animate-fade-in">
       {/* ── Featured Match Card ── */}
       <div
-        className="rounded-none p-5 relative overflow-hidden"
+        className="rounded-none p-5 relative overflow-hidden hover-tilt transition-all duration-300"
         style={{ background: "#FFE600", border: "4px solid #000", boxShadow: "8px 8px 0 #000" }}
         role="region"
         aria-label="Featured Match"
       >
-        <div className="flex items-center justify-between mb-4">
+        {/* Animated Marquee Background Tape */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center transform -rotate-12 scale-150 z-0">
+          <div className="marquee-tape">
+            {Array(10).fill("GOAL ").map((txt, i) => (
+              <span key={i} className="text-9xl font-black">{txt}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between mb-4 relative z-10">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-white border-2 border-black flex items-center justify-center">
               <Trophy className="w-4 h-4 text-black" aria-hidden="true" />
@@ -63,17 +72,17 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
           </div>
 
           {/* Score & Time */}
-          <div className="flex flex-col items-center">
-            <div className="text-5xl font-black text-black px-4 py-2 bg-white border-4 border-black" style={{ boxShadow: "4px 4px 0 #000" }}>
+          <div className="flex flex-col items-center relative z-10">
+            <div className="text-5xl font-black text-black px-4 py-2 bg-white border-4 border-black transition-transform duration-300 hover:scale-110" style={{ boxShadow: "4px 4px 0 #000" }}>
               {liveMatch.homeScore} - {liveMatch.awayScore}
             </div>
-            <div className="mt-3 bg-black text-[#00FF87] px-3 py-1 text-sm font-black tracking-widest uppercase border-2 border-black">
+            <div className="mt-3 bg-black text-[#00FF87] px-3 py-1 text-sm font-black tracking-widest uppercase border-2 border-black animate-pulse">
               {liveMatch.time}
             </div>
           </div>
 
           {/* Away Team */}
-          <div className="text-center">
+          <div className="text-center relative z-10">
             <p className="text-5xl font-black text-black tracking-tighter" style={{ textShadow: "3px 3px 0 #FFF" }}>{liveMatch.away}</p>
           </div>
         </div>

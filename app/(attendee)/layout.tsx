@@ -10,6 +10,7 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import {
   Home,
   MapPin,
@@ -33,11 +34,11 @@ import { StadiumZone, QueuePoint, Alert } from "@/lib/mock-data";
 const ChatAssistant = lazy(() => import("@/components/chat-assistant"));
 
 const NAV_ITEMS = [
-  { href: "/fan", icon: Home, label: "Home" },
-  { href: "/fan/navigate", icon: Navigation, label: "Navigate" },
-  { href: "/fan/queues", icon: Clock, label: "Queues" },
-  { href: "/fan/leaderboard", icon: Trophy, label: "Ranks" },
-  { href: "/fan/weather", icon: CloudSun, label: "Weather" },
+  { href: "/fan", icon: Home, labelKey: "dashboard", defaultLabel: "Home" },
+  { href: "/fan/navigate", icon: Navigation, labelKey: "navigation", defaultLabel: "Navigate" },
+  { href: "/fan/queues", icon: Clock, labelKey: "crowd", defaultLabel: "Queues" },
+  { href: "/fan/leaderboard", icon: Trophy, labelKey: "fanExperience", defaultLabel: "Ranks" },
+  { href: "/fan/weather", icon: CloudSun, labelKey: "sustainability", defaultLabel: "Weather" },
 ];
 
 export default function AttendeeLayout({
@@ -46,6 +47,7 @@ export default function AttendeeLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { t } = useTranslation();
   const { profile, isAccessibilityMode, toggleAccessibility, notifications, addNotification } =
     useAttendeeStore();
   const { updateZones, updateQueues, addAlert } = useStaffStore();
@@ -147,7 +149,7 @@ export default function AttendeeLayout({
               boxShadow: "3px 3px 0 #000"
             }}
           >
-            Staff Mode
+            {t('nav.admin', 'Staff Mode')}
           </Link>
           {/* Language Switcher */}
           <LanguageSwitcher />
@@ -194,8 +196,9 @@ export default function AttendeeLayout({
         aria-label="Main navigation"
       >
         <div className="flex items-center justify-around px-2 py-2 max-w-lg mx-auto">
-          {NAV_ITEMS.map(({ href, icon: Icon, label }) => {
+          {NAV_ITEMS.map(({ href, icon: Icon, labelKey, defaultLabel }) => {
             const isActive = pathname === href;
+            const translatedLabel = t(`nav.${labelKey}`, defaultLabel);
             return (
               <Link
                 key={href}
@@ -208,10 +211,10 @@ export default function AttendeeLayout({
                   boxShadow: isActive ? "4px 4px 0 #000" : "none",
                 }}
                 aria-current={isActive ? "page" : undefined}
-                aria-label={label}
+                aria-label={translatedLabel}
               >
                 <Icon className="w-5 h-5" aria-hidden="true" />
-                <span className="text-[10px] font-bold">{label}</span>
+                <span className="text-[10px] font-bold">{translatedLabel}</span>
               </Link>
             );
           })}
