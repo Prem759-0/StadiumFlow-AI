@@ -73,7 +73,7 @@ export default function TriviaCard() {
 
   return (
     <div
-      className="rounded-xl p-5 comic-panel bg-white"
+      className="rounded-2xl p-5 comic-panel bg-white"
       style={{
         background: "#FFFFFF",
         border: `4px solid #000`,
@@ -90,14 +90,14 @@ export default function TriviaCard() {
             FIFA Trivia
           </span>
           <span
-            className="text-[9px] px-2 py-0.5 rounded font-black border-2 border-black"
+            className="text-[9px] px-2 py-0.5 rounded-xl font-black border-2 border-black"
             style={{ backgroundColor: item.color, color: "#000" }}
           >
             {item.year}
           </span>
         </div>
         {points > 0 && (
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded-lg border-2 border-black" style={{ backgroundColor: "#FFE600" }}>
+          <div className="flex items-center gap-1 px-2 py-0.5 rounded-xl border-2 border-black" style={{ backgroundColor: "#FFE600" }}>
             <Star className="w-3 h-3 text-black" />
             <span className="text-[10px] font-black text-black">+{points} pts</span>
           </div>
@@ -115,7 +115,7 @@ export default function TriviaCard() {
       {/* Answer */}
       {revealed ? (
         <div
-          className="rounded-lg p-4 mb-4 animate-fade-in"
+          className="rounded-xl p-4 mb-4 animate-fade-in"
           style={{ background: "#F5F0E8", border: `3px solid #000`, boxShadow: `4px 4px 0 #000` }}
         >
           <p className="text-sm font-bold leading-relaxed" style={{ color: "#000" }}>
@@ -125,7 +125,7 @@ export default function TriviaCard() {
       ) : (
         <button
           onClick={handleReveal}
-          className="w-full rounded-lg px-4 py-3 text-sm font-black uppercase tracking-wider mb-4 transition-all duration-150"
+          className="w-full rounded-xl px-4 py-3 text-sm font-black uppercase tracking-wider mb-4 transition-all duration-150"
           style={{
             background: item.color,
             border: `3px solid #000`,
@@ -152,7 +152,7 @@ export default function TriviaCard() {
         </span>
         <button
           onClick={handleNext}
-          className="flex items-center gap-1 text-xs font-black uppercase tracking-wider px-3 py-1.5 rounded-lg border-2 border-black transition-transform hover:-translate-y-0.5"
+          className="flex items-center gap-1 text-xs font-black uppercase tracking-wider px-3 py-1.5 rounded-xl border-2 border-black transition-transform hover:-translate-y-0.5"
           style={{ backgroundColor: item.color, color: "#000", boxShadow: "2px 2px 0 #000" }}
         >
           Next

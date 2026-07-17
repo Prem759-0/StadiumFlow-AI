@@ -98,110 +98,110 @@ export default function DashboardPage() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="comic-label bg-black text-white px-2 py-0.5">FIFA WC 2026</span>
-            <div className="flex items-center gap-1.5 bg-[#FF3333] px-2 py-0.5 border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
-              <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-              <span className="text-[10px] font-black text-white uppercase tracking-wider">
-                LIVE MONITORING
-              </span>
-            </div>
+          <div className="flex items-center gap-1.5 bg-[#FF3333] px-2 py-0.5 rounded-xl border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
+            <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span className="text-[10px] font-black text-white uppercase tracking-wider">
+              LIVE MONITORING
+            </span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-black" style={{ textShadow: "2px 2px 0 #00FF87" }}>
-            Operations Overview
-          </h1>
-          <p className="text-xs mt-1 font-bold text-gray-700 uppercase tracking-widest">
-            MetLife Stadium · East Rutherford, NJ · 82,500 capacity
-          </p>
         </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={toggleSimulation}
-            className="flex items-center gap-2 px-4 py-2 rounded-none text-sm font-black uppercase tracking-wider transition-all hover:-translate-y-1 active:translate-y-1"
-            style={{
-              background: isSimulationRunning ? "#00FF87" : "#F5F0E8",
-              border: "3px solid #000",
-              color: "#000",
-              boxShadow: "4px 4px 0 #000",
-            }}
-            aria-label={isSimulationRunning ? "Pause simulation" : "Resume simulation"}
+        <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-black" style={{ textShadow: "2px 2px 0 #00FF87" }}>
+          Operations Overview
+        </h1>
+        <p className="text-xs mt-1 font-bold text-gray-700 uppercase tracking-widest">
+          MetLife Stadium · East Rutherford, NJ · 82,500 capacity
+        </p>
+      </div>
+      <div className="flex items-center gap-3">
+        <button
+          onClick={toggleSimulation}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-black uppercase tracking-wider transition-all hover:-translate-y-1 active:translate-y-1"
+          style={{
+            background: isSimulationRunning ? "#00FF87" : "#F5F0E8",
+            border: "3px solid #000",
+            color: "#000",
+            boxShadow: "4px 4px 0 #000",
+          }}
+          aria-label={isSimulationRunning ? "Pause simulation" : "Resume simulation"}
+        >
+          {isSimulationRunning ? <><Pause className="w-4 h-4" /> Live</> : <><Play className="w-4 h-4" /> Paused</>}
+        </button>
+
+        {criticalAlerts > 0 && (
+          <div
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-black uppercase tracking-widest"
+            style={{ background: "#FF3333", border: "3px solid #000", color: "#FFF", boxShadow: "4px 4px 0 #000", animation: "sos-pulse 1.5s ease-in-out infinite" }}
           >
-            {isSimulationRunning ? <><Pause className="w-4 h-4" /> Live</> : <><Play className="w-4 h-4" /> Paused</>}
-          </button>
-
-          {criticalAlerts > 0 && (
-            <div
-              className="flex items-center gap-1.5 px-3 py-2 rounded-none text-sm font-black uppercase tracking-widest"
-              style={{ background: "#FF3333", border: "3px solid #000", color: "#FFF", boxShadow: "4px 4px 0 #000", animation: "sos-pulse 1.5s ease-in-out infinite" }}
-            >
-              <AlertTriangle className="w-4 h-4" />
-              {criticalAlerts} CRITICAL
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* ── Metric Cards ── */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {metricCards.map((card, i) => {
-          const Icon = card.icon;
-          const c = NB_COLORS[card.colorIdx];
-          return (
-            <div
-              key={card.label}
-              className="rounded-xl p-4"
-              style={{ background: "#FFFFFF", border: `2px solid ${c.border}`, boxShadow: `4px 4px 0 ${c.shadow}` }}
-              aria-label={`${card.label}: ${card.value}`}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#555555" }}>{card.label}</span>
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ background: `${c.border}18`, border: `1px solid ${c.border}40` }}>
-                  <Icon className="w-4 h-4" style={{ color: c.text }} aria-hidden="true" />
-                </div>
-              </div>
-              <p className="text-3xl font-black tabular-nums" style={{ color: c.text }}>{card.value}</p>
-              <p className="text-[10px] mt-1" style={{ color: "#3b4480" }}>{card.subtext}</p>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* ── AI Performance Bars ── */}
-      <div
-        className="rounded-none p-5 comic-panel bg-white mt-6"
-        style={{ border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}
-      >
-        <h2 className="text-sm font-black flex items-center gap-2 mb-4 uppercase tracking-widest text-black">
-          <div className="w-6 h-6 bg-black flex items-center justify-center">
-            <Zap className="w-4 h-4 text-[#00FF87]" />
+            <AlertTriangle className="w-4 h-4" />
+            {criticalAlerts} CRITICAL
           </div>
-          AI Performance Impact
-          <span className="comic-label ml-auto bg-[#BF5FFF] text-white border-2 border-black">GEMINI 2.0</span>
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[
-            { label: "Wait Time Reduction", value: metrics.waitTimeReduction, icon: TrendingDown, color: "#00FF87" },
-            { label: "Throughput Increase", value: metrics.throughputIncrease, icon: TrendingUp, color: "#00C6FF" },
-            { label: "Crowd Flow Score", value: metrics.crowdFlowScore, icon: Activity, color: "#FFE600" },
-          ].map(({ label, value, icon: Icon, color }) => (
-            <div key={label} className="rounded-none p-4" style={{ background: color, border: "3px solid #000", boxShadow: "3px 3px 0 #000" }}>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-6 h-6 bg-white border-2 border-black flex items-center justify-center">
-                  <Icon className="w-3.5 h-3.5 text-black" />
-                </div>
-                <span className="text-xs font-black uppercase tracking-wider text-black">{label}</span>
-              </div>
-              <p className="text-3xl font-black tabular-nums mb-2 text-black">{value}{label.includes("Score") ? "" : "%"}</p>
-              <div className="h-3 border-2 border-black bg-white">
-                <div className="h-full bg-black transition-all duration-1000" style={{ width: `${value}%` }} />
+        )}
+      </div>
+    </div>
+
+    {/* ── Metric Cards ── */}
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {metricCards.map((card, i) => {
+        const Icon = card.icon;
+        const c = NB_COLORS[card.colorIdx];
+        return (
+          <div
+            key={card.label}
+            className="rounded-2xl p-4 transition-transform hover:-translate-y-1"
+            style={{ background: "#FFFFFF", border: `3px solid ${c.border}`, boxShadow: `4px 4px 0 ${c.shadow}` }}
+            aria-label={`${card.label}: ${card.value}`}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#555555" }}>{card.label}</span>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center"
+                style={{ background: `${c.border}18`, border: `2px solid ${c.border}40` }}>
+                <Icon className="w-4 h-4" style={{ color: c.text }} aria-hidden="true" />
               </div>
             </div>
-          ))}
+            <p className="text-3xl font-black tabular-nums" style={{ color: c.text }}>{card.value}</p>
+            <p className="text-[10px] mt-1" style={{ color: "#3b4480" }}>{card.subtext}</p>
+          </div>
+        );
+      })}
+    </div>
+
+    {/* ── AI Performance Bars ── */}
+    <div
+      className="rounded-2xl p-5 comic-panel bg-white mt-6"
+      style={{ border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}
+    >
+      <h2 className="text-sm font-black flex items-center gap-2 mb-4 uppercase tracking-widest text-black">
+        <div className="w-6 h-6 rounded-full bg-black flex items-center justify-center">
+          <Zap className="w-4 h-4 text-[#00FF87]" />
+        </div>
+        AI Performance Impact
+        <span className="comic-label rounded-xl ml-auto bg-[#BF5FFF] text-white border-2 border-black">GEMINI 2.0</span>
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {[
+          { label: "Wait Time Reduction", value: metrics.waitTimeReduction, icon: TrendingDown, color: "#00FF87" },
+          { label: "Throughput Increase", value: metrics.throughputIncrease, icon: TrendingUp, color: "#00C6FF" },
+          { label: "Crowd Flow Score", value: metrics.crowdFlowScore, icon: Activity, color: "#FFE600" },
+        ].map(({ label, value, icon: Icon, color }) => (
+          <div key={label} className="rounded-2xl p-4" style={{ background: color, border: "3px solid #000", boxShadow: "3px 3px 0 #000" }}>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-6 rounded-full bg-white border-2 border-black flex items-center justify-center">
+                <Icon className="w-3.5 h-3.5 text-black" />
+              </div>
+              <span className="text-xs font-black uppercase tracking-wider text-black">{label}</span>
+            </div>
+            <p className="text-3xl font-black tabular-nums mb-2 text-black">{value}{label.includes("Score") ? "" : "%"}</p>
+            <div className="h-3 rounded-full border-2 border-black bg-white overflow-hidden">
+              <div className="h-full rounded-r-full bg-black transition-all duration-1000" style={{ width: `${value}%` }} />
+            </div>
+          </div>
+        ))}
         </div>
       </div>
 
       {/* ── Live Heatmap + Zone List ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="rounded-xl p-5" style={{ background: "#FFFFFF", border: "2px solid #FFE600", boxShadow: "4px 4px 0 #FFE600" }}>
+        <div className="rounded-2xl p-5" style={{ background: "#FFFFFF", border: "2px solid #FFE600", boxShadow: "4px 4px 0 #FFE600" }}>
           <h2 className="text-sm font-bold flex items-center gap-2 mb-4" style={{ color: "#FFE600" }}>
             <BarChart3 className="w-4 h-4" />
             Live Stadium Heatmap
@@ -210,7 +210,7 @@ export default function DashboardPage() {
           <StadiumMap zones={zones} selectedZone={selectedZone} onZoneClick={setSelectedZone} className="aspect-square" />
         </div>
 
-        <div className="rounded-none p-5" style={{ background: "#F5F0E8", border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}>
+        <div className="rounded-2xl p-5" style={{ background: "#F5F0E8", border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}>
           <h2 className="text-sm font-black mb-4 uppercase tracking-widest text-black">Zone Occupancy</h2>
           <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
             {zones
@@ -224,7 +224,7 @@ export default function DashboardPage() {
                   <div key={zone.id} className="w-full">
                     <button
                       onClick={() => setSelectedZone(zone.id)}
-                      className="w-full text-left p-3 rounded-none transition-all hover:-translate-y-0.5 active:translate-y-0.5"
+                      className={`w-full text-left p-3 ${isSelected ? "rounded-t-xl" : "rounded-xl"} transition-all hover:-translate-y-0.5 active:translate-y-0.5`}
                       style={{
                         background: zone.isLockedDown ? "#FF3333" : "#FFFFFF",
                         border: "3px solid #000",
@@ -236,10 +236,10 @@ export default function DashboardPage() {
                         <span className={`text-xs font-black uppercase tracking-wider truncate ${zone.isLockedDown ? "text-white" : "text-black"}`}>
                           {zone.isLockedDown ? "🚨 " : ""}{zone.name}
                         </span>
-                        <span className="text-sm font-black tabular-nums px-2 py-0.5 border-2 border-black" style={{ background: color, color: "#000" }}>{pct}%</span>
+                        <span className="text-sm font-black tabular-nums px-2 py-0.5 rounded-lg border-2 border-black" style={{ background: color, color: "#000" }}>{pct}%</span>
                       </div>
-                      <div className="h-2.5 border-2 border-black bg-white">
-                        <div className="h-full transition-all duration-700 border-r-2 border-black" style={{ width: `${pct}%`, background: color }} />
+                      <div className="h-2.5 rounded-full border-2 border-black bg-white overflow-hidden">
+                        <div className="h-full rounded-r-full transition-all duration-700 border-r-2 border-black" style={{ width: `${pct}%`, background: color }} />
                       </div>
                       <p className={`text-[10px] mt-2 font-bold uppercase tracking-wider ${zone.isLockedDown ? "text-white" : "text-gray-700"}`}>
                         {zone.currentOccupancy.toLocaleString()} / {zone.capacity.toLocaleString()} Fans
@@ -248,10 +248,10 @@ export default function DashboardPage() {
                     
                     {/* God Mode Lockdown Control */}
                     {isSelected && (
-                      <div className="mt-2 p-3 border-x-4 border-b-4 border-black bg-black animate-slide-up">
+                      <div className="p-3 border-x-4 border-b-4 border-black bg-black animate-slide-up rounded-b-xl" style={{ marginTop: "-3px" }}>
                         <button
                           onClick={() => useStaffStore.getState().toggleZoneLockdown(zone.id)}
-                          className={`w-full py-2 border-4 border-black font-black uppercase tracking-widest text-xs transition-colors ${
+                          className={`w-full py-2 rounded-xl border-4 border-black font-black uppercase tracking-widest text-xs transition-colors ${
                             zone.isLockedDown 
                               ? "bg-[#00FF87] text-black hover:bg-white" 
                               : "bg-[#FF3333] text-white hover:bg-[#FFE600] hover:text-black animate-pulse"
@@ -269,7 +269,7 @@ export default function DashboardPage() {
       </div>
 
       {/* ── AI Crisis Simulator ── */}
-      <div className="rounded-xl p-5 comic-panel relative overflow-hidden" style={{ background: "#FF3333", border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}>
+      <div className="rounded-2xl p-5 comic-panel relative overflow-hidden" style={{ background: "#FF3333", border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}>
         <div className="absolute -right-4 -top-4 opacity-20 pointer-events-none">
           <Bot className="w-32 h-32 text-black" />
         </div>
@@ -296,7 +296,7 @@ export default function DashboardPage() {
                 <button
                   key={name}
                   onClick={() => runSimulation(name)}
-                  className="flex items-center gap-2 p-3 rounded-lg bg-white border-2 border-black text-black font-black text-[10px] uppercase tracking-wider shadow-[3px_3px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_#000] transition-all"
+                  className="flex items-center gap-2 p-3 rounded-xl bg-white border-2 border-black text-black font-black text-[10px] uppercase tracking-wider shadow-[3px_3px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_#000] transition-all"
                 >
                   <Icon className="w-4 h-4 text-[#FF3333]" />
                   {name}

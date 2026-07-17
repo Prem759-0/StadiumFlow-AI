@@ -36,7 +36,7 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
     <div className="space-y-3 animate-fade-in">
       {/* ── Featured Match Card ── */}
       <div
-        className="rounded-none p-5 relative overflow-hidden hover-tilt transition-all duration-300"
+        className="rounded-2xl p-5 relative overflow-hidden hover-tilt transition-all duration-300"
         style={{ background: "#FFE600", border: "4px solid #000", boxShadow: "8px 8px 0 #000" }}
         role="region"
         aria-label="Featured Match"
@@ -52,12 +52,12 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
 
         <div className="flex items-center justify-between mb-4 relative z-10">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-white border-2 border-black flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-white border-2 border-black flex items-center justify-center">
               <Trophy className="w-4 h-4 text-black" aria-hidden="true" />
             </div>
             <span className="text-xs font-black uppercase tracking-widest text-black">World Cup 2026</span>
           </div>
-          <div className="flex items-center gap-2 bg-[#FF3333] px-3 py-1 border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
+          <div className="flex items-center gap-2 bg-[#FF3333] px-3 py-1 rounded-xl border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
             <Radio className="w-3.5 h-3.5 animate-pulse text-white" aria-hidden="true" />
             <span className="text-xs font-black uppercase tracking-widest text-white">
               LIVE NOW
@@ -73,10 +73,10 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
 
           {/* Score & Time */}
           <div className="flex flex-col items-center relative z-10">
-            <div className="text-5xl font-black text-black px-4 py-2 bg-white border-4 border-black transition-transform duration-300 hover:scale-110" style={{ boxShadow: "4px 4px 0 #000" }}>
+            <div className="text-5xl font-black text-black px-4 py-2 bg-white rounded-2xl border-4 border-black transition-transform duration-300 hover:scale-110" style={{ boxShadow: "4px 4px 0 #000" }}>
               {liveMatch.homeScore} - {liveMatch.awayScore}
             </div>
-            <div className="mt-3 bg-black text-[#00FF87] px-3 py-1 text-sm font-black tracking-widest uppercase border-2 border-black animate-pulse">
+            <div className="mt-3 bg-black text-[#00FF87] px-3 py-1 rounded-xl text-sm font-black tracking-widest uppercase border-2 border-black animate-pulse">
               {liveMatch.time}
             </div>
           </div>

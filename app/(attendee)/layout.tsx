@@ -141,7 +141,7 @@ export default function AttendeeLayout({
           {/* Staff Dashboard Toggle */}
           <Link
             href="/dashboard"
-            className="px-3 py-1.5 rounded-none text-[10px] font-black uppercase tracking-widest transition-all hover:-translate-y-1 active:translate-y-1"
+            className="px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:-translate-y-1 active:translate-y-1"
             style={{
               background: "#00C6FF",
               color: "#000",
