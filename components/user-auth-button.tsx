@@ -86,43 +86,48 @@ export default function UserAuthButton({ mode }: UserAuthButtonProps) {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-navy-800/80 hover:bg-navy-700 p-1 pr-3 rounded-full border border-white/10 transition-colors"
+        className="flex items-center gap-2 p-1.5 pr-3 rounded-none transition-all active:translate-y-1 hover:-translate-y-1"
+        style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "4px 4px 0 #000" }}
         aria-expanded={isOpen}
       >
-        <div className="w-8 h-8 rounded-full overflow-hidden bg-electric-500/20 border border-electric-500/20 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-none border-[2px] border-black flex items-center justify-center bg-[#00FF87]">
           {user.photoURL ? (
             <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
           ) : (
-            <User className="w-4 h-4 text-electric-400" />
+            <User className="w-5 h-5 text-black" />
           )}
         </div>
         <div className="hidden sm:block text-left">
-          <p className="text-xs font-bold text-black leading-none mb-0.5">
+          <p className="text-xs font-black text-black leading-none mb-0.5 uppercase tracking-wide">
             {user.displayName?.split(" ")[0]}
           </p>
-          <p className="text-[10px] text-navy-400 leading-none">
+          <p className="text-[10px] text-gray-700 font-bold uppercase tracking-widest leading-none">
             Staff Mode
           </p>
         </div>
-        <ChevronDown className={`w-3 h-3 text-navy-400 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDown className={`w-4 h-4 text-black transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 mt-2 w-48 bg-navy-900 border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden animate-slide-up">
-            <div className="p-3 border-b border-white/5 bg-white/5">
-              <p className="text-xs font-bold text-black truncate">{user.displayName}</p>
-              <p className="text-[10px] text-navy-400 truncate">{user.email}</p>
+          <div className={`absolute right-0 w-56 rounded-none z-50 overflow-hidden animate-slide-up ${
+                 mode === "staff" ? "bottom-full mb-3" : "mt-3"
+               }`}
+               style={{ background: "#FFFFFF", border: "4px solid #000", boxShadow: "8px 8px 0 #000" }}>
+            <div className="p-3 border-b-4 border-black bg-[#FFE600]">
+              <p className="text-sm font-black text-black uppercase truncate">{user.displayName}</p>
+              <p className="text-[10px] font-bold text-black uppercase tracking-wider truncate">{user.email}</p>
             </div>
-            <div className="p-1">
-              <div className="px-3 py-2 flex items-center gap-2 text-[10px] font-bold text-electric-400 uppercase tracking-wider">
-                <Shield className="w-3 h-3" />
+            <div className="p-2 space-y-1">
+              <div className="px-3 py-2 flex items-center gap-2 text-[10px] font-black text-black uppercase tracking-widest bg-gray-100 border-2 border-black">
+                <Shield className="w-4 h-4 text-[#00C6FF]" />
                 Staff Role Active
               </div>
               <button
                 onClick={handleSignOut}
-                className="w-full flex items-center gap-2 px-3 py-2 text-sm text-accent-red hover:bg-white/5 rounded-lg transition-colors"
+                className="w-full flex items-center gap-2 px-3 py-2 text-sm font-black uppercase tracking-widest transition-all active:translate-y-1"
+                style={{ background: "#FF3333", color: "#FFF", border: "3px solid #000", boxShadow: "4px 4px 0 #000" }}
               >
                 <LogOut className="w-4 h-4" />
                 Logout

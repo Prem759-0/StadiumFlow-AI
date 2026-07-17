@@ -330,9 +330,9 @@ async function createOrUpdateUserProfile(
 /** Get mock user profile for demo mode */
 export function getMockUserProfile(role: UserRole): UserProfile {
   return {
-    uid: "mock-user-001",
-    email: "fan@stadiumflow.ai",
-    displayName: role === "staff" ? "Staff Admin" : "Cricket Fan",
+    uid: role === "staff" ? "mock-staff-123" : "mock-fan-456",
+    displayName: role === "staff" ? "Staff Admin" : "Football Fan",
+    email: role === "staff" ? "staff@stadiumflow.ai" : "fan@stadiumflow.ai",
     photoURL: null,
     role,
     seatSection: "N1",

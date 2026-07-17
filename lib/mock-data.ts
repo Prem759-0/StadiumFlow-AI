@@ -221,7 +221,7 @@ export const defaultAttendee: AttendeeProfile = {
   ticketType: "premium",
   entryGate: "Gate A",
   points: 250,
-  preferences: ["cricket", "food", "merchandise"],
+  preferences: ["football", "food", "merchandise"],
   needsAccessibility: false,
 };
 

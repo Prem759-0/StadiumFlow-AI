@@ -61,20 +61,22 @@ export default function StadiumMap({
         </defs>
 
         {/* Stadium outline */}
-        <ellipse
-          cx="50"
-          cy="50"
-          rx="46"
-          ry="44"
+        <rect
+          x="5"
+          y="15"
+          width="90"
+          height="70"
+          rx="15"
           fill="#FFFFFF"
           stroke="#000000"
           strokeWidth="2"
         />
-        <ellipse
-          cx="50"
-          cy="50"
-          rx="38"
-          ry="36"
+        <rect
+          x="10"
+          y="20"
+          width="80"
+          height="60"
+          rx="10"
           fill="none"
           stroke="#000000"
           strokeWidth="1.5"
@@ -82,11 +84,12 @@ export default function StadiumMap({
         />
 
         {/* Playing field */}
-        <ellipse
-          cx="50"
-          cy="50"
-          rx="18"
-          ry="14"
+        <rect
+          x="30"
+          y="30"
+          width="40"
+          height="40"
+          rx="2"
           fill="url(#field-gradient)"
           stroke="#000000"
           strokeWidth="1.5"
@@ -174,10 +177,10 @@ export default function StadiumMap({
           <>
             <g className="animate-radar pointer-events-none">
               <path
-                d="M50 50 L50 4 A46 46 0 0 1 96 50 Z"
+                d="M50 50 L50 5 A45 45 0 0 1 95 50 Z"
                 fill="url(#radar-gradient)"
               />
-              <line x1="50" y1="50" x2="50" y2="4" stroke="#00C6FF" strokeWidth="0.5" />
+              <line x1="50" y1="50" x2="50" y2="5" stroke="#00C6FF" strokeWidth="0.5" />
             </g>
             <defs>
               <linearGradient id="radar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">

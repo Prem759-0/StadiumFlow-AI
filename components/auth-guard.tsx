@@ -101,12 +101,14 @@ const AuthGuard = memo(function AuthGuard({
   if (loading) {
     return (
       <div
-        className="flex items-center justify-center min-h-screen bg-gray-950"
+        className="flex items-center justify-center min-h-screen"
+        style={{ background: "#F5F0E8" }}
         role="status"
         aria-label="Loading authentication"
       >
         <Loader2
-          className="w-8 h-8 text-emerald-500 animate-spin"
+          className="w-12 h-12 text-[#00FF87] animate-spin"
+          style={{ filter: "drop-shadow(2px 2px 0 #000)" }}
           aria-hidden="true"
         />
       </div>
@@ -121,17 +123,18 @@ const AuthGuard = memo(function AuthGuard({
   // Unauthenticated — show sign-in options
   return (
     <div
-      className="flex items-center justify-center min-h-screen bg-gray-950"
+      className="flex items-center justify-center min-h-screen"
+      style={{ background: "#F5F0E8" }}
       role="main"
       aria-label="Authentication required"
     >
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
-        <div className="text-center mb-6">
-          <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Shield className="w-8 h-8 text-orange-500" aria-hidden="true" />
+      <div className="rounded-none p-10 max-w-md w-full mx-4" style={{ background: "#FFFFFF", border: "4px solid #000", boxShadow: "12px 12px 0 #000" }}>
+        <div className="text-center mb-8">
+          <div className="w-20 h-20 bg-[#FFE600] flex items-center justify-center mx-auto mb-6" style={{ border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}>
+            <Shield className="w-10 h-10 text-black" aria-hidden="true" />
           </div>
-          <h1 className="text-2xl font-bold text-black">StadiumFlow AI</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-black" style={{ textShadow: "2px 2px 0 #00C6FF" }}>StadiumFlow AI</h1>
+          <p className="text-sm font-bold mt-2 uppercase tracking-widest text-black">
             {requiredRole === "staff"
               ? "Staff Dashboard Access"
               : "Fan Experience Portal"}
@@ -141,17 +144,19 @@ const AuthGuard = memo(function AuthGuard({
 
         {error && (
           <div
-            className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-4"
+            className="p-3 mb-6 font-bold text-sm uppercase"
+            style={{ background: "#FF3333", color: "#FFF", border: "2px solid #000", boxShadow: "4px 4px 0 #000" }}
             role="alert"
           >
-            <p className="text-red-400 text-sm">{error}</p>
+            <p>{error}</p>
           </div>
         )}
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           <button
             onClick={handleGoogleSignIn}
-            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-navy-950 rounded-lg py-3 px-4 font-extrabold transition-all shadow-lg shadow-green-500/20 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            className="w-full flex items-center justify-center gap-3 py-4 px-4 font-black text-sm uppercase tracking-widest transition-all duration-150 active:translate-y-1 hover:-translate-y-1"
+            style={{ background: "#00FF87", color: "#000", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}
             aria-label="Sign in with Google"
           >
             <LogIn className="w-5 h-5" aria-hidden="true" />
@@ -159,7 +164,7 @@ const AuthGuard = memo(function AuthGuard({
           </button>
         </div>
 
-        <p className="text-gray-600 text-xs text-center mt-6">
+        <p className="text-xs font-bold text-center mt-8 uppercase tracking-widest" style={{ color: "#555555" }}>
           Powered by Firebase Auth + Google Cloud
         </p>
       </div>

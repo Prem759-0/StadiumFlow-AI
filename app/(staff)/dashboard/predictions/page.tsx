@@ -59,14 +59,19 @@ export default function PredictionsPage() {
   return (
     <div className="space-y-5 animate-fade-in max-w-4xl">
       {/* Header */}
-      <div className="flex items-start justify-between flex-wrap gap-2">
+      <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="comic-label" style={{ background: "#BF5FFF", color: "#fff" }}>AI PANEL</span>
-            <span className="text-[10px] pulse-dot" style={{ color: "#555555" }}>&nbsp;&nbsp;GEMINI INSIGHTS</span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="comic-label bg-black text-white px-2 py-0.5">AI PANEL</span>
+            <div className="flex items-center gap-1.5 bg-[#BF5FFF] px-2 py-0.5 border-2 border-black" style={{ boxShadow: "2px 2px 0 #000" }}>
+              <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              <span className="text-[10px] font-black text-white uppercase tracking-wider">
+                GEMINI INSIGHTS
+              </span>
+            </div>
           </div>
-          <h1 className="text-xl md:text-2xl font-black" style={{ color: "#050505" }}>AI Predictions</h1>
-          <p className="text-xs mt-1" style={{ color: "#555555" }}>
+          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-black" style={{ textShadow: "2px 2px 0 #BF5FFF" }}>AI Predictions</h1>
+          <p className="text-xs mt-1 font-bold text-gray-700 uppercase tracking-widest">
             Real-time predictive analytics for proactive crowd coordination
           </p>
         </div>
