@@ -16,7 +16,10 @@ import {
 } from "./mock-data";
 import type { GeminiChatMessage } from "./gemini";
 
-// ---- Attendee Store ----
+/**
+ * Represents the global state for an Attendee (Fan) user.
+ * Manages chat history, navigation, queue tickets, and general UI toggles.
+ */
 interface AttendeeState {
   profile: AttendeeProfile;
   currentLocation: string;
@@ -120,6 +123,10 @@ export const useAttendeeStore = create<AttendeeState>((set) => ({
 }));
 
 // ---- Staff Store ----
+/**
+ * Represents the global state for a Staff member.
+ * Manages AI predictions, active crowds/zones, and real-time alerts.
+ */
 interface StaffState {
   zones: StadiumZone[];
   queues: QueuePoint[];

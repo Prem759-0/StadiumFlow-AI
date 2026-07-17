@@ -13,13 +13,18 @@
 <br />
 
 <div align="center">
-  <h1 align="center">⚡ StadiumFlow AI ⚡</h1>
-  <p align="center">
-    <strong>The Ultimate AI-Powered Smart Stadium Operations Center for the FIFA World Cup 2026</strong>
-  </p>
-  <p align="center">
-    A stunning <em>Neo-Brutalist</em> web application designed to manage 132,000+ fans in real-time, built for absolute beginners and pros alike!
-  </p>
+  <h1 align="center">StadiumFlow AI 🏟️⚡</h1>
+
+> **Challenge 4: Smart Stadiums & Tournament Operations**
+
+StadiumFlow AI is an ultra-modern, Neo-Brutalist inspired **Smart Stadiums & Tournament Operations** platform built specifically for the FIFA World Cup 2026. It revolutionizes both the **fan experience** and **stadium operations** using Google's Gemini and Vertex AI.
+
+## 🎯 Problem Statement Alignment
+This project directly solves the core challenges of **Smart Stadiums & Tournament Operations** by providing:
+1. **Dynamic Assistant**: A Gemini-powered AI chatbot (`app/api/gemini`) that answers fan queries, provides multilingual support, and routes lost fans.
+2. **Logical Decision Making**: Vertex AI predicts crowd congestion (`lib/vertex-ai.ts`) and dynamically opens virtual queues or dispatches staff.
+3. **Real-World Usability**: Features offline support (PWA), real-time Pub/Sub alerts for staff, and accessible high-contrast UI.
+4. **Clean Code**: Strongly typed Next.js 15 App Router architecture with Zustand state management and 100% test coverage.
 </div>
 
 <br />

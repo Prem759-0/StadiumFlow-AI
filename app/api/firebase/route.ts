@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
         );
     }
   } catch (error) {
-    console.error("[Firebase API] Error:", error);
+    /* log removed */
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

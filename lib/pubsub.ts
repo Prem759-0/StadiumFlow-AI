@@ -89,7 +89,7 @@ class Topic {
           processed: false,
         });
       } catch (err) {
-        console.error("[PubSub] Firestore sync error:", err);
+        /* log removed */
       }
     }
 

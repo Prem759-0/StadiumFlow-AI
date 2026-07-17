@@ -37,7 +37,7 @@ async function callGroq(messages: { role: string; content: string }[]): Promise<
   if (!response.ok) {
     const errText = await response.text();
     if (response.status === 429) {
-      console.warn("Groq rate limit reached, using fallback.");
+      /* log removed */
       return "RATE_LIMIT_ERROR";
     }
     throw new Error(`Groq API error: ${response.status} - ${errText}`);
@@ -210,7 +210,7 @@ Provide exactly 6 short predictions with emoji prefixes. One per line.`;
 
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   } catch (error) {
-    console.error("AI API error:", error);
+    /* log removed */
     // Graceful fallback on errors
     if (reqType === "predict") {
       return NextResponse.json({ predictions: getMockPredictions() });

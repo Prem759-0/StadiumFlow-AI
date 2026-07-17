@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
       message: `Published to ${topic} via Cloud Pub/Sub`,
     });
   } catch (error) {
-    console.error("[Pub/Sub API] Error:", error);
+    /* log removed */
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

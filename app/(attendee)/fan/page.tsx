@@ -83,11 +83,11 @@ export default function FanHomePage() {
             }
           })
           .catch((err) => {
-            console.error("Error accessing camera:", err);
+            /* log removed */
             setCameraError(true);
           });
       } else {
-        console.warn("Camera API not available.");
+        /* log removed */
         setCameraError(true);
       }
     }

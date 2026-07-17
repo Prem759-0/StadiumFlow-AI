@@ -20,7 +20,7 @@ let queueTimer: any = null;
  * Analyzes live stadium data and generates AI forecasts.
  */
 export async function scheduledCrowdPrediction(): Promise<void> {
-  console.info(`[Cloud Function] scheduledCrowdPrediction execution started`);
+  /* log removed */
   const store = useStaffStore.getState();
 
   const zoneContext: VertexAIZoneContext[] = store.zones.map((z) => ({
@@ -52,7 +52,7 @@ export async function scheduledCrowdPrediction(): Promise<void> {
       timestamp: new Date().toISOString(),
     });
   } catch (err) {
-    console.error("[Cloud Function] scheduledCrowdPrediction failed:", err);
+    /* log removed */
   }
 }
 
@@ -60,7 +60,7 @@ export async function scheduledCrowdPrediction(): Promise<void> {
  * Handler: onAlertCreated.
  */
 export async function onAlertCreated(alert: any): Promise<void> {
-  console.info(`[Cloud Function] onAlertCreated (trigger: firestore.alerts.onCreate)`);
+  /* log removed */
   
   if (isFirebaseConfigured()) {
     await writeAlertToFirestore({ ...alert, status: "pending" });
@@ -105,7 +105,7 @@ export async function analyzeSafetyThresholds(): Promise<void> {
  * Start all scheduled simulators.
  */
 export function startCloudFunctions(): void {
-  console.info("[Cloud Functions] Initializing serverless runtimes...");
+  /* log removed */
 
   if (!predictionTimer) {
     predictionTimer = setInterval(scheduledCrowdPrediction, 30000);

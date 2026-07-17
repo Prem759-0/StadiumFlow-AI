@@ -119,7 +119,7 @@ export class VertexAIClient {
         })
       );
     } catch (error) {
-      console.error("[Vertex AI] Crowd flow prediction failed:", error);
+      /* log removed */
       return this.getFallbackPredictions();
     }
   }
@@ -214,7 +214,7 @@ export class VertexAIClient {
         googleMapsUrl: this.buildGoogleMapsUrl(from, to),
       };
     } catch (error) {
-      console.error("[Vertex AI] Route optimization failed:", error);
+      /* log removed */
       return {
         path: [from, "Main Concourse", to],
         estimatedTime: 5,

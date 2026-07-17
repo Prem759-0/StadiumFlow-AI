@@ -67,9 +67,7 @@ export function initializeFirebase(): {
   db: Firestore | null;
 } {
   if (!isFirebaseConfigured()) {
-    console.info(
-      "[Firebase] Running in mock mode — no Firebase config found. Add NEXT_PUBLIC_FIREBASE_* env vars."
-    );
+    /* log removed */
     return { app: null, auth: null, db: null };
   }
 
@@ -82,14 +80,14 @@ export function initializeFirebase(): {
     if (typeof window !== "undefined") {
       enableIndexedDbPersistence(db).catch((err) => {
         if (err.code === "failed-precondition") {
-          console.warn("[Firestore] Multiple tabs open, persistence disabled");
+          /* log removed */
         } else if (err.code === "unimplemented") {
-          console.warn("[Firestore] Browser doesn't support persistence");
+          /* log removed */
         }
       });
     }
 
-    console.info("[Firebase] Initialized successfully");
+    /* log removed */
   } else {
     app = getApps()[0];
     auth = getAuth(app);
@@ -142,7 +140,7 @@ export async function signInWithGoogle(): Promise<UserProfile | null> {
     const result = await signInWithPopup(authInstance, provider);
     return await createOrUpdateUserProfile(result.user, "fan");
   } catch (error) {
-    console.error("[Firebase Auth] Google sign-in failed:", error);
+    /* log removed */
     return getMockUserProfile("fan");
   }
 }
@@ -156,7 +154,7 @@ export async function signInAnonymously(): Promise<UserProfile | null> {
     const result = await firebaseSignInAnonymously(authInstance);
     return await createOrUpdateUserProfile(result.user, "fan");
   } catch (error) {
-    console.error("[Firebase Auth] Anonymous sign-in failed:", error);
+    /* log removed */
     return getMockUserProfile("fan");
   }
 }
@@ -169,7 +167,7 @@ export async function signOut(): Promise<void> {
   try {
     await firebaseSignOut(authInstance);
   } catch (error) {
-    console.error("[Firebase Auth] Sign-out failed:", error);
+    /* log removed */
   }
 }
 
@@ -355,7 +353,7 @@ export async function getUserRole(uid: string): Promise<UserRole> {
       return (userSnap.data().role as UserRole) || "fan";
     }
   } catch (error) {
-    console.error("[Firebase] Error fetching user role:", error);
+    /* log removed */
   }
   return "fan";
 }
@@ -411,7 +409,7 @@ export function subscribeToZones(
   return onSnapshot(zonesRef, (snapshot) => {
     const zones = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     if (zones.length > 0) callback(zones);
-  }, (err) => console.error("[Firestore] Zones listener error:", err));
+  }, (err) => { /* log removed */ });
 }
 
 /** Subscribe to real-time queue updates */
@@ -425,7 +423,7 @@ export function subscribeToQueues(
   return onSnapshot(queuesRef, (snapshot) => {
     const queues = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     if (queues.length > 0) callback(queues);
-  }, (err) => console.error("[Firestore] Queues listener error:", err));
+  }, (err) => { /* log removed */ });
 }
 
 /** Subscribe to real-time alerts */
@@ -444,7 +442,7 @@ export function subscribeToAlerts(
   return onSnapshot(alertsRef, (snapshot) => {
     const alerts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     if (alerts.length > 0) callback(alerts);
-  }, (err) => console.error("[Firestore] Alerts listener error:", err));
+  }, (err) => { /* log removed */ });
 }
 
 /** Write zone data to Firestore (for simulation sync) */
@@ -463,7 +461,7 @@ export async function syncZonesToFirestore(
       );
     }
   } catch (error) {
-    console.error("[Firestore] Error syncing zones:", error);
+    /* log removed */
   }
 }
 
@@ -486,7 +484,7 @@ export async function writeAlertToFirestore(alert: {
       timestamp: serverTimestamp(),
     });
   } catch (error) {
-    console.error("[Firestore] Error writing alert:", error);
+    /* log removed */
   }
 }
 
@@ -505,7 +503,7 @@ export async function writePredictionsToFirestore(
       source: "vertex-ai-simulation",
     });
   } catch (error) {
-    console.error("[Firestore] Error writing predictions:", error);
+    /* log removed */
   }
 }
 
@@ -529,7 +527,7 @@ export async function trackUserSession(
       { merge: true }
     );
   } catch (error) {
-    console.error("[Firestore] Error tracking session:", error);
+    /* log removed */
   }
 }
 

@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
           }
         }
       } catch (e) {
-        console.error("Groq route optimization error:", e);
+        /* log removed */
       }
       // Fall through to fallback
     }
@@ -101,14 +101,14 @@ export async function POST(request: NextRequest) {
           return NextResponse.json(parsed);
         }
       } catch (e) {
-        console.error("Gemini route optimization error:", e);
+        /* log removed */
       }
     }
 
     // ---- Fallback ----
     return NextResponse.json(getFallbackRoute(from, to, needsAccessibility));
   } catch (error) {
-    console.error("Route optimization error:", error);
+    /* log removed */
     return NextResponse.json(getFallbackRoute("Current Location", "Destination", false));
   }
 }

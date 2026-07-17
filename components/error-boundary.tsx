@@ -43,11 +43,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error(
-      `[ErrorBoundary] ${this.props.sectionName || "Unknown"} crashed:`,
-      error,
-      errorInfo
-    );
+    /* log removed */
     this.setState({ errorInfo });
   }
 

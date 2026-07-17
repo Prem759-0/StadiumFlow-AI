@@ -90,7 +90,7 @@ export default function StaffLayout({
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     if ("serviceWorker" in navigator && (window.location.protocol === "https:" || isLocalhost)) {
       navigator.serviceWorker.register("/sw.js").catch((err) => {
-        console.warn("[SW] Registration failed:", err);
+        /* log removed */
       });
     }
 

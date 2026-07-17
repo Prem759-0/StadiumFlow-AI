@@ -47,7 +47,7 @@ export default function UserAuthButton({ mode }: UserAuthButtonProps) {
       const profile = await signInWithGoogle();
       if (profile) setUser(profile);
     } catch (error) {
-      console.error("Login failed:", error);
+      /* log removed */
     } finally {
       setLoading(false);
     }
