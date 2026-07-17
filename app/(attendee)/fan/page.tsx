@@ -19,7 +19,9 @@ import {
   Siren,
   Zap,
   Volume2,
-  Activity
+  Activity,
+  Camera,
+  X
 } from "lucide-react";
 import Link from "next/link";
 import StadiumMap from "@/components/stadium-map";
@@ -55,6 +57,10 @@ export default function FanHomePage() {
   // Hype Meter state
   const [hypeLevel, setHypeLevel] = useState(85);
   const [isGoal, setIsGoal] = useState(false);
+
+  // Fan Cam state
+  const [showFanCam, setShowFanCam] = useState(false);
+  const [fanCamVibe, setFanCamVibe] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -220,6 +226,22 @@ export default function FanHomePage() {
           ))}
         </div>
 
+        {/* Fan Cam Button */}
+        <button
+          onClick={() => {
+            setShowFanCam(true);
+            setFanCamVibe("");
+            setTimeout(() => {
+              setFanCamVibe("100% HYPED! ⚡");
+            }, 2000);
+          }}
+          className="w-full rounded-xl p-4 flex items-center justify-center gap-3 font-black text-sm uppercase tracking-widest transition-transform hover:-translate-y-1 mb-2"
+          style={{ background: "#FFE600", border: "4px solid #000", boxShadow: "6px 6px 0 #000", color: "#000" }}
+        >
+          <Camera className="w-6 h-6 animate-pulse text-[#FF3333]" />
+          Open Jumbotron Fan Cam
+        </button>
+
         {/* SOS Button — full width */}
         <button
           id="sos-help-button"
@@ -364,6 +386,51 @@ export default function FanHomePage() {
           <span>🚪 {profile.entryGate}</span>
         </div>
       </section>
+
+      {/* Fan Cam Modal */}
+      {showFanCam && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-sm rounded-2xl bg-white border-8 border-black shadow-[12px_12px_0_#FFE600] overflow-hidden relative comic-panel animate-bounce-in flex flex-col">
+            {/* Header */}
+            <div className="p-3 bg-[#00FF87] border-b-8 border-black flex justify-between items-center z-10">
+              <h3 className="font-black text-black uppercase tracking-widest text-lg flex items-center gap-2">
+                <Camera className="w-5 h-5" /> Live Fan Cam
+              </h3>
+              <button 
+                onClick={() => setShowFanCam(false)}
+                className="w-8 h-8 bg-[#FF3333] border-4 border-black flex items-center justify-center hover:bg-black hover:text-[#FF3333] transition-colors"
+              >
+                <X className="w-4 h-4 font-black" />
+              </button>
+            </div>
+            
+            {/* Camera Viewport (Simulated) */}
+            <div className="aspect-[3/4] bg-gray-900 relative flex items-center justify-center overflow-hidden border-b-8 border-black">
+              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at center, #ffffff 0%, transparent 100%)" }} />
+              
+              {!fanCamVibe ? (
+                <div className="text-center z-10">
+                  <div className="w-16 h-16 border-4 border-dashed border-[#FFE600] rounded-full mx-auto animate-[spin_3s_linear_infinite]" />
+                  <p className="mt-4 text-[#FFE600] font-black uppercase tracking-widest text-sm animate-pulse">Gemini Analyzing Vibe...</p>
+                </div>
+              ) : (
+                <div className="z-10 text-center animate-bounce-in w-full h-full flex flex-col justify-end p-6">
+                  {/* Comic Stickers */}
+                  <div className="absolute top-6 left-4 text-4xl -rotate-12 drop-shadow-[2px_2px_0_#000]">🔥</div>
+                  <div className="absolute top-12 right-6 text-5xl rotate-12 drop-shadow-[2px_2px_0_#000]">⚡</div>
+                  <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-48 h-48 border-[6px] border-[#FFE600] rounded-full opacity-50 shadow-[0_0_20px_#FFE600]" />
+                  
+                  {/* Vibe Check Banner */}
+                  <div className="bg-[#FF3333] border-4 border-black p-3 -rotate-3 shadow-[8px_8px_0_#000]">
+                    <p className="text-white font-black text-2xl uppercase italic tracking-tighter">Gemini Says:</p>
+                    <p className="text-[#FFE600] font-black text-3xl uppercase tracking-widest drop-shadow-[2px_2px_0_#000]">{fanCamVibe}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

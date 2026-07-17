@@ -5,8 +5,8 @@
 // Skip-the-line ordering with timed pickup slots
 // ============================================================
 
-import { useState } from "react";
-import { ShoppingBag, Plus, Minus, Clock, Check, MapPin, ChevronDown, Zap, ShoppingCart, Loader2, Bot, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ShoppingBag, Plus, Minus, Clock, Check, MapPin, ChevronDown, Zap, ShoppingCart, Loader2, Bot, Sparkles, Package } from "lucide-react";
 import { foodVendors, type MenuItem } from "@/lib/mock-data";
 import { useAttendeeStore } from "@/lib/store";
 import { generateId } from "@/lib/utils";
@@ -16,9 +16,10 @@ export default function PreOrderPage() {
   const [cart, setCart] = useState<Record<string, number>>({});
   const [pickupSlot, setPickupSlot] = useState("10");
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [deliveryProgress, setDeliveryProgress] = useState(0);
   const [aiSuggestion, setAiSuggestion] = useState<{item: MenuItem, vendorId: string, reason: string} | null>(null);
   const [isAiLoading, setIsAiLoading] = useState(false);
-  const { addPreOrder, addNotification, addPoints } = useAttendeeStore();
+  const { addPreOrder, addNotification, addPoints, profile } = useAttendeeStore();
 
   const vendor = foodVendors.find((v) => v.id === selectedVendor)!;
 
@@ -47,6 +48,7 @@ export default function PreOrderPage() {
     if (cartItems.length === 0) return;
     addPreOrder({
       id: generateId(),
+      vendorId: vendor.id,
       vendorName: vendor.name,
       items: cartItems.map((item) => ({ name: item.name, quantity: item.quantity, price: item.price })),
       total,
@@ -56,15 +58,28 @@ export default function PreOrderPage() {
     addPoints(30);
     addNotification({
       id: generateId(),
-      title: "Pre-Order Confirmed! 🍽️",
-      message: `Your order from ${vendor.name} will be ready in ${pickupSlot} minutes. Skip the line!`,
+      title: "Order Out for Delivery! 🚀",
+      message: `Your order from ${vendor.name} is on its way to Seat ${profile.seatSection}-${profile.seatRow}-${profile.seatNumber}.`,
       type: "info",
       timestamp: new Date(),
       read: false,
     });
+    
     setOrderPlaced(true);
+    setDeliveryProgress(0);
     setCart({});
-    setTimeout(() => setOrderPlaced(false), 5000);
+    
+    // Simulate live delivery tracking
+    const interval = setInterval(() => {
+      setDeliveryProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setOrderPlaced(false), 3000); // Hide after fully delivered
+          return 100;
+        }
+        return prev + 5; // Reaches 100% in a few seconds for demo
+      });
+    }, 400);
   };
 
   return (
@@ -88,16 +103,43 @@ export default function PreOrderPage() {
         )}
       </div>
 
-      {/* Order Success Banner */}
+      {/* Live Seat Delivery Tracker */}
       {orderPlaced && (
-        <div className="rounded-xl p-4 flex items-center gap-3 animate-bounce-in comic-panel"
-          style={{ background: "#00FF87", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
-          <Check className="w-6 h-6 flex-shrink-0 text-black" />
-          <div>
-            <p className="text-sm font-black text-black">Order Placed! 🎉</p>
-            <p className="text-xs font-bold text-black/80">Ready in ~{pickupSlot} min. +30 points earned!</p>
+        <div className="rounded-xl p-5 comic-panel relative overflow-hidden animate-bounce-in"
+          style={{ background: "#00FF87", border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}>
+          <div className="flex items-center justify-between mb-4 relative z-10">
+            <div>
+              <h2 className="text-sm font-black text-black uppercase tracking-widest flex items-center gap-2">
+                <Package className="w-5 h-5" /> Live Seat Delivery
+              </h2>
+              <p className="text-xs font-bold text-black/80">
+                {deliveryProgress < 100 ? "AI Drone/Runner is navigating to you..." : "Delivered! Enjoy! 🎉"}
+              </p>
+            </div>
+            <span className="comic-label bg-white text-black">+30 PTS</span>
           </div>
-          <span className="comic-label ml-auto bg-white text-black">+30 PTS</span>
+          
+          <div className="relative h-12 w-full mt-4">
+            <div className="absolute top-1/2 left-0 right-0 h-2 bg-white/50 border-2 border-black -translate-y-1/2 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-black transition-all duration-300"
+                style={{ width: `${deliveryProgress}%` }}
+              />
+            </div>
+            <div 
+              className="absolute top-0 transition-all duration-300 -translate-x-1/2 flex flex-col items-center"
+              style={{ left: `${deliveryProgress}%` }}
+            >
+              <div className="bg-[#FFE600] border-2 border-black p-1.5 rounded-full shadow-[2px_2px_0_#000]">
+                {deliveryProgress < 100 ? <Zap className="w-4 h-4 text-black animate-pulse" /> : <Check className="w-4 h-4 text-black" />}
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-between mt-2 px-1 relative z-10">
+            <span className="text-[10px] font-bold uppercase text-black/70">Vendor</span>
+            <span className="text-[10px] font-bold uppercase text-black/70">Seat {profile.seatSection}-{profile.seatRow}</span>
+          </div>
         </div>
       )}
 
