@@ -18,6 +18,8 @@ import {
   MapPin,
   Siren,
   Zap,
+  Volume2,
+  Activity
 } from "lucide-react";
 import Link from "next/link";
 import StadiumMap from "@/components/stadium-map";
@@ -49,13 +51,34 @@ export default function FanHomePage() {
   const [helpSent, setHelpSent] = useState(false);
   const [sosShaking, setSosShaking] = useState(false);
   const [activePromo, setActivePromo] = useState(0);
+  
+  // Hype Meter state
+  const [hypeLevel, setHypeLevel] = useState(85);
+  const [isGoal, setIsGoal] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setActivePromo((prev) => (prev + 1) % promotionalOffers.length);
     }, 8000);
-    return () => clearInterval(timer);
-  }, []);
+    
+    // Simulate live decibel tracking
+    const hypeInterval = setInterval(() => {
+      setHypeLevel(prev => {
+        // Fluctuate between 80 and 115
+        const newLevel = Math.max(80, Math.min(115, prev + (Math.random() * 12 - 6)));
+        if (newLevel > 110 && !isGoal) {
+          setIsGoal(true);
+          setTimeout(() => setIsGoal(false), 3000);
+        }
+        return newLevel;
+      });
+    }, 1200);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(hypeInterval);
+    };
+  }, [isGoal]);
 
   const handleHelp = () => {
     setSosShaking(true);
@@ -225,6 +248,48 @@ export default function FanHomePage() {
             </>
           )}
         </button>
+      </section>
+
+      {/* ── Live Hype Meter ── */}
+      <section 
+        className={`rounded-xl p-4 comic-panel relative overflow-hidden transition-all duration-300 ${isGoal ? 'animate-shake' : ''}`}
+        style={{ 
+          background: isGoal ? "#FFE600" : "#FFFFFF",
+          border: "4px solid #000", 
+          boxShadow: "6px 6px 0 #000" 
+        }}
+      >
+        {isGoal && (
+          <div className="absolute inset-0 bg-[#FF3333] opacity-20 animate-pulse pointer-events-none" />
+        )}
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-black uppercase tracking-widest flex items-center gap-2" style={{ color: "#000" }}>
+              <Volume2 className={`w-5 h-5 ${isGoal ? 'animate-bounce text-[#FF3333]' : ''}`} />
+              Live Match Hype
+            </h2>
+            <span className="text-xl font-black tabular-nums" style={{ color: isGoal ? "#FF3333" : "#000" }}>
+              {Math.round(hypeLevel)}<span className="text-[10px] uppercase ml-1">dB</span>
+            </span>
+          </div>
+
+          <div className="h-6 w-full border-2 border-black rounded-full bg-[#F5F0E8] overflow-hidden relative">
+            <div 
+              className="h-full transition-all duration-500 ease-out border-r-2 border-black"
+              style={{ 
+                width: `${Math.min(100, ((hypeLevel - 80) / 40) * 100)}%`,
+                background: isGoal 
+                  ? "repeating-linear-gradient(45deg, #FF3333, #FF3333 10px, #FFE600 10px, #FFE600 20px)"
+                  : "linear-gradient(90deg, #00FF87, #FFE600, #FF3333)"
+              }}
+            />
+          </div>
+          
+          <div className="flex justify-between mt-1 px-1">
+            <span className="text-[9px] font-bold uppercase" style={{ color: "#555" }}>Normal</span>
+            <span className="text-[9px] font-bold uppercase" style={{ color: "#FF3333" }}>GOAL!</span>
+          </div>
+        </div>
       </section>
 
       {/* ── FIFA Trivia ── */}

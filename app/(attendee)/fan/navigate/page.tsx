@@ -7,7 +7,7 @@
 import { useState } from "react";
 import {
   Navigation, MapPin, ArrowDown, Clock, AlertTriangle,
-  Route, Loader2, Footprints, Accessibility, ChevronDown, Zap, CheckCircle2, Flame
+  Route, Loader2, Footprints, Accessibility, ChevronDown, Zap, CheckCircle2, Flame, Bot, Sparkles
 } from "lucide-react";
 import { getOptimizedRoute } from "@/lib/gemini";
 import { routeNodes } from "@/lib/mock-data";
@@ -60,6 +60,20 @@ export default function NavigatePage() {
   } | null>(null);
   const { profile } = useAttendeeStore();
   const { zones } = useStaffStore();
+
+  const [smartExitLoading, setSmartExitLoading] = useState(false);
+  const [smartExitResult, setSmartExitResult] = useState<{ message: string; delay: number } | null>(null);
+
+  const handleSmartExit = () => {
+    setSmartExitLoading(true);
+    setTimeout(() => {
+      setSmartExitResult({
+        message: "Chill in your seat for 8 more minutes! If you leave now, you'll hit a 45-min jam at Gate C. Wait it out and you'll breeze through in 10 mins.",
+        delay: 8
+      });
+      setSmartExitLoading(false);
+    }, 1500);
+  };
 
   const handleOptimize = async () => {
     setIsLoading(true);
@@ -234,6 +248,51 @@ export default function NavigatePage() {
           </div>
         );
       })()}
+      {/* AI Smart Exit Coordinator */}
+      <div className="rounded-xl p-5 comic-panel relative overflow-hidden mt-6"
+        style={{ background: "#BF5FFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
+        {/* Background decorative pattern */}
+        <div className="absolute -right-4 -top-4 opacity-20 pointer-events-none">
+          <Bot className="w-24 h-24 text-black" />
+        </div>
+        
+        <div className="relative z-10">
+          <h2 className="text-sm font-black uppercase tracking-widest text-black flex items-center gap-2 mb-3">
+            <Sparkles className="w-4 h-4" />
+            AI Smart Exit
+          </h2>
+          
+          {!smartExitResult ? (
+            <div>
+              <p className="text-xs font-bold text-black/80 mb-4">
+                Match ending soon? Ask Gemini when to leave to avoid the parking lot gridlock and exit bottleneck.
+              </p>
+              <button
+                onClick={handleSmartExit}
+                disabled={smartExitLoading}
+                className="w-full py-3 rounded-xl font-black text-xs uppercase tracking-wider bg-black text-[#BF5FFF] border-[3px] border-black shadow-[4px_4px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#000] transition-all disabled:opacity-50"
+              >
+                {smartExitLoading ? (
+                  <span className="flex items-center justify-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Analyzing egress flow...</span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2"><Bot className="w-4 h-4" /> Ask Gemini when to leave</span>
+                )}
+              </button>
+            </div>
+          ) : (
+            <div className="animate-fade-in flex gap-3 items-start">
+              <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center bg-black border-2 border-black shadow-[2px_2px_0_#000]">
+                <Bot className="w-5 h-5 text-[#BF5FFF]" />
+              </div>
+              <div className="bg-white p-3 rounded-lg border-2 border-black shadow-[3px_3px_0_#000] relative speech-bubble">
+                {/* Speech bubble tail pointer */}
+                <div className="absolute w-3 h-3 bg-white border-l-2 border-t-2 border-black -left-1.5 top-3 -rotate-45" />
+                <p className="text-xs font-bold text-black leading-relaxed relative z-10">{smartExitResult.message}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
