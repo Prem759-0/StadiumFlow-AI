@@ -7,7 +7,7 @@
 import { useState } from "react";
 import {
   Navigation, MapPin, ArrowDown, Clock, AlertTriangle,
-  Route, Loader2, Footprints, Accessibility, ChevronDown, Zap, CheckCircle2,
+  Route, Loader2, Footprints, Accessibility, ChevronDown, Zap, CheckCircle2, Flame
 } from "lucide-react";
 import { getOptimizedRoute } from "@/lib/gemini";
 import { routeNodes } from "@/lib/mock-data";
@@ -98,74 +98,76 @@ export default function NavigatePage() {
         <span className="comic-label ml-auto">GEMINI AI</span>
       </div>
 
-      {/* Map Preview */}
-      <div className="rounded-xl p-2" style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
-        <StadiumMap zones={zones} className="aspect-[4/3] rounded-lg" compact showLabels={false} />
-      </div>
-
-      {/* Route Selection Card */}
-      <div className="rounded-xl p-4 space-y-3" style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
-        <h2 className="text-xs font-black uppercase tracking-wider" style={{ color: "#000" }}>Plan Your Route</h2>
-
-        {/* FROM */}
-        <div>
-          <label htmlFor="from" className="text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1" style={{ color: "#555555" }}>
-            <MapPin className="w-3 h-3" /> From (Your Location)
-          </label>
-          <div className="relative">
-            <select id="from" value={from} onChange={(e) => setFrom(e.target.value)} style={SELECT_STYLE} aria-label="Starting location">
-              {LOCATIONS.map((loc) => (
-                <option key={loc.id} value={loc.id}>{loc.emoji} {loc.name}</option>
-              ))}
-            </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#555555" }} />
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+        {/* Map Preview */}
+        <div className="rounded-xl p-2" style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
+          <StadiumMap zones={zones} className="aspect-square rounded-lg" compact showLabels={false} />
         </div>
 
-        {/* Arrow */}
-        <div className="flex justify-center">
-          <div className="w-8 h-8 rounded-full flex items-center justify-center"
-            style={{ background: "#FFE600", border: "3px solid #000", boxShadow: "2px 2px 0 #000" }}>
-            <ArrowDown className="w-4 h-4" style={{ color: "#000" }} />
-          </div>
-        </div>
+        {/* Route Selection Card */}
+        <div className="rounded-xl p-4 space-y-3" style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
+          <h2 className="text-xs font-black uppercase tracking-wider" style={{ color: "#000" }}>Plan Your Route</h2>
 
-        {/* TO */}
-        <div>
-          <label htmlFor="to" className="text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1" style={{ color: "#555555" }}>
-            <Navigation className="w-3 h-3" /> To (Destination)
-          </label>
-          <div className="relative">
-            <select id="to" value={to} onChange={(e) => setTo(e.target.value)} style={SELECT_STYLE} aria-label="Destination">
-              {LOCATIONS.map((loc) => (
-                <option key={loc.id} value={loc.id}>{loc.emoji} {loc.name}</option>
-              ))}
-            </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#555555" }} />
+          {/* FROM */}
+          <div>
+            <label htmlFor="from" className="text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1" style={{ color: "#555555" }}>
+              <MapPin className="w-3 h-3" /> From (Your Location)
+            </label>
+            <div className="relative">
+              <select id="from" value={from} onChange={(e) => setFrom(e.target.value)} style={SELECT_STYLE} aria-label="Starting location">
+                {LOCATIONS.map((loc) => (
+                  <option key={loc.id} value={loc.id}>{loc.emoji} {loc.name}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#555555" }} />
+            </div>
           </div>
-        </div>
 
-        {/* Accessibility badge */}
-        {profile.needsAccessibility && (
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: "#00C6FF", border: "3px solid #000", boxShadow: "3px 3px 0 #000" }}>
-            <Accessibility className="w-4 h-4 text-black" />
-            <span className="text-xs font-black text-black">Accessibility-optimized route enabled</span>
+          {/* Arrow */}
+          <div className="flex justify-center">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center"
+              style={{ background: "#FFE600", border: "3px solid #000", boxShadow: "2px 2px 0 #000" }}>
+              <ArrowDown className="w-4 h-4" style={{ color: "#000" }} />
+            </div>
           </div>
-        )}
 
-        {/* Optimize Button */}
-        <button
-          onClick={handleOptimize}
-          disabled={isLoading || from === to}
-          className={`w-full py-3.5 rounded-xl font-black text-sm uppercase tracking-wider ${isLoading || from === to ? 'opacity-50 cursor-not-allowed border-4 border-black bg-gray-300' : 'nb-btn nb-btn-green'}`}
-          aria-label="Get optimized route"
-        >
-          {isLoading ? (
-            <><Loader2 className="w-5 h-5 animate-spin" /> Optimizing with Gemini...</>
-          ) : (
-            <><Zap className="w-5 h-5" /> Get AI Route</>
+          {/* TO */}
+          <div>
+            <label htmlFor="to" className="text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1" style={{ color: "#555555" }}>
+              <Navigation className="w-3 h-3" /> To (Destination)
+            </label>
+            <div className="relative">
+              <select id="to" value={to} onChange={(e) => setTo(e.target.value)} style={SELECT_STYLE} aria-label="Destination">
+                {LOCATIONS.map((loc) => (
+                  <option key={loc.id} value={loc.id}>{loc.emoji} {loc.name}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "#555555" }} />
+            </div>
+          </div>
+
+          {/* Accessibility badge */}
+          {profile.needsAccessibility && (
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: "#00C6FF", border: "3px solid #000", boxShadow: "3px 3px 0 #000" }}>
+              <Accessibility className="w-4 h-4 text-black" />
+              <span className="text-xs font-black text-black">Accessibility-optimized route enabled</span>
+            </div>
           )}
-        </button>
+
+          {/* Optimize Button */}
+          <button
+            onClick={handleOptimize}
+            disabled={isLoading || from === to}
+            className={`w-full py-3.5 rounded-xl font-black text-sm uppercase tracking-wider ${isLoading || from === to ? 'opacity-50 cursor-not-allowed border-4 border-black bg-gray-300' : 'nb-btn nb-btn-green'}`}
+            aria-label="Get optimized route"
+          >
+            {isLoading ? (
+              <><Loader2 className="w-5 h-5 animate-spin" /> Optimizing with Gemini...</>
+            ) : (
+              <><Zap className="w-5 h-5" /> Get AI Route</>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Route Results */}
