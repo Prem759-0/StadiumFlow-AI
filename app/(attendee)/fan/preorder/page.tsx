@@ -6,7 +6,7 @@
 // ============================================================
 
 import { useState } from "react";
-import { ShoppingBag, Plus, Minus, Clock, Check, MapPin, ChevronDown, Zap, ShoppingCart } from "lucide-react";
+import { ShoppingBag, Plus, Minus, Clock, Check, MapPin, ChevronDown, Zap, ShoppingCart, Loader2, Bot, Sparkles } from "lucide-react";
 import { foodVendors, type MenuItem } from "@/lib/mock-data";
 import { useAttendeeStore } from "@/lib/store";
 import { generateId } from "@/lib/utils";
@@ -16,6 +16,8 @@ export default function PreOrderPage() {
   const [cart, setCart] = useState<Record<string, number>>({});
   const [pickupSlot, setPickupSlot] = useState("10");
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [aiSuggestion, setAiSuggestion] = useState<{item: MenuItem, vendorId: string, reason: string} | null>(null);
+  const [isAiLoading, setIsAiLoading] = useState(false);
   const { addPreOrder, addNotification, addPoints } = useAttendeeStore();
 
   const vendor = foodVendors.find((v) => v.id === selectedVendor)!;
@@ -98,6 +100,76 @@ export default function PreOrderPage() {
           <span className="comic-label ml-auto bg-white text-black">+30 PTS</span>
         </div>
       )}
+
+      {/* AI Smart Suggestion Panel */}
+      <div className="rounded-xl p-5 comic-panel relative overflow-hidden"
+        style={{ background: "#00C6FF", border: "3px solid #000", boxShadow: "6px 6px 0 #000" }}>
+        {/* Background decorative pattern */}
+        <div className="absolute -right-4 -top-4 opacity-20 pointer-events-none">
+          <Bot className="w-24 h-24 text-black" />
+        </div>
+        
+        <div className="relative z-10">
+          <h2 className="text-sm font-black uppercase tracking-widest text-black flex items-center gap-2 mb-3">
+            <Sparkles className="w-4 h-4" />
+            AI Smart Concessions
+          </h2>
+          
+          {!aiSuggestion ? (
+            <div>
+              <p className="text-xs font-bold text-black/80 mb-4">
+                Not sure what to eat? Let Gemini analyze the match context and current wait times to pick the best option for you!
+              </p>
+              <button
+                onClick={() => {
+                  setIsAiLoading(true);
+                  setTimeout(() => {
+                    const fastestVendor = [...foodVendors].sort((a, b) => a.currentWait - b.currentWait)[0];
+                    const item = fastestVendor.menu.find(m => m.popular) || fastestVendor.menu[0];
+                    setAiSuggestion({
+                      item,
+                      vendorId: fastestVendor.id,
+                      reason: `Based on the high-energy match, you need something quick! ${fastestVendor.name} has the absolute shortest queue right now (${fastestVendor.currentWait} min) and their ${item.name} is a crowd favorite.`
+                    });
+                    setIsAiLoading(false);
+                  }, 1500);
+                }}
+                disabled={isAiLoading}
+                className="w-full py-3 rounded-xl font-black text-xs uppercase tracking-wider bg-[#FFE600] text-black border-[3px] border-black shadow-[4px_4px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#000] transition-all disabled:opacity-50"
+              >
+                {isAiLoading ? (
+                  <span className="flex items-center justify-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Analyzing queues...</span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2"><Zap className="w-4 h-4" /> Get AI Recommendation</span>
+                )}
+              </button>
+            </div>
+          ) : (
+            <div className="animate-fade-in space-y-3">
+              <div className="bg-white p-3 rounded-lg border-2 border-black shadow-[3px_3px_0_#000]">
+                <p className="text-xs font-bold text-[#555] italic mb-2">"{aiSuggestion.reason}"</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-black text-black">{aiSuggestion.item.name}</p>
+                    <p className="text-[10px] font-bold text-[#555] uppercase tracking-wider">{foodVendors.find(v => v.id === aiSuggestion.vendorId)?.name} · ₹{aiSuggestion.item.price}</p>
+                  </div>
+                  <span className="comic-label bg-[#00FF87] text-black text-[9px] border-black">FASTEST</span>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setSelectedVendor(aiSuggestion.vendorId);
+                  setCart({ [aiSuggestion.item.id]: 1 });
+                  // Scroll to bottom implicitly by user action
+                }}
+                className="w-full py-3 rounded-xl font-black text-xs uppercase tracking-wider bg-black text-[#00FF87] border-[3px] border-black shadow-[4px_4px_0_#00FF87] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#00FF87] transition-all"
+              >
+                Order AI Pick
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
 
       {/* Vendor Selector */}
       <div>

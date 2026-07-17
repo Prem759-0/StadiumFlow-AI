@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import {
   Users, Clock, AlertTriangle, TrendingDown, TrendingUp,
   Activity, Gauge, Zap, BarChart3, Pause, Play, Wifi,
-  ThermometerSun, Shield, Radio,
+  ThermometerSun, Shield, Radio, Bot, Sparkles, Loader2, Send
 } from "lucide-react";
 import StadiumMap from "@/components/stadium-map";
 import { useStaffStore } from "@/lib/store";
@@ -23,14 +23,38 @@ const NB_COLORS = [
 ];
 
 export default function DashboardPage() {
-  const { zones, queues, metrics, alerts, isSimulationRunning, toggleSimulation } = useStaffStore();
+  const { zones, queues, metrics, alerts, isSimulationRunning, toggleSimulation, addAlert } = useStaffStore();
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
   const [tick, setTick] = useState(0);
+  const [simStatus, setSimStatus] = useState<"idle" | "loading" | "complete">("idle");
+  const [simResult, setSimResult] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => setTick((t) => t + 1), 5000);
     return () => clearInterval(interval);
   }, []);
+
+  const runSimulation = (scenario: string) => {
+    setSimStatus("loading");
+    setTimeout(() => {
+      setSimResult(`[SIMULATION ALERT] ${scenario} triggers a 40% overflow to adjacent zones within 3 minutes. Gate A load will exceed safe capacity (115%). Recommendation: Redirect South sector attendees to Gate C immediately.`);
+      setSimStatus("complete");
+    }, 2000);
+  };
+
+  const pushMassAlert = () => {
+    addAlert({
+      id: `alert-${Date.now()}`,
+      title: "CROWD REDIRECT",
+      message: simResult,
+      zoneId: "stadium-wide",
+      priority: "critical",
+      status: "pending",
+      timestamp: new Date(),
+    });
+    setSimStatus("idle");
+    setSimResult("");
+  };
 
   const pendingAlerts = alerts.filter((a) => a.status === "pending").length;
   const criticalAlerts = alerts.filter((a) => a.priority === "critical" && a.status !== "resolved").length;
@@ -220,6 +244,66 @@ export default function DashboardPage() {
                 );
               })}
           </div>
+        </div>
+      </div>
+
+      {/* ── AI Crisis Simulator ── */}
+      <div className="rounded-xl p-5 comic-panel relative overflow-hidden" style={{ background: "#FF3333", border: "4px solid #000", boxShadow: "6px 6px 0 #000" }}>
+        <div className="absolute -right-4 -top-4 opacity-20 pointer-events-none">
+          <Bot className="w-32 h-32 text-black" />
+        </div>
+        
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-full bg-[#FFE600] border-2 border-black shadow-[2px_2px_0_#000] flex items-center justify-center">
+              <Bot className="w-5 h-5 text-black" />
+            </div>
+            <div>
+              <h2 className="text-sm font-black uppercase tracking-widest text-black flex items-center gap-2">
+                <Sparkles className="w-4 h-4" /> Gemini Crisis Simulator
+              </h2>
+              <p className="text-xs font-bold text-black/80">Predict crowd flow & mass redirect fans instantly</p>
+            </div>
+          </div>
+
+          {simStatus === "idle" && (
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { name: "Simulate Gate B Closure", icon: AlertTriangle },
+                { name: "Simulate Heavy Rain", icon: ThermometerSun },
+              ].map(({ name, icon: Icon }) => (
+                <button
+                  key={name}
+                  onClick={() => runSimulation(name)}
+                  className="flex items-center gap-2 p-3 rounded-lg bg-white border-2 border-black text-black font-black text-[10px] uppercase tracking-wider shadow-[3px_3px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_#000] transition-all"
+                >
+                  <Icon className="w-4 h-4 text-[#FF3333]" />
+                  {name}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {simStatus === "loading" && (
+            <div className="flex items-center gap-3 p-4 bg-white rounded-lg border-2 border-black shadow-[3px_3px_0_#000]">
+              <Loader2 className="w-5 h-5 text-[#FF3333] animate-spin" />
+              <p className="text-xs font-black text-black uppercase tracking-wider">Gemini is analyzing scenario impact...</p>
+            </div>
+          )}
+
+          {simStatus === "complete" && (
+            <div className="space-y-4 animate-fade-in">
+              <div className="p-4 bg-white rounded-lg border-2 border-black shadow-[3px_3px_0_#000]">
+                <p className="text-xs font-bold text-[#555] leading-relaxed font-mono">{simResult}</p>
+              </div>
+              <button
+                onClick={pushMassAlert}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#00FF87] border-4 border-black text-black font-black text-sm uppercase tracking-wider shadow-[4px_4px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#000] transition-all"
+              >
+                <Send className="w-5 h-5" /> Push Mass Redirect Alert
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
