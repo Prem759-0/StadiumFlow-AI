@@ -13,6 +13,7 @@ export interface StadiumZone {
   dimensions: { width: number; height: number };
   level: number; // 0 = ground, 1 = lower, 2 = upper, 3 = sky
   accessible: boolean;
+  isLockedDown?: boolean;
 }
 
 export interface QueuePoint {

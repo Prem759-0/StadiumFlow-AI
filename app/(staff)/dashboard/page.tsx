@@ -218,29 +218,50 @@ export default function DashboardPage() {
               .map((zone) => {
                 const pct = Math.round((zone.currentOccupancy / zone.capacity) * 100);
                 const color = pct > 80 ? "#FF3333" : pct > 60 ? "#FFE600" : "#00FF87";
+                const isSelected = selectedZone === zone.id;
+                
                 return (
-                  <button
-                    key={zone.id}
-                    onClick={() => setSelectedZone(zone.id)}
-                    className="w-full text-left p-3 rounded-none transition-all hover:-translate-y-0.5 active:translate-y-0.5"
-                    style={{
-                      background: "#FFFFFF",
-                      border: "3px solid #000",
-                      boxShadow: selectedZone === zone.id ? "none" : "3px 3px 0 #000",
-                      transform: selectedZone === zone.id ? "translate(3px, 3px)" : "none",
-                    }}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-black uppercase tracking-wider truncate text-black">{zone.name}</span>
-                      <span className="text-sm font-black tabular-nums px-2 py-0.5 border-2 border-black" style={{ background: color, color: "#000" }}>{pct}%</span>
-                    </div>
-                    <div className="h-2.5 border-2 border-black bg-white">
-                      <div className="h-full transition-all duration-700 border-r-2 border-black" style={{ width: `${pct}%`, background: color }} />
-                    </div>
-                    <p className="text-[10px] mt-2 font-bold uppercase tracking-wider text-gray-700">
-                      {zone.currentOccupancy.toLocaleString()} / {zone.capacity.toLocaleString()} Fans
-                    </p>
-                  </button>
+                  <div key={zone.id} className="w-full">
+                    <button
+                      onClick={() => setSelectedZone(zone.id)}
+                      className="w-full text-left p-3 rounded-none transition-all hover:-translate-y-0.5 active:translate-y-0.5"
+                      style={{
+                        background: zone.isLockedDown ? "#FF3333" : "#FFFFFF",
+                        border: "3px solid #000",
+                        boxShadow: isSelected ? "none" : "3px 3px 0 #000",
+                        transform: isSelected ? "translate(3px, 3px)" : "none",
+                      }}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className={`text-xs font-black uppercase tracking-wider truncate ${zone.isLockedDown ? "text-white" : "text-black"}`}>
+                          {zone.isLockedDown ? "🚨 " : ""}{zone.name}
+                        </span>
+                        <span className="text-sm font-black tabular-nums px-2 py-0.5 border-2 border-black" style={{ background: color, color: "#000" }}>{pct}%</span>
+                      </div>
+                      <div className="h-2.5 border-2 border-black bg-white">
+                        <div className="h-full transition-all duration-700 border-r-2 border-black" style={{ width: `${pct}%`, background: color }} />
+                      </div>
+                      <p className={`text-[10px] mt-2 font-bold uppercase tracking-wider ${zone.isLockedDown ? "text-white" : "text-gray-700"}`}>
+                        {zone.currentOccupancy.toLocaleString()} / {zone.capacity.toLocaleString()} Fans
+                      </p>
+                    </button>
+                    
+                    {/* God Mode Lockdown Control */}
+                    {isSelected && (
+                      <div className="mt-2 p-3 border-x-4 border-b-4 border-black bg-black animate-slide-up">
+                        <button
+                          onClick={() => useStaffStore.getState().toggleZoneLockdown(zone.id)}
+                          className={`w-full py-2 border-4 border-black font-black uppercase tracking-widest text-xs transition-colors ${
+                            zone.isLockedDown 
+                              ? "bg-[#00FF87] text-black hover:bg-white" 
+                              : "bg-[#FF3333] text-white hover:bg-[#FFE600] hover:text-black animate-pulse"
+                          }`}
+                        >
+                          {zone.isLockedDown ? "LIFT LOCKDOWN" : "INITIATE LOCKDOWN"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 );
               })}
           </div>

@@ -21,7 +21,9 @@ import {
   Volume2,
   Activity,
   Camera,
-  X
+  X,
+  Scan,
+  Trophy
 } from "lucide-react";
 import Link from "next/link";
 import StadiumMap from "@/components/stadium-map";
@@ -44,6 +46,7 @@ const QUICK_ACTIONS = [
   { href: "/fan/navigate", icon: Navigation, label: "AI Route", desc: "Smart paths", bg: "#00FF87" },
   { href: "/fan/queues", icon: Clock, label: "Live Queues", desc: "Wait times", bg: "#00C6FF" },
   { href: "/fan/preorder", icon: ShoppingBag, label: "Pre-Order", desc: "Skip the line", bg: "#BF5FFF" },
+  { href: "#", icon: Scan, label: "AR Hunt", desc: "Scan for merch", bg: "#FFE600", onClick: true },
 ];
 
 export default function FanHomePage() {
@@ -61,6 +64,10 @@ export default function FanHomePage() {
   // Fan Cam state
   const [showFanCam, setShowFanCam] = useState(false);
   const [fanCamVibe, setFanCamVibe] = useState("");
+
+  // AR Scavenger Hunt state
+  const [showArHunt, setShowArHunt] = useState(false);
+  const [arResult, setArResult] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -205,25 +212,50 @@ export default function FanHomePage() {
         <h2 id="actions-title" className="text-sm font-bold mb-2" style={{ color: "#050505" }}>
           Quick Actions
         </h2>
-        <div className="grid grid-cols-3 gap-2 mb-2">
-          {QUICK_ACTIONS.map(({ href, icon: Icon, label, desc, bg }) => (
-            <Link
-              key={href}
-              href={href}
-              className="rounded-xl p-3 flex flex-col items-center gap-1.5 text-center transition-all duration-150 active:translate-y-1 hover:-translate-y-1"
-              style={{
-                background: bg,
-                border: `3px solid #000`,
-                boxShadow: `4px 4px 0 #000`,
-              }}
-            >
-              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border-2 border-black">
-                <Icon className="w-4 h-4 text-black" aria-hidden="true" />
+        <div className="grid grid-cols-2 gap-2 mb-2">
+          {QUICK_ACTIONS.map(({ href, icon: Icon, label, desc, bg, onClick }) => {
+            const inner = (
+              <div
+                className="w-full rounded-xl p-3 flex flex-col items-center gap-1.5 text-center transition-all duration-150 active:translate-y-1 hover:-translate-y-1 cursor-pointer"
+                style={{
+                  background: bg,
+                  border: `3px solid #000`,
+                  boxShadow: `4px 4px 0 #000`,
+                }}
+              >
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border-2 border-black">
+                  <Icon className="w-4 h-4 text-black" aria-hidden="true" />
+                </div>
+                <span className="text-xs font-black text-black leading-tight uppercase tracking-wider">{label}</span>
+                <span className="text-[9px] font-bold text-black/70">{desc}</span>
               </div>
-              <span className="text-xs font-black text-black leading-tight uppercase tracking-wider">{label}</span>
-              <span className="text-[9px] font-bold text-black/70">{desc}</span>
-            </Link>
-          ))}
+            );
+
+            if (onClick) {
+              return (
+                <button
+                  key={href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowArHunt(true);
+                    setArResult("");
+                    setTimeout(() => {
+                      setArResult("RARE MERCH DROP FOUND! +500 PTS");
+                    }, 3000);
+                  }}
+                  className="w-full text-left"
+                >
+                  {inner}
+                </button>
+              );
+            }
+
+            return (
+              <Link key={href} href={href} className="w-full">
+                {inner}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Fan Cam Button */}
@@ -427,6 +459,67 @@ export default function FanHomePage() {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AR Scavenger Hunt Modal */}
+      {showArHunt && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in">
+          <div className="w-full max-w-sm rounded-2xl bg-transparent border-4 border-dashed border-[#FFE600] relative flex flex-col justify-between h-[80vh] overflow-hidden">
+            {/* Header */}
+            <div className="p-4 flex justify-between items-center z-10 bg-black/50 backdrop-blur-sm">
+              <h3 className="font-black text-[#FFE600] uppercase tracking-widest text-lg flex items-center gap-2">
+                <Scan className="w-5 h-5 animate-pulse text-[#00FF87]" /> AR Hunt
+              </h3>
+              <button 
+                onClick={() => setShowArHunt(false)}
+                className="w-8 h-8 bg-white border-2 border-black flex items-center justify-center hover:bg-[#FF3333] transition-colors"
+              >
+                <X className="w-4 h-4 font-black text-black" />
+              </button>
+            </div>
+            
+            {/* Scanner Viewport */}
+            <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none">
+              <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMSIgZmlsbD0iI0ZGRTYwMCIvPjwvc3ZnPg==')] animate-[pan_10s_linear_infinite]" />
+              
+              {!arResult ? (
+                <div className="text-center z-10 flex flex-col items-center">
+                  <div className="w-48 h-48 border-[8px] border-[#00FF87] opacity-50 relative animate-[spin_4s_linear_infinite]">
+                    <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white -translate-x-2 -translate-y-2" />
+                    <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white translate-x-2 -translate-y-2" />
+                    <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white -translate-x-2 translate-y-2" />
+                    <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white translate-x-2 translate-y-2" />
+                  </div>
+                  <div className="mt-8 bg-black border-2 border-[#00FF87] p-2">
+                    <p className="text-[#00FF87] font-black uppercase tracking-widest text-sm animate-pulse">Scanning Stadium...</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="z-10 text-center animate-bounce-in flex flex-col items-center justify-center h-full p-6">
+                  {/* Loot Box Glow */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#BF5FFF] rounded-full blur-[60px] opacity-60 animate-pulse" />
+                  
+                  {/* Found Item */}
+                  <div className="relative mb-8">
+                    <Trophy className="w-32 h-32 text-[#FFE600] drop-shadow-[0_0_15px_#FFE600] animate-bounce" />
+                    <div className="absolute -top-4 -right-4 text-4xl animate-[spin_3s_linear_infinite]">✨</div>
+                  </div>
+                  
+                  {/* Reward Banner */}
+                  <div className="bg-[#BF5FFF] border-4 border-black p-4 shadow-[8px_8px_0_#000] rotate-2">
+                    <p className="text-white font-black text-2xl uppercase tracking-tighter mb-1">LOOT FOUND!</p>
+                    <p className="text-[#FFE600] font-black text-xl uppercase tracking-widest drop-shadow-[2px_2px_0_#000]">{arResult}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            {/* Footer */}
+            <div className="p-4 z-10 bg-black/50 backdrop-blur-sm text-center">
+              <p className="text-[10px] text-white/50 font-bold uppercase tracking-widest">Move camera around to find hidden drops</p>
             </div>
           </div>
         </div>

@@ -108,7 +108,7 @@ export default function StadiumMap({
 
         {/* Zone rectangles */}
         {processedZones.map((zone) => {
-          const color = getCongestionColor(zone.level);
+          const color = zone.isLockedDown ? "#000000" : getCongestionColor(zone.level);
           const isSelected = selectedZone === zone.id;
 
           return (
@@ -120,15 +120,22 @@ export default function StadiumMap({
                 height={zone.dimensions.height}
                 rx="0"
                 fill={color}
-                fillOpacity={isSelected ? 1 : 0.8}
-                stroke="#000"
-                strokeWidth={isSelected ? 1.5 : 0.8}
+                fillOpacity={isSelected || zone.isLockedDown ? 1 : 0.8}
+                stroke={zone.isLockedDown ? "#FF3333" : "#000"}
+                strokeWidth={zone.isLockedDown ? 2 : isSelected ? 1.5 : 0.8}
                 className="transition-all duration-500 cursor-pointer"
-                style={{ animation: zone.level === "high" ? "heatmapPulse 2s ease-in-out infinite" : undefined, filter: isSelected ? "drop-shadow(2px 2px 0px #000)" : "drop-shadow(1px 1px 0px #000)" }}
+                style={{
+                  animation: zone.isLockedDown 
+                    ? "sos-pulse 1s ease-in-out infinite" 
+                    : zone.level === "high" 
+                      ? "heatmapPulse 2s ease-in-out infinite" 
+                      : undefined, 
+                  filter: isSelected ? "drop-shadow(2px 2px 0px #000)" : "drop-shadow(1px 1px 0px #000)" 
+                }}
                 onClick={() => onZoneClick?.(zone.id)}
                 role="button"
                 tabIndex={0}
-                aria-label={`${zone.name}: ${Math.round(zone.density)}% occupied, ${zone.level} congestion`}
+                aria-label={`${zone.name}: ${Math.round(zone.density)}% occupied, ${zone.level} congestion${zone.isLockedDown ? ", LOCKED DOWN" : ""}`}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
@@ -142,13 +149,13 @@ export default function StadiumMap({
                   y={zone.position.y + 0.5}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  fill="#000"
+                  fill={zone.isLockedDown ? "#FF3333" : "#000"}
                   fontSize="1.8"
                   fontWeight="900"
                   className="pointer-events-none select-none uppercase"
                   aria-hidden="true"
                 >
-                  {zone.name.replace(/Section |Food Court |Restroom |Parking Lot /, "").slice(0, 6)}
+                  {zone.isLockedDown ? "LOCKED" : zone.name.replace(/Section |Food Court |Restroom |Parking Lot /, "").slice(0, 6)}
                 </text>
               )}
             </g>

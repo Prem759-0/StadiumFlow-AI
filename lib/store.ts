@@ -138,6 +138,7 @@ interface StaffState {
   setAIPredictions: (predictions: string[]) => void;
   updateMetrics: (metrics: Partial<DashboardMetrics>) => void;
   toggleSimulation: () => void;
+  toggleZoneLockdown: (zoneId: string) => void;
 }
 
 interface Announcement {
@@ -230,6 +231,12 @@ export const useStaffStore = create<StaffState>((set) => ({
     })),
   toggleSimulation: () =>
     set((state) => ({ isSimulationRunning: !state.isSimulationRunning })),
+  toggleZoneLockdown: (zoneId: string) =>
+    set((state) => ({
+      zones: state.zones.map((z) =>
+        z.id === zoneId ? { ...z, isLockedDown: !z.isLockedDown } : z
+      ),
+    })),
 }));
 
 export type {
