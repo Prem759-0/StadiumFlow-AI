@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-const t = (key: string, translations: any) => translations[key] || key;
+const t = (key: string, translations: Record<string, string>) => translations[key] || key;
 
 const makeTranslation = (
   title: string, subtitle: string, description: string,

@@ -130,6 +130,19 @@ export function stopCloudFunctions(): void {
   }
 }
 
+/**
+ * Handler: processVirtualQueue
+ */
+export async function processVirtualQueue(queueId: string, userId: string, currentPosition: number) {
+  const newPosition = Math.max(0, currentPosition - 1);
+  await publish(PUBSUB_TOPICS.QUEUE_UPDATES, {
+    queueId,
+    userId,
+    newPosition,
+  });
+  return { newPosition };
+}
+
 function isFirebaseConfigured() {
   return !!process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
 }

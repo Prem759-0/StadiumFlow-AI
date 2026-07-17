@@ -176,3 +176,7 @@ export function subscribe(
 export function getMessageHistory(topic: PubSubTopic, count: number = 10): PubSubMessage[] {
   return messageHistory.filter((m) => m.topic === topic).slice(-count);
 }
+
+export function clearAllSubscriptions(): void {
+  subscriptions.clear();
+}
