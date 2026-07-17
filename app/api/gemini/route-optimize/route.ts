@@ -15,8 +15,8 @@ if (GEMINI_API_KEY && !GROQ_API_KEY) {
 }
 
 function buildRoutePrompt(from: string, to: string, needsAccessibility: boolean, userContext: string, currentCongestion: Record<string, number>) {
-  return `You are a stadium navigation AI for Narendra Modi Stadium (132,000 capacity oval cricket ground).
-
+  return `You are a stadium navigation AI for MetLife Stadium (82,500 capacity FIFA World Cup football stadium).
+Your job is to read the real-time zone congestion data and give the fan the BEST route to their destination. 
 A fan needs to go from "${from}" to "${to}".
 ${needsAccessibility ? "The fan needs wheelchair-accessible routes." : ""}
 ${userContext ? `User context: ${userContext}` : ""}

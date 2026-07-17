@@ -88,22 +88,6 @@ export default function ScoreTicker({ status = "live" }: ScoreTickerProps) {
         </div>
       </div>
 
-      {/* ── Next Match Preview ── */}
-      {nextMatch && (
-        <div className="rounded-none px-4 py-3 flex items-center justify-between"
-          style={{ background: "#FFFFFF", border: "3px solid #000", boxShadow: "4px 4px 0 #000" }}>
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-black" />
-            <span className="text-xs font-black uppercase tracking-widest bg-black text-white px-2 py-0.5">NEXT</span>
-            <span className="text-sm font-black text-black ml-2">
-              {nextMatch.home} VS {nextMatch.away}
-            </span>
-          </div>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-gray-600">
-            {nextMatch.time} · {nextMatch.venue}
-          </span>
-        </div>
-      )}
     </div>
   );
 }

@@ -172,36 +172,33 @@ export default function StadiumMap({
           </text>
         )}
 
-        {/* Advanced Animations: Radar Sweep and Particle Flow */}
+        {/* Advanced Animations: Linear Scanner and Particle Flow */}
         {!compact && (
           <>
-            <g className="animate-radar pointer-events-none">
-              <path
-                d="M50 50 L50 5 A45 45 0 0 1 95 50 Z"
-                fill="url(#radar-gradient)"
-              />
-              <line x1="50" y1="50" x2="50" y2="5" stroke="#00C6FF" strokeWidth="0.5" />
+            <g className="animate-scanner pointer-events-none">
+              <rect x="5" y="15" width="2" height="70" fill="#00FF87" />
+              <rect x="5" y="15" width="15" height="70" fill="url(#scan-gradient)" />
             </g>
             <defs>
-              <linearGradient id="radar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#00C6FF" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#00C6FF" stopOpacity="0" />
+              <linearGradient id="scan-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#00FF87" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#00FF87" stopOpacity="0" />
               </linearGradient>
             </defs>
 
             {/* Simulating crowd flow with particles */}
-            {[...Array(6)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <circle
                 key={i}
                 cx="50"
                 cy="50"
-                r="0.6"
-                fill="#000"
+                r="0.8"
+                fill="#FFE600"
                 className="animate-particle pointer-events-none"
                 style={{
-                  '--tx': `${Math.cos(i * 1.047) * 40}px`,
-                  '--ty': `${Math.sin(i * 1.047) * 40}px`,
-                  animationDelay: `${i * 0.3}s`
+                  '--tx': `${(Math.random() - 0.5) * 80}px`,
+                  '--ty': `${(Math.random() - 0.5) * 60}px`,
+                  animationDelay: `${i * 0.25}s`
                 } as any}
               />
             ))}

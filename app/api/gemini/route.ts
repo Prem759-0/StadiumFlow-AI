@@ -36,6 +36,10 @@ async function callGroq(messages: { role: string; content: string }[]): Promise<
 
   if (!response.ok) {
     const errText = await response.text();
+    if (response.status === 429) {
+      console.warn("Groq rate limit reached, using fallback.");
+      return "RATE_LIMIT_ERROR";
+    }
     throw new Error(`Groq API error: ${response.status} - ${errText}`);
   }
 
@@ -105,13 +109,15 @@ export async function POST(request: NextRequest) {
         }
 
         chatHistory.push({ role: "user", content: message.slice(0, 500) });
-
         const response = await callGroq(chatHistory);
+        if (response === "RATE_LIMIT_ERROR") {
+          return NextResponse.json({ response: getMockChat() });
+        }
         return NextResponse.json({ response });
       }
 
       if (type === "predict") {
-        const prompt = `You are an AI crowd management system for a cricket stadium with 132,000 capacity.
+        const prompt = `You are an AI crowd management system for a FIFA World Cup football stadium with 82,500 capacity.
 
 Current zone data:
 ${JSON.stringify(zoneData?.slice?.(0, 10) || [], null, 2)}
@@ -134,6 +140,10 @@ Be specific with time estimates and numbers. One prediction per line, no numberi
           { role: "system", content: "You are a stadium crowd management AI. Be concise and specific." },
           { role: "user", content: prompt },
         ]);
+
+        if (text === "RATE_LIMIT_ERROR") {
+          return NextResponse.json({ predictions: getMockPredictions() });
+        }
 
         const predictions = text
           .split("\n")
@@ -162,7 +172,7 @@ Be specific with time estimates and numbers. One prediction per line, no numberi
             {
               role: "model",
               parts: [{
-                text: "Understood. I'm StadiumFlow AI, ready to help fans navigate the Narendra Modi Stadium during the India vs Australia ODI.",
+                text: "Understood. I'm StadiumFlow AI, ready to help fans navigate MetLife Stadium during the FIFA World Cup 2026 match.",
               }],
             },
             ...(Array.isArray(history) ? history.slice(-10) : []),
@@ -175,7 +185,7 @@ Be specific with time estimates and numbers. One prediction per line, no numberi
       }
 
       if (type === "predict") {
-        const prompt = `You are an AI crowd management system for a cricket stadium with 132,000 capacity.
+        const prompt = `You are an AI crowd management system for a FIFA World Cup football stadium with 82,500 capacity.
 
 Current zone data:
 ${JSON.stringify(zoneData?.slice?.(0, 10) || [], null, 2)}

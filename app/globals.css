@@ -575,3 +575,80 @@ body::before {
 ════════════════════════════════════════════════════════════ */
 .card-hover { transition:box-shadow .12s ease, transform .12s ease; }
 .card-hover:hover { box-shadow:2px 2px 0 rgba(0,0,0,.5); transform:translate(2px,2px); }
+
+/* ════════════════════════════════════════════════════════════
+   LIVE UI ANIMATIONS
+════════════════════════════════════════════════════════════ */
+
+/* Goal flash overlay */
+@keyframes flash {
+  0%   { opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Ball bounce physics */
+@keyframes ball-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25%       { transform: translateY(-18px) rotate(90deg); }
+  50%       { transform: translateY(-30px) rotate(180deg); }
+  75%       { transform: translateY(-18px) rotate(270deg); }
+}
+.animate-ball-bounce { animation: ball-bounce 0.9s cubic-bezier(0.36,0.07,0.19,0.97) infinite; }
+
+/* Score pop */
+@keyframes score-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.animate-score-pop { animation: score-pop 0.4s cubic-bezier(0.36,0.07,0.19,0.97); }
+
+/* Shake (for SOS) */
+@keyframes animate-shake {
+  0%, 100%     { transform: translateX(0); }
+  10%,50%,90%  { transform: translateX(-5px); }
+  30%,70%      { transform: translateX(5px); }
+}
+.animate-shake { animation: animate-shake 0.5s ease-in-out; }
+
+/* Goal ring pulse */
+@keyframes goal-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255,230,0,0.8); }
+  70%  { box-shadow: 0 0 0 30px rgba(255,230,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,230,0,0); }
+}
+
+/* Shimmer sweep */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* SVG dash animation */
+@keyframes dash {
+  to { stroke-dashoffset: -8; }
+}
+
+/* Crowd wave bar */
+@keyframes crowd-wave {
+  0%, 100% { transform: scaleY(0.2); opacity: 0.3; }
+  50%       { transform: scaleY(1);   opacity: 1;   }
+}
+
+/* ════════════════════════════════════════════════════════════
+   STADIUM MAP ANIMATIONS
+════════════════════════════════════════════════════════════ */
+@keyframes scanner {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(85px); }
+  100% { transform: translateX(0); }
+}
+.animate-scanner { animation: scanner 4s ease-in-out infinite; }
+
+@keyframes particle-flow {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+}
+.animate-particle { animation: particle-flow 2s ease-out infinite; }

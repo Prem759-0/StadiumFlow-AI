@@ -6,7 +6,7 @@
 
 import { sanitizeInput } from "./utils";
 
-const GEMINI_SYSTEM_PROMPT = `You are StadiumFlow AI, an intelligent assistant for the Narendra Modi Stadium (132,000 capacity) during a live India vs Australia ODI cricket match. Current attendance: ~98,500.
+const GEMINI_SYSTEM_PROMPT = `You are StadiumFlow AI, an intelligent assistant for MetLife Stadium (82,500 capacity) during a live FIFA World Cup 2026 football match. Current attendance: ~79,500.
 
 Your role:
 - Help fans navigate the stadium efficiently
