@@ -5,7 +5,7 @@
 // Main attendee dashboard with heatmap, trivia, SOS, countdown
 // ============================================================
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Navigation,
   Clock,
@@ -64,6 +64,40 @@ export default function FanHomePage() {
   // Fan Cam state
   const [showFanCam, setShowFanCam] = useState(false);
   const [fanCamVibe, setFanCamVibe] = useState("");
+  const [cameraError, setCameraError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    let stream: MediaStream | null = null;
+    
+    if (showFanCam) {
+      setCameraError(false);
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: { facingMode: "user" } })
+          .then((s) => {
+            stream = s;
+            if (videoRef.current) {
+              videoRef.current.srcObject = s;
+              videoRef.current.play();
+            }
+          })
+          .catch((err) => {
+            console.error("Error accessing camera:", err);
+            setCameraError(true);
+          });
+      } else {
+        console.warn("Camera API not available.");
+        setCameraError(true);
+      }
+    }
+
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, [showFanCam]);
 
   // AR Scavenger Hunt state
   const [showArHunt, setShowArHunt] = useState(false);
@@ -436,11 +470,25 @@ export default function FanHomePage() {
               </button>
             </div>
             
-            {/* Camera Viewport (Simulated) */}
-            <div className="aspect-[3/4] bg-gray-900 relative flex items-center justify-center overflow-hidden border-b-8 border-black">
+            {/* Camera Viewport */}
+            <div className="aspect-[3/4] bg-black relative flex items-center justify-center overflow-hidden border-b-8 border-black">
+              {/* Real Camera Feed */}
+              <video 
+                ref={videoRef} 
+                className="absolute inset-0 w-full h-full object-cover" 
+                playsInline 
+                muted 
+              />
+              
               <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at center, #ffffff 0%, transparent 100%)" }} />
               
-              {!fanCamVibe ? (
+              {cameraError ? (
+                <div className="text-center z-10 bg-[#FF3333] border-4 border-black p-4 m-4 rotate-2 shadow-[8px_8px_0_#000]">
+                  <Siren className="w-12 h-12 text-black mx-auto mb-2 animate-pulse" />
+                  <p className="text-black font-black uppercase tracking-widest text-lg">Camera Access Denied</p>
+                  <p className="text-white font-bold text-xs mt-2 uppercase">Please allow camera permissions or use a secure HTTPS connection.</p>
+                </div>
+              ) : !fanCamVibe ? (
                 <div className="text-center z-10">
                   <div className="w-16 h-16 border-4 border-dashed border-[#FFE600] rounded-full mx-auto animate-[spin_3s_linear_infinite]" />
                   <p className="mt-4 text-[#FFE600] font-black uppercase tracking-widest text-sm animate-pulse">Gemini Analyzing Vibe...</p>
