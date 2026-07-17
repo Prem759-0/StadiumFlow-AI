@@ -86,20 +86,20 @@ export default function TriviaCard() {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Brain className="w-4 h-4" style={{ color: item.color }} />
-          <span className="text-xs font-bold uppercase tracking-wider" style={{ color: item.color }}>
+          <span className="text-xs font-black uppercase tracking-wider text-black">
             FIFA Trivia
           </span>
           <span
-            className="text-[9px] px-2 py-0.5 rounded font-bold border"
-            style={{ color: item.color, borderColor: item.color, background: "transparent" }}
+            className="text-[9px] px-2 py-0.5 rounded font-black border-2 border-black"
+            style={{ backgroundColor: item.color, color: "#000" }}
           >
             {item.year}
           </span>
         </div>
         {points > 0 && (
-          <div className="flex items-center gap-1">
-            <Star className="w-3 h-3" style={{ color: "#FFE600" }} />
-            <span className="text-xs font-bold" style={{ color: "#FFE600" }}>+{points} pts</span>
+          <div className="flex items-center gap-1 px-2 py-0.5 rounded-lg border-2 border-black" style={{ backgroundColor: "#FFE600" }}>
+            <Star className="w-3 h-3 text-black" />
+            <span className="text-[10px] font-black text-black">+{points} pts</span>
           </div>
         )}
       </div>
@@ -146,16 +146,16 @@ export default function TriviaCard() {
       )}
 
       {/* Footer */}
-      <div className="flex items-center justify-between">
-        <span className="text-[10px]" style={{ color: "#3b4480" }}>
+      <div className="flex items-center justify-between mt-4">
+        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
           {current + 1} / {TRIVIA_ITEMS.length} questions
         </span>
         <button
           onClick={handleNext}
-          className="flex items-center gap-1 text-xs font-bold transition-opacity hover:opacity-70"
-          style={{ color: item.color }}
+          className="flex items-center gap-1 text-xs font-black uppercase tracking-wider px-3 py-1.5 rounded-lg border-2 border-black transition-transform hover:-translate-y-0.5"
+          style={{ backgroundColor: item.color, color: "#000", boxShadow: "2px 2px 0 #000" }}
         >
-          Next Question
+          Next
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
       </div>
