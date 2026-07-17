@@ -45,7 +45,8 @@ export default function DashboardPage() {
   const pushMassAlert = () => {
     addAlert({
       id: `alert-${Date.now()}`,
-      title: "CROWD REDIRECT",
+      type: "crowd",
+      location: "Stadium Wide",
       message: simResult,
       zoneId: "stadium-wide",
       priority: "critical",

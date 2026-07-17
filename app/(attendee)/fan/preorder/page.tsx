@@ -48,7 +48,6 @@ export default function PreOrderPage() {
     if (cartItems.length === 0) return;
     addPreOrder({
       id: generateId(),
-      vendorId: vendor.id,
       vendorName: vendor.name,
       items: cartItems.map((item) => ({ name: item.name, quantity: item.quantity, price: item.price })),
       total,

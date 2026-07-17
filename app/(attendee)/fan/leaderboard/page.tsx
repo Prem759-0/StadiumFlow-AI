@@ -30,7 +30,8 @@ const BADGES = [
 ];
 
 export default function LeaderboardPage() {
-  const { profile, points } = useAttendeeStore();
+  const { profile } = useAttendeeStore();
+  const points = profile.points;
   const [tab, setTab] = useState<"leaderboard" | "badges">("leaderboard");
 
   // Insert the user into leaderboard
